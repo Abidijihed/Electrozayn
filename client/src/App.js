@@ -6,7 +6,7 @@ function App() {
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl('https://abdelwahebbouden.com');
+    setUrl('https://www.electrozayn.com/');
   }, []);
   const handleRedirect = () => {
     window.location.href = url;
