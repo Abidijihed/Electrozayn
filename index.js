@@ -1,4 +1,4 @@
-const app = require("./Srver/index");
+const app = require("./server/index");
 const express = require("express")
 const port = 5500;
 const path = require("path");
