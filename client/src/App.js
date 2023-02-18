@@ -17,6 +17,7 @@ function App() {
       <div>
       <QRCode value={url} onClick={handleRedirect} />
     </div>
+    <h1>Comming soon ...</h1>
       </header>
     </div>
   );
