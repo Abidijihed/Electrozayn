@@ -3,7 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require("cors");
-const {connection}=require('./databaseconfig/config')
+const {PosteRouter}=require('./router/router')
 app.use(
   cors({
     origin: "https://abdelwahebbouden.com",
@@ -11,7 +11,7 @@ app.use(
     optionSuccessStatus: 200,
   })
 );
-connection.quuery()
+app.use('/',PosteRouter)
 
 app.use(express.json());
 app.use(cookieParser());

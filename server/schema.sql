@@ -1,3 +1,16 @@
 DROP DATABASE IF EXISTS electrozayn_db;
 CREATE DATABASE IF NOT EXISTS electrozayn_db;
 USE electrozayn_db;
+
+CREATE TABLE postes(
+id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    views VARCHAR(150) NOT NULL,
+    likes VARCHAR(150) NOT NULL,
+    comments VARCHAR(255) NOT NULL,
+    numberr VARCHAR(255) NOT NULL,
+    video VARCHAR(255),
+    PRIMARY KEY (id)
+);
