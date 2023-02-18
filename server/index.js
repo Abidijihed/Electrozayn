@@ -11,7 +11,7 @@ app.use(
     optionSuccessStatus: 200,
   })
 );
-app.use(connection())
+connection()
 
 app.use(express.json());
 app.use(cookieParser());
