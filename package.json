@@ -1,0 +1,34 @@
+{
+  "name": "electrozayn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "jihed abidi",
+  "license": "ISC",
+  "homepage": "https://github.com/creativetimofficial/material-tailwind-kit-react#readme",
+  "dependencies": {
+    "axios": "^1.3.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "moment": "^2.19.2",
+    "mysql": "^2.16.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.7",
+    "router": "^1.3.5",
+    "uuid": "^8.3.2",
+    "ws": "^8.12.0"
+  }
+}
