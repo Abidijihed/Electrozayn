@@ -11,5 +11,8 @@ module.exports={
         connection.query(query,(err,result)=>{
           err ? res.status(500).send(err):res.status(201).send(result)
         })
+      }),
+      UpdateProduct:((req,res)=>{
+             const query=``
       })
     }

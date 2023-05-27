@@ -15,6 +15,7 @@ function App() {
     
       <div>
         <BrowserRouter>
+       
         <NavBar />
         <Routes>
           <Route exact path="/" element={<HomePage/>} />
