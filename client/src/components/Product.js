@@ -23,10 +23,7 @@ const useStyles = makeStyles({
 function ProductCard({data}) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user,setUser]=useState([])
-    const handleAddProduct = (product) => {
-      // Handle adding the product here
-      console.log(product);
-    };
+  
 
     useEffect(() => {
       const user_id = localStorage.getItem("id");
@@ -69,7 +66,7 @@ function ProductCard({data}) {
             Reference: {data.reference}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Availability: {data.availibility ? 'In Stock' : 'Out of Stock'}
+            Availability: {data.availibility}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Category: {data.catigory}
@@ -87,7 +84,6 @@ function ProductCard({data}) {
       <AddProductModal
         open={openAddProductModal}
         handleClose={() => setOpenAddProductModal(false)}
-        handleAddProduct={handleAddProduct}
         product={data}
         id={data.id}
       />

@@ -39,7 +39,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
   const [oldPrice, setOldPrice] = useState(product.Promo_price);
   const [reference, setReference] = useState(product.reference);
   const [productImage, setProductImage] = useState([]);
-  const [availability, setAvailability] = useState(product.availability);
+  const [availability, setAvailability] = useState(product.availibility);
   const [catigory,setCatigory]=useState(product.catigory)
 console.log(product)
   const handleSubmit = async(event) => {
@@ -47,7 +47,7 @@ console.log(product)
     const formData = new FormData();
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
-    console.log(productImage.length>0)
+    
     if(productImage.length>0){
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
 
@@ -63,7 +63,7 @@ console.log(product)
             availibility:availability,
             catigory:catigory
         }).then((res)=>{
-          if(res.data==="poste done"){
+          if(res.data==="product updated"){
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -91,7 +91,7 @@ console.log(product)
         availibility:availability,
         catigory:catigory
     }).then((res)=>{
-      if(res.data==="poste done"){
+      if(res.data==="product updated"){
         Swal.fire({
           position: 'center',
           icon: 'success',
