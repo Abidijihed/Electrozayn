@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const cors = require("cors");
 const {userRoter}=require('./router/userRouter')
- const {PosteRouter}=require('./router/router')
+ const {PosteRouter}=require('./router/productRouter')
 app.use(
   cors({
     origin: "*",

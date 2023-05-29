@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardActionArea,
@@ -7,6 +7,9 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import { Button } from 'react-bootstrap';
+import AddProductModal from './UpdateModal';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +21,21 @@ const useStyles = makeStyles({
 });
 
 function ProductCard({data}) {
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [user,setUser]=useState([])
+    const handleAddProduct = (product) => {
+      // Handle adding the product here
+      console.log(product);
+    };
+
+    useEffect(() => {
+      const user_id = localStorage.getItem("id");
+      axios.get("https://www.electrozayn.com/api/user/getone/"+ user_id)
+        .then((res) => {
+         
+          setUser(res.data);
+        });
+    }, []);
   const classes = useStyles();
 
  
@@ -57,6 +75,23 @@ function ProductCard({data}) {
             Category: {data.catigory}
           </Typography>
         </CardContent>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        {user.map((el)=>{
+            return(
+             <>
+            {el.role === "admin" ?<button onClick={() => setOpenAddProductModal(true)}>update</button>:null}
+             </>
+            )
+        })}
+      
+      <AddProductModal
+        open={openAddProductModal}
+        handleClose={() => setOpenAddProductModal(false)}
+        handleAddProduct={handleAddProduct}
+        id={data.id}
+      />
+
+    </div>
       </CardActionArea>
     </Card>
   );
