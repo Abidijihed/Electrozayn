@@ -160,7 +160,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id }) {
             color="primary"
             type="submit"
           >
-            Add
+            Update
           </Button>
       
       </div>

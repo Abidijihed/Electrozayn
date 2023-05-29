@@ -15,8 +15,9 @@ module.exports={
       UpdateProduct:((req,res)=>{
         var {product_name,description,Origin_price,quantity,Promo_price,reference,product_image,availibility,catigory}=req.body
      console.log(req.body)
-        const query=`select * from products where id=${req.params.id}`
+        const query=`SELECT * FROM products WHERE id=${req.params.id}`
         connection.query(query,(err,result)=>{
+          console.log(result)
           if(err){
             res.status(500).send(err)
           }else{
