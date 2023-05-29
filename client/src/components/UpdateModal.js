@@ -30,24 +30,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddProductModal({ open, handleClose, handleAddProduct,id }) {
+function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
   const classes = useStyles();
-  const [productName, setProductName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [oldPrice, setOldPrice] = useState('');
-  const [reference, setReference] = useState('');
+  const [productName, setProductName] = useState(product.product_name);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(product.Origin_price);
+  const [quantity, setQuantity] = useState(product.quantity);
+  const [oldPrice, setOldPrice] = useState(product.Promo_price);
+  const [reference, setReference] = useState(product.reference);
   const [productImage, setProductImage] = useState([]);
-  const [availability, setAvailability] = useState('');
-  const [catigory,setCatigory]=useState("")
-
+  const [availability, setAvailability] = useState(product.availability);
+  const [catigory,setCatigory]=useState(product.catigory)
+console.log(product)
   const handleSubmit = async(event) => {
     // event.preventDefault();
     const formData = new FormData();
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
+    if(productImage){
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
+
     .then((res)=>{
         axios.post('https://www.electrozayn.com/api/update/product/'+id,{
             product_name:productName,
@@ -76,6 +78,35 @@ function AddProductModal({ open, handleClose, handleAddProduct,id }) {
         })
         
     })
+}else{
+    axios.post('https://www.electrozayn.com/api/update/product/'+id,{
+        product_name:productName,
+        description:description,
+        Origin_price:price,
+        quantity:quantity,
+        Promo_price:oldPrice,
+        reference:reference,
+        product_image:product.product_image,
+        availibility:availability,
+        catigory:catigory
+    }).then((res)=>{
+      if(res.data==="poste done"){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500);
+        
+      }
+    })
+    
+
+}
   
     handleClose();
   };

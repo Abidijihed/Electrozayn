@@ -88,6 +88,7 @@ function ProductCard({data}) {
         open={openAddProductModal}
         handleClose={() => setOpenAddProductModal(false)}
         handleAddProduct={handleAddProduct}
+        product={data}
         id={data.id}
       />
 
