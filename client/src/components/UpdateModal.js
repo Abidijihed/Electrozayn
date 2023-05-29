@@ -47,12 +47,12 @@ console.log(product)
     const formData = new FormData();
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
-    console.log(productImage)
+    console.log(productImage.length>0)
     if(productImage.length>0){
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
 
     .then((res)=>{
-        axios.post('https://www.electrozayn.com/api/update/product/'+id,{
+        axios.put('https://www.electrozayn.com/api/update/product/'+id,{
             product_name:productName,
             description:description,
             Origin_price:price,
@@ -80,7 +80,7 @@ console.log(product)
         
     })
 }else{
-    axios.post('https://www.electrozayn.com/api/update/product/'+id,{
+    axios.put('https://www.electrozayn.com/api/update/product/'+id,{
         product_name:productName,
         description:description,
         Origin_price:price,
