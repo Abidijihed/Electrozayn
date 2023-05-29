@@ -54,13 +54,13 @@ function ProductCard({data}) {
             {data.description}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Original Price: ${data.Origin_price}
+            Original Price: {data.Origin_price} TND
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Quantity: {data.quantity}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Promo Price: ${data.Promo_price?data.Promo_price:null}
+            Promo Price: {data.Promo_price?data.Promo_price:null} TND
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Reference: {data.reference}

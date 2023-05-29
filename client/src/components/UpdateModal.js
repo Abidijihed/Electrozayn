@@ -41,7 +41,6 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
   const [productImage, setProductImage] = useState([]);
   const [availability, setAvailability] = useState(product.availibility);
   const [catigory,setCatigory]=useState(product.catigory)
-console.log(product)
   const handleSubmit = async(event) => {
     // event.preventDefault();
     const formData = new FormData();
