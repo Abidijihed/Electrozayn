@@ -20,11 +20,19 @@ const useStyles = makeStyles({
     marginRight: '1rem',
     display: 'inline-block',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+    position: 'relative',
   },
   media: {
     height: 200,
     width: '100%',
     objectFit: 'cover',
+    backgroundImage: 'none',
+  },
+  shopIcon: {
+    position: 'absolute',
+    top: '0.5rem',
+    left: '0.5rem',
+    fontSize: '1.5rem',
   },
   promoPrice: {
     color: 'green',
@@ -33,11 +41,7 @@ const useStyles = makeStyles({
     color: 'red',
     textDecoration: 'line-through',
   },
-  shopIcon: {
-    float: 'right',
-    marginTop: '-1rem',
-    marginRight: '-1rem',
-  },
+
 });
 
 function ProductCard({ data }) {
@@ -85,21 +89,19 @@ function ProductCard({ data }) {
             Category: {data.catigory}
           </Typography>
         </CardContent>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          {user.map((el) => {
-            return (
-              <>
-                {el.role === 'admin' ? (
-                  <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
-                ) : null}
-              </>
-            );
-          })}
-        </div>
-        <div className={classes.shopIcon} onClick={()=>console.log('hello'+1)} style={{backgroundColor:"red"}}>
-          hani houni
-          <FaShoppingCart />
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
+  <FaShoppingCart className={classes.shopIcon} onClick={()=>console.log('hello')}/>
+  {user.map((el) => {
+    return (
+      <>
+        {el.role === 'admin' ? (
+          <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
+        ) : null}
+      </>
+    );
+  })}
+</div>
+
       </CardActionArea>
       <AddProductModal
         open={openAddProductModal}
