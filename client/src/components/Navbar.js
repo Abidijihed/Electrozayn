@@ -110,7 +110,7 @@ function NavBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar style={{backgroundColor:"#004aad"}}>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -160,6 +160,7 @@ function NavBar() {
           </Menu>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.title2}>
+              Electrozayn
              <img src={logo} alt='logo' style={{width:"150px" , height:"80px" , backgroundImage:"none"}}/>
             </Link>
           </Typography>
