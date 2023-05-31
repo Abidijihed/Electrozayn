@@ -17,7 +17,7 @@ import {
   Search as SearchIcon,
   Info as InfoIcon,
 } from '@material-ui/icons';
-
+import logo from './logo.png'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -160,7 +160,7 @@ function NavBar() {
           </Menu>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.title2}>
-             Electrozayn
+             <img src={logo} alt='logo' style={{width:"250px" , height:"150px"}}/>
             </Link>
           </Typography>
           <IconButton

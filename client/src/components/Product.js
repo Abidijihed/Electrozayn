@@ -93,7 +93,7 @@ function ProductCard({ data }) {
             );
           })}
         </div>
-        <div className={classes.shopIcon}>
+        <div className={classes.shopIcon} onClick={console.log('hello'+1)}>
           <FaShoppingCart />
         </div>
       </CardActionArea>
