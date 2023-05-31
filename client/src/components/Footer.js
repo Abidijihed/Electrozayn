@@ -63,7 +63,7 @@ function Footer() {
         </div>
     
         <Grid container>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={3} style={{display:"flow-root"}}>
             <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
               Get to Know Us
             </Typography>
