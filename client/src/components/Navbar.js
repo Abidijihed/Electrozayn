@@ -160,7 +160,7 @@ function NavBar() {
           </Menu>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.title2}>
-             <img src={logo} alt='logo' style={{width:"250px" , height:"150px"}}/>
+             <img src={logo} alt='logo' style={{width:"150px" , height:"80px" , backgroundImage:"none"}}/>
             </Link>
           </Typography>
           <IconButton
