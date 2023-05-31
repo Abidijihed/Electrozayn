@@ -97,6 +97,7 @@ function ProductCard({ data }) {
           })}
         </div>
         <div className={classes.shopIcon} onClick={()=>console.log('hello'+1)} style={{backgroundColor:"red"}}>
+          hani houni
           <FaShoppingCart />
         </div>
       </CardActionArea>
