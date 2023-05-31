@@ -41,9 +41,9 @@ const useStyles = makeStyles({
     color: 'red',
     textDecoration: 'line-through',
   },
-  image:{
-    width:345,
-    height:200
+  image: {
+    width: 345,
+    height: 200
   }
 
 });
@@ -63,67 +63,69 @@ function ProductCard({ data }) {
 
   return (
     <>
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {data.product_name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {data.description}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            <span className={classes.originalPrice}>Original Price: {data.Origin_price} TND</span>
-          </Typography>
-          {user.map((el) => {
-            return (
-              <>
-                {el.role === 'admin' ? (
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    Quantity: {data.quantity}
-                  </Typography>
-                ) : null}
-              </>
-            );
-          })}
-        
-          {data.Promo_price && (
-            <Typography variant="body2" color="textSecondary" component="p">
-              <span className={classes.promoPrice}>Promo Price: {data.Promo_price} TND</span>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {data.product_name}
             </Typography>
-          )}
-          <Typography variant="body2" color="textSecondary" component="p">
-            Reference: {data.reference}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Availability: {data.availibility}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Category: {data.catigory}
-          </Typography>
-        </CardContent>
-        <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
+            <Typography variant="body2" color="textSecondary" component="p">
+              {data.description}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              <span className={classes.originalPrice}>Original Price: {data.Origin_price} TND</span>
+            </Typography>
+            {user.map((el) => {
+              return (
+                <>
+                  {el.role === 'admin' ? (
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Quantity: {data.quantity}
+                    </Typography>
+                  ) : null}
+                </>
+              );
+            })}
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
-          {user.map((el) => {
-            return (
-              <>
-                {el.role === 'admin' ? (
-                  <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
-                ) : null}
-                 {el.role === 'admin' ? (
-                  <Button onClick={() => setOpenAddProductModal(true)} style={{backgroundColor:"red"}}>Delete</Button>
-                ) : null}
-              </>
-            );
-          })}
-        </div>
+            {data.Promo_price && (
+              <Typography variant="body2" color="textSecondary" component="p">
+                <span className={classes.promoPrice}>Promo Price: {data.Promo_price} TND</span>
+              </Typography>
+            )}
+            <Typography variant="body2" color="textSecondary" component="p">
+              Reference: {data.reference}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Availability: {data.availibility}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Category: {data.catigory}
+            </Typography>
+          </CardContent>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
 
-      </CardActionArea>
-    
-    </Card>
-    <AddProductModal
+            <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
+            {user.map((el) => {
+              return (
+                <>
+                  {el.role === 'admin' ? (
+                    <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
+                  ) : null}
+                  {el.role === 'admin' ? (
+                    <Button onClick={() => setOpenAddProductModal(true)} style={{ backgroundColor: "red" }}>Delete</Button>
+                  ) : null}
+                </>
+              );
+            })}
+          </div>
+
+        </CardActionArea>
+
+      </Card>
+      <AddProductModal
         open={openAddProductModal}
         handleClose={() => setOpenAddProductModal(false)}
         product={data}
