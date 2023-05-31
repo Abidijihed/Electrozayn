@@ -87,7 +87,7 @@ const deleteProduct = (id)=>{
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
-          <CardContent style={{height: "240px"}}>
+          <CardContent style={{height: "260px"}}>
             <Typography gutterBottom variant="h5" component="h2">
               {data.product_name}
             </Typography>
