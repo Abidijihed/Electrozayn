@@ -11,6 +11,7 @@ import { Button } from 'react-bootstrap';
 import AddProductModal from './UpdateModal';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles({
   root: {
@@ -61,7 +62,21 @@ function ProductCard({ data }) {
     });
   }, []);
 const deleteProduct = (id)=>{
-  console.log(id)
+  axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
+  .then((res)=>{
+    if(res.data==="product deleted"){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Your product deleted !',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500);
+    }
+  })
 }
   const classes = useStyles();
 
