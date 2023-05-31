@@ -60,7 +60,9 @@ function ProductCard({ data }) {
       setUser(res.data);
     });
   }, []);
-
+const deleteProduct = (id)=>{
+  console.log(id)
+}
   const classes = useStyles();
 
   return (
@@ -114,7 +116,7 @@ function ProductCard({ data }) {
                     <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
                   ) : null}
                   {el.role === 'admin' ? (
-                    <Button onClick={() => setOpenAddProductModal(true)} style={{ backgroundColor: "red" }}>Delete</Button>
+                    <Button onClick={() => deleteProduct(data.id)} style={{ backgroundColor: "red" }}>Delete</Button>
                   ) : null}
                 </>
               );
