@@ -15,10 +15,10 @@ import { FaShoppingCart } from 'react-icons/fa';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    flex: '0 0 33.33%',
+    flex: '0 0 calc(33.33% - 1rem)',
     marginBottom: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
+    marginRight: '1rem',
+    display: 'inline-block',
   },
   media: {
     height: 140,
