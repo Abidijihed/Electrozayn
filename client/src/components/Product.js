@@ -17,8 +17,10 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     flex: '0 0 calc(33.33% - 1rem)',
+    marginTop: "50px",
     marginBottom: '1rem',
     marginRight: '1rem',
+    marginLeft: '1rem',
     display: 'inline-block',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
     position: 'relative',
