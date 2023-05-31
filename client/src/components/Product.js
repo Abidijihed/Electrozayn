@@ -41,6 +41,10 @@ const useStyles = makeStyles({
     color: 'red',
     textDecoration: 'line-through',
   },
+  image:{
+    width:345,
+    height:200
+  }
 
 });
 
@@ -99,8 +103,9 @@ function ProductCard({ data }) {
             Category: {data.catigory}
           </Typography>
         </CardContent>
+        <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
+
         <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
-          <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
           {user.map((el) => {
             return (
               <>
