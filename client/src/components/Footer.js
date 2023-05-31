@@ -61,6 +61,24 @@ function Footer() {
             <AiFillHome /> 1 Rue de Pirée rue d'Athènes Tunis 1000
           </Typography>
         </div>
+    
+        <Grid container>
+          <Grid item xs={6} sm={3}>
+            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
+              Get to Know Us
+            </Typography>
+            <Link href="#" className={classes.link}>About Us</Link>
+            <Link href="#" className={classes.link}>Careers</Link>
+            <Link href="#" className={classes.link}>Press Releases</Link>
+            <Link href="#" className={classes.link}>Electrozayn Contact</Link>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
+           Payment Products
+            </Typography>
+            <Link href="#" className={classes.link}>VISA Business Card</Link>
+          </Grid>
+        </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
             Sign up for our newsletter
@@ -77,45 +95,9 @@ function Footer() {
             </Button>
           </div>
         </Grid>
-        <Grid container>
-          <Grid item xs={6} sm={3}>
-            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
-              Get to Know Us
-            </Typography>
-            <Link href="#" className={classes.link}>About Us</Link>
-            <Link href="#" className={classes.link}>Careers</Link>
-            <Link href="#" className={classes.link}>Press Releases</Link>
-            <Link href="#" className={classes.link}>Electrozayn Contact</Link>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
-              Make Money with Us
-            </Typography>
-            <Link href="#" className={classes.link}>Sell on Electrozayn</Link>
-            <Link href="#" className={classes.link}>Electrozayn Global Selling</Link>
-            <Link href="#" className={classes.link}>Become an Affiliate</Link>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
-              Electrozayn Payment Products
-            </Typography>
-            <Link href="#" className={classes.link}>VISA Business Card</Link>
-            {/* <Link href="#" className={classes.link}>Shop with Points</Link> */}
-            {/* <Link href="#" className={classes.link}>Reload Your Balance</Link>
-            <Link href="#" className={classes.link}>Amazon Currency Converter</Link> */}
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Typography variant="subtitle1" gutterBottom className={classes.footerText}>
-              Let Us Help You
-            </Typography>
-            <Link href="#" className={classes.link}>Electrozayn and COVID-19</Link>
-            <Link href="#" className={classes.link}>Your Account</Link>
-            <Link href="#" className={classes.link}>Returns Centre</Link>
-            <Link href="#" className={classes.link}>100% Purchase Protection</Link>
-          </Grid>
-        </Grid>
       </Container>
-      <Typography variant="caption" align="center" className={classes.footerText}>
+      <Typography variant="caption" align="center" className={classes.footerText} style={{display:"flex",
+    justifyContent:"center"}}>
         &copy; 2023 Electrozayn.com, Inc. or its affiliates
       </Typography>
     </div>
