@@ -93,7 +93,8 @@ const deleteProduct = (id)=>{
               {data.description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              <span className={classes.originalPrice}>Original Price: {data.Origin_price} TND</span>
+              {data.Promo_price <= 0 ? <span className={classes.promoPrice}> Original Price: {data.Origin_price} TND</span>
+              :<span className={classes.originalPrice}> Original Price: {data.Origin_price} TND</span>}
             </Typography>
             {user.map((el) => {
               return (
@@ -107,11 +108,11 @@ const deleteProduct = (id)=>{
               );
             })}
 
-            {data.Promo_price && (
+            {data.Promo_price>0 ?
               <Typography variant="body2" color="textSecondary" component="p">
                 <span className={classes.promoPrice}>Promo Price: {data.Promo_price} TND</span>
               </Typography>
-            )}
+            :null}
             <Typography variant="body2" color="textSecondary" component="p">
               Reference: {data.reference}
             </Typography>
