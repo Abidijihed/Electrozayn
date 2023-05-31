@@ -83,9 +83,7 @@ function ProductCard({ data }) {
               </>
             );
           })}
-          <Typography variant="body2" color="textSecondary" component="p">
-            Quantity: {data.quantity}
-          </Typography>
+        
           {data.Promo_price && (
             <Typography variant="body2" color="textSecondary" component="p">
               <span className={classes.promoPrice}>Promo Price: {data.Promo_price} TND</span>
