@@ -32,6 +32,8 @@ const useStyles = makeStyles({
     // position: 'absolute',
     // top: '0.5rem',
     // left: '0.5rem',
+    marginRight: "13px",
+    marginBottom:"6px",
     fontSize: '1.5rem',
   },
   promoPrice: {
