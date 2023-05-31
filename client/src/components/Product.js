@@ -29,9 +29,9 @@ const useStyles = makeStyles({
     backgroundImage: 'none',
   },
   shopIcon: {
-    position: 'absolute',
-    top: '0.5rem',
-    left: '0.5rem',
+    // position: 'absolute',
+    // top: '0.5rem',
+    // left: '0.5rem',
     fontSize: '1.5rem',
   },
   promoPrice: {
@@ -103,10 +103,7 @@ function ProductCard({ data }) {
               Category: {data.catigory}
             </Typography>
           </CardContent>
-          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
-
-            <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
-          </div>
+          
           <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
             {user.map((el) => {
               return (
@@ -121,7 +118,10 @@ function ProductCard({ data }) {
               );
             })}
           </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
 
+<FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
+</div>
         </CardActionArea>
 
       </Card>
