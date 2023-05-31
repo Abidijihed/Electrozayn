@@ -103,7 +103,7 @@ function ProductCard({ data }) {
               Category: {data.catigory}
             </Typography>
           </CardContent>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
 
             <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
           </div>
