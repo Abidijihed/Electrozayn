@@ -58,6 +58,7 @@ function ProductCard({ data }) {
   const classes = useStyles();
 
   return (
+    <>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
@@ -71,6 +72,17 @@ function ProductCard({ data }) {
           <Typography variant="body2" color="textSecondary" component="p">
             <span className={classes.originalPrice}>Original Price: {data.Origin_price} TND</span>
           </Typography>
+          {user.map((el) => {
+            return (
+              <>
+                {el.role === 'admin' ? (
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    Quantity: {data.quantity}
+                  </Typography>
+                ) : null}
+              </>
+            );
+          })}
           <Typography variant="body2" color="textSecondary" component="p">
             Quantity: {data.quantity}
           </Typography>
@@ -90,26 +102,31 @@ function ProductCard({ data }) {
           </Typography>
         </CardContent>
         <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
-  <FaShoppingCart className={classes.shopIcon} onClick={()=>console.log('hello')}/>
-  {user.map((el) => {
-    return (
-      <>
-        {el.role === 'admin' ? (
-          <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
-        ) : null}
-      </>
-    );
-  })}
-</div>
+          <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
+          {user.map((el) => {
+            return (
+              <>
+                {el.role === 'admin' ? (
+                  <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
+                ) : null}
+                 {el.role === 'admin' ? (
+                  <Button onClick={() => setOpenAddProductModal(true)} style={{backgroundColor:"red"}}>Delete</Button>
+                ) : null}
+              </>
+            );
+          })}
+        </div>
 
       </CardActionArea>
-      <AddProductModal
+    
+    </Card>
+    <AddProductModal
         open={openAddProductModal}
         handleClose={() => setOpenAddProductModal(false)}
         product={data}
         id={data.id}
       />
-    </Card>
+    </>
   );
 }
 
