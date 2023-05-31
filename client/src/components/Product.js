@@ -96,7 +96,7 @@ function ProductCard({ data }) {
             );
           })}
         </div>
-        <div className={classes.shopIcon} onClick={console.log('hello'+1)}>
+        <div className={classes.shopIcon} onClick={()=>console.log('hello'+1)} style={{backgroundColor:"red"}}>
           <FaShoppingCart />
         </div>
       </CardActionArea>
