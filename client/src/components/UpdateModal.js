@@ -47,6 +47,9 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
     console.log(productImage.File)
+    console.log(productImage["File"])
+    console.log(productImage)
+
     if(productImage.File){
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
 
@@ -71,7 +74,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
               timer: 1500
             })
             setTimeout(() => {
-              window.location.reload()
+              // window.location.reload()
             }, 1500);
             
           }
