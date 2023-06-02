@@ -47,7 +47,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
     console.log(productImage.File)
-    console.log(productImage["File"])
+    console.log(productImage.name)
     console.log(productImage)
 
     if(productImage.File){
