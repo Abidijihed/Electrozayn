@@ -73,7 +73,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
               timer: 1500
             })
             setTimeout(() => {
-              window.location.reload()
+              // window.location.reload()
             }, 1500);
             
           }
