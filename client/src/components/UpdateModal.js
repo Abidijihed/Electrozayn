@@ -51,6 +51,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
 
     .then((res)=>{
+      console.log(res.data.url)
         axios.put('https://www.electrozayn.com/api/update/product/'+id,{
             product_name:productName,
             description:description,
@@ -62,6 +63,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
             availibility:availability,
             catigory:catigory
         }).then((res)=>{
+          console.log(res.data.url)
           if(res.data==="product updated"){
             Swal.fire({
               position: 'center',
