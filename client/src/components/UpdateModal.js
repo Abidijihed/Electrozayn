@@ -46,12 +46,11 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
     const formData = new FormData();
     formData.append("file", productImage);
     formData.append("upload_preset", "ml_default");
-    console.log(productImage)
-    if(productImage){
+    console.log(productImage.File)
+    if(productImage.File){
    await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
 
     .then((res)=>{
-      console.log(res.data.url)
         axios.put('https://www.electrozayn.com/api/update/product/'+id,{
             product_name:productName,
             description:description,
@@ -63,7 +62,6 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
             availibility:availability,
             catigory:catigory
         }).then((res)=>{
-          console.log(res.data.url)
           if(res.data==="product updated"){
             Swal.fire({
               position: 'center',
@@ -73,14 +71,14 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
               timer: 1500
             })
             setTimeout(() => {
-              // window.location.reload()
+              window.location.reload()
             }, 1500);
             
           }
         })
         
     })
-}else if(!productImage){
+}else if(!productImage.File){
     axios.put('https://www.electrozayn.com/api/update/product/'+id,{
         product_name:productName,
         description:description,
