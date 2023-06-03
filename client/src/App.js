@@ -22,7 +22,6 @@ function App() {
   return (
     
       <div>
-        {console.log(search)}
         <BrowserRouter>
        
         <NavBar handleChange={handleChange}/>
