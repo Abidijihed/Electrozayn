@@ -50,3 +50,18 @@ CREATE TABLE IF NOT EXISTS adminnotfication(
      PRIMARY KEY (id),
     FOREIGN KEY (user_id) References user(id)
 );
+CREATE TABLE IF NOT EXISTS newselater(
+    id int NOT NULL AUTO_INCREMENT,
+    email VARCHAR(250) NOT NULL,
+    date  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+     PRIMARY KEY (id),
+);
+CREATE TABLE IF NOT EXISTS addtocard (
+  id INT NOT NULL AUTO_INCREMENT,
+  products_id INT NOT NULL,
+  user_id INT NOT NULL,
+  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (id),
+  FOREIGN KEY (products_id) REFERENCES products(id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);

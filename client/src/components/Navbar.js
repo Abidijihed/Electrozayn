@@ -17,7 +17,8 @@ import {
   Search as SearchIcon,
   Info as InfoIcon,
 } from '@material-ui/icons';
-import logo from './logo.png'
+import logo from './logo.png';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -26,15 +27,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   search: {
+    flex: 0.7, // Expand to fill the available space
+    display: 'flex',
+    justifyContent: 'center', // Center the search input
     position: 'relative',
+    color:'black',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
+   
     '&:hover': {
       backgroundColor: theme.palette.background.paper,
     },
     marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
+    marginLeft: theme.spacing(2), // Add margin to center the input
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto',
@@ -48,15 +53,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: "50px",
+
   },
   inputRoot: {
     color: 'inherit',
+    width:"100%"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {
@@ -74,8 +81,8 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecoration: 'underline',
       textDecorationColor: 'blue',
-      backgroundColor:"white"
-    }
+      backgroundColor: 'white',
+    },
   },
   title2: {
     display: 'inline-block',
@@ -85,13 +92,12 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecoration: 'underline',
       textDecorationColor: 'blue',
-      backgroundColor:"white"
+      backgroundColor: 'white',
     },
   },
-  
 }));
 
-function NavBar() {
+function NavBar({handleChange}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
@@ -104,132 +110,63 @@ function NavBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  
+
   const token = localStorage.getItem('token');
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar style={{backgroundColor:"#004aad"}}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMenuOpen}
-            style={{ display: isSmallScreen ? 'flex' : 'none' }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="nav-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            style={{ display: isSmallScreen ? 'block' : 'none' }}
-          >
-            <MenuItem component={Link} to="/contact" onClick={handleMenuClose}>
-              Contact Us
-              </MenuItem>
-              
-            <MenuItem
-              component={Link}
-              to="/about"
-              onClick={handleMenuClose}
-            >
-              About Us
-            </MenuItem>
-            {!token && (
-              <MenuItem component={Link} to="/login" onClick={handleMenuClose}>
-                Log In
-              </MenuItem>
-            )}
-            {token && (
-              <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
-                Profile
-              </MenuItem>
-            )}
-            <MenuItem
-              component={Link}
-              to="/ListProduct"
-              onClick={handleMenuClose}
-            >
-              ListProduct
-            </MenuItem>
-          </Menu>
-          <Typography variant="h6" className={classes.title}>
-            <Link to="/" className={classes.title2}>
-              Electrozayn
-             <img src={logo} alt='logo' style={{width:"150px" , height:"80px" , backgroundImage:"none"}}/>
-            </Link>
-          </Typography>
-          <IconButton
-          
-            edge="end"
-            className={classes.aboutButton}
-            color="inherit"
-            aria-label="contact"
-            component={Link}
-            to="/contact"
-            style={{ display: isSmallScreen ? 'none' : 'flex' }}
-          >
-            <Typography variant="body1">Contact Us</Typography>
-          </IconButton>
+      <AppBar position="static" >
+        <Toolbar style={{ backgroundColor: '#004aad', justifyContent: 'space-between' }}>
+          <div>
             <IconButton
-            edge="end"
-            className={classes.aboutButton}
-            color="inherit"
-            aria-label="about"
-            component={Link}
-            to="/about"
-            style={{ display: isSmallScreen ? 'none' : 'flex' }}
-          >
-            <Typography variant="body1">About Us</Typography>
-          </IconButton>
-          {!token && (
-            <IconButton
-              edge="end"
-              className={classes.aboutButton}
+              edge="start"
+              className={classes.menuButton}
               color="inherit"
-              aria-label="log in"
-              component={Link}
-              to="/login"
-              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              aria-label="menu"
+              onClick={handleMenuOpen}
+              style={{ display: isSmallScreen ? 'flex' : 'none' }}
             >
-              <Typography variant="body1">Log In</Typography>
+              <MenuIcon />
             </IconButton>
-          )}
-          {token && (
-            <IconButton
-              edge="end"
-              className={classes.aboutButton}
-              color="inherit"
-              aria-label="profile"
-              component={Link}
-              to="/profile"
-              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+            <Menu
+              id="nav-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              style={{ display: isSmallScreen ? 'block' : 'none' }}
             >
-              <Typography variant="body1">Profile</Typography>
-            </IconButton>
-          )}
-          <IconButton
-          
-          edge="end"
-          className={classes.aboutButton}
-          color="inherit"
-          aria-label="contact"
-          component={Link}
-          to="/ListProduct"
-          style={{ display: isSmallScreen ? 'none' : 'flex' }}
-        >
-          <Typography variant="body1">ListProduct</Typography>
-        </IconButton>
-          <div className={classes.search}>
+              <MenuItem component={Link} to="/contact" onClick={handleMenuClose}>
+                Contact Us
+              </MenuItem>
+              <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
+                About Us
+              </MenuItem>
+              {!token && (
+                <MenuItem component={Link} to="/login" onClick={handleMenuClose}>
+                  Log In
+                </MenuItem>
+              )}
+              {token && (
+                <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+                  Profile
+                </MenuItem>
+              )}
+              <MenuItem component={Link} to="/ListProduct" onClick={handleMenuClose}>
+                ListProduct
+              </MenuItem>
+            </Menu>
+            <Typography variant="h6" className={classes.title}>
+              <Link to="/" className={classes.title2}>
+                Electrozayn
+                <img src={logo} alt="logo" style={{ width: '150px', height: '80px', backgroundImage: 'none' }} />
+              </Link>
+            </Typography>
+          </div>
+          <div className={classes.search} >
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-          
             <InputBase
               placeholder="Search…"
               classes={{
@@ -237,10 +174,72 @@ function NavBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              style={{ color:"black" }}
+              style={{ color: 'black' }}
+              onChange={(e)=>handleChange(e)}
             />
           </div>
           
+          <div style={{display:"contents"}}>
+            <IconButton
+              edge="end"
+              className={classes.aboutButton}
+              color="inherit"
+              aria-label="contact"
+              component={Link}
+              to="/contact"
+              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+            >
+              <Typography variant="body1">Contact Us</Typography>
+            </IconButton>
+            <IconButton
+              edge="end"
+              className={classes.aboutButton}
+              color="inherit"
+              aria-label="about"
+              component={Link}
+              to="/about"
+              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+            >
+              <Typography variant="body1">About Us</Typography>
+            </IconButton>
+            {!token && (
+              <IconButton
+                edge="end"
+                className={classes.aboutButton}
+                color="inherit"
+                aria-label="log in"
+                component={Link}
+                to="/login"
+                style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              >
+                <Typography variant="body1">Log In</Typography>
+              </IconButton>
+            )}
+            {token && (
+              <IconButton
+                edge="end"
+                className={classes.aboutButton}
+                color="inherit"
+                aria-label="profile"
+                component={Link}
+                to="/profile"
+                style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              >
+                <Typography variant="body1">Profile</Typography>
+              </IconButton>
+            )}
+            <IconButton
+              edge="end"
+              className={classes.aboutButton}
+              color="inherit"
+              aria-label="contact"
+              component={Link}
+              to="/ListProduct"
+              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+            >
+              <Typography variant="body1">ListProduct</Typography>
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

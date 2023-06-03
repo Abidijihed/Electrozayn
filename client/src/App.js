@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import HomePage from './components/Home';
@@ -11,19 +11,24 @@ import ListProduct from './components/ListProduct'
 // import PrivateRoutes from './components/PrivateRoute';
 
 function App() {
+  const [search,setSearch]=useState("")
+  const handleChange=(e)=>{
+    setSearch(e.target.value)
+  }
   return (
     
       <div>
+        {console.log(search)}
         <BrowserRouter>
        
-        <NavBar />
+        <NavBar handleChange={handleChange}/>
         <Routes>
           <Route exact path="/" element={<HomePage/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/signup"  element={<SignupPage/>}/>
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
-          <Route path='/ListProduct' element={<ListProduct />} />
+          <Route path='/ListProduct' element={<ListProduct search={search}/>} />
         </Routes>
         <Footer />
         </BrowserRouter>

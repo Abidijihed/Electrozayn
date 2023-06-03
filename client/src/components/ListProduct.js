@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AddProductModal from './Modal';
 import axios from 'axios';
 import ListProducts from "./Product"
-function MyPage() {
+function MyPage({search}) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
 const [user,setUser]=useState([])
 const [data,setData]=useState([])
@@ -45,7 +45,7 @@ const [data,setData]=useState([])
       />
 
     </div>
-    {data.map((el)=>(<ListProducts data={el}/>))}
+    {data.filter((el)=>el.catigory.includes(search)).map((el)=>(<ListProducts data={el}/>))}
     </div>
   );
 }

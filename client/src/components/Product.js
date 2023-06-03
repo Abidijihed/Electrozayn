@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     display: 'inline-block',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
     position: 'relative',
+    width:"450px"
   },
   media: {
     height: 200,
@@ -38,6 +39,7 @@ const useStyles = makeStyles({
     marginRight: "13px",
     marginBottom:"6px",
     fontSize: '1.5rem',
+    fontSize:"40px"
   },
   promoPrice: {
     color: 'green',
@@ -45,12 +47,7 @@ const useStyles = makeStyles({
   originalPrice: {
     color: 'red',
     textDecoration: 'line-through',
-  },
-  image: {
-    width: 345,
-    height: 200
   }
-
 });
 
 function ProductCard({ data }) {
@@ -87,8 +84,8 @@ const deleteProduct = (id)=>{
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
-          <CardContent style={{height: "260px"}}>
-            <Typography gutterBottom variant="h5" component="h2">
+          <CardContent style={{height: "260px", width: "100%"}}>
+            <Typography gutterBottom variant="h6" component="h1">
               {data.product_name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
@@ -119,7 +116,7 @@ const deleteProduct = (id)=>{
               Reference: {data.reference}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Availability: {data.availibility}
+              Availability: {data.quantity > 3 ? <span style={{color:"green",fontSize:"16px"}}>En Stock</span> :(data.quantity<5 ?<span style={{color:"blue",fontSize:"16px"}} >En Arrivage</span>:<span  style={{color:"red",fontSize:"16px"}}>Sur Comande</span>)}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Category: {data.catigory}
