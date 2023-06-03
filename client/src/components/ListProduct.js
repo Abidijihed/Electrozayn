@@ -48,12 +48,12 @@ function MyPage({ search }) {
       {data
         .filter(
           (el) =>
-            el.catigory.tolowercase().includes(search.tolowercase()) ||
-            el.reference.tolowercase().includes(search.tolowercase()) ||
-            el.product_name.tolowercase().includes(search.tolowercase())
+            el.catigory.toLowerCase().includes(search.toLowerCase()) ||
+            el.reference.toLowerCase().includes(search.toLowerCase()) ||
+            el.product_name.toLowerCase().includes(search.toLowerCase())
         )
         .map((el) => (
-          <ListProducts data={el} key={el.id}/>
+          <ListProducts data={el} key={el.id} />
         ))}
     </div>
   );
