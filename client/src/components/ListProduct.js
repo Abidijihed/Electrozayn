@@ -45,7 +45,7 @@ const [data,setData]=useState([])
       />
 
     </div>
-    {data.filter((el)=>el.catigory.includes(search)).map((el)=>(<ListProducts data={el}/>))}
+    {data.filter((el)=>el.catigory.includes(search)|| el.reference.includes(search)).map((el)=>(<ListProducts data={el}/>))}
     </div>
   );
 }
