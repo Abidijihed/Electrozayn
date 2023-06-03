@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center', // Center the search input
     position: 'relative',
-    color:'black',
+    color: 'black',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
-   
+
     '&:hover': {
       backgroundColor: theme.palette.background.paper,
     },
@@ -53,12 +53,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: "50px",
-
+    marginLeft: '50px',
   },
   inputRoot: {
     color: 'inherit',
-    width:"100%"
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -82,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
       textDecorationColor: 'blue',
       backgroundColor: 'white',
-      color:"black"
+      color: 'black',
     },
   },
   title2: {
@@ -94,16 +93,23 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
       textDecorationColor: 'blue',
       backgroundColor: 'white',
-      color:"black"
+      color: 'black',
     },
+  },
+  sticky: {
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    zIndex: 1,
   },
 }));
 
-function NavBar({handleChange}) {
+function NavBar({ handleChange }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isSticky, setIsSticky] = useState(false);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,9 +121,25 @@ function NavBar({handleChange}) {
 
   const token = localStorage.getItem('token');
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className={classes.root}>
-      <AppBar position="static" >
+      <AppBar position="static" className={isSticky ? classes.sticky : ''}>
         <Toolbar style={{ backgroundColor: '#004aad', justifyContent: 'space-between' }}>
           <div>
             <IconButton
@@ -165,7 +187,7 @@ function NavBar({handleChange}) {
               </Link>
             </Typography>
           </div>
-          <div className={classes.search} >
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -177,11 +199,11 @@ function NavBar({handleChange}) {
               }}
               inputProps={{ 'aria-label': 'search' }}
               style={{ color: 'black' }}
-              onChange={(e)=>handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
-          
-          <div style={{display:"contents"}}>
+
+          <div style={{ display: 'contents' }}>
             <IconButton
               edge="end"
               className={classes.aboutButton}
