@@ -48,9 +48,9 @@ function MyPage({ search }) {
       {data
         .filter(
           (el) =>
-            el.catigory.touppercase().includes(search.touppercase()) ||
-            el.reference.touppercase().includes(search.touppercase()) ||
-            el.product_name.touppercase().includes(search.touppercase())
+            el.catigory.tolowercase().includes(search.tolowercase()) ||
+            el.reference.tolowercase().includes(search.tolowercase()) ||
+            el.product_name.tolowercase().includes(search.tolowercase())
         )
         .map((el) => (
           <ListProducts data={el} key={el.id}/>
