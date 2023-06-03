@@ -1,51 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import AddProductModal from './Modal';
-import axios from 'axios';
-import ListProducts from "./Product"
-function MyPage({search}) {
+import React, { useEffect, useState } from "react";
+import AddProductModal from "./Modal";
+import axios from "axios";
+import ListProducts from "./Product";
+function MyPage({ search }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
-const [user,setUser]=useState([])
-const [data,setData]=useState([])
+  const [user, setUser] = useState([]);
+  const [data, setData] = useState([]);
   const handleAddProduct = (product) => {
     // Handle adding the product here
     console.log(product);
   };
-  const getProducts=()=>{
-    axios.get("https://www.electrozayn.com/api/getAll/product")
-    .then((res)=>{
-      setData(res.data)
-      
-    })
-  }
+  const getProducts = () => {
+    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+      setData(res.data);
+    });
+  };
   useEffect(() => {
     const user_id = localStorage.getItem("id");
-    axios.get("https://www.electrozayn.com/api/user/getone/"+ user_id)
+    axios
+      .get("https://www.electrozayn.com/api/user/getone/" + user_id)
       .then((res) => {
-       
         setUser(res.data);
       });
-      getProducts()
+    getProducts();
   }, []);
   return (
     <div>
-      
-    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {user.map((el)=>{
-            return(
-             <>
-            {el.role === "admin" ?<button onClick={() => setOpenAddProductModal(true)}>Add Product</button>:null}
-             </>
-            )
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {user.map((el) => {
+          return (
+            <>
+              {el.role === "admin" ? (
+                <button onClick={() => setOpenAddProductModal(true)}>
+                  Add Product
+                </button>
+              ) : null}
+            </>
+          );
         })}
-      
-      <AddProductModal
-        open={openAddProductModal}
-        handleClose={() => setOpenAddProductModal(false)}
-        handleAddProduct={handleAddProduct}
-      />
 
-    </div>
-    {data.filter((el)=>el.catigory.includes(search)|| el.reference.includes(search)).map((el)=>(<ListProducts data={el}/>))}
+        <AddProductModal
+          open={openAddProductModal}
+          handleClose={() => setOpenAddProductModal(false)}
+          handleAddProduct={handleAddProduct}
+        />
+      </div>
+      {data
+        .filter(
+          (el) =>
+            el.catigory.touppercase().includes(search.touppercase()) ||
+            el.reference.touppercase().includes(search.touppercase()) ||
+            el.product_name.touppercase().includes(search.touppercase())
+        )
+        .map((el) => (
+          <ListProducts data={el} key={el.id}/>
+        ))}
     </div>
   );
 }

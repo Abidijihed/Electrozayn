@@ -8,7 +8,11 @@ import Footer from './components/Footer';
 import Profile from './components/Profile';
 import Login from './components/Login'
 import ListProduct from './components/ListProduct'
+import About from './components/About';
+import "./App.css"
 // import PrivateRoutes from './components/PrivateRoute';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [search,setSearch]=useState("")
@@ -28,6 +32,8 @@ function App() {
           <Route path="/signup"  element={<SignupPage/>}/>
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
+          <Route path="/about" element={<About/>} />
+
           <Route path='/ListProduct' element={<ListProduct search={search}/>} />
         </Routes>
         <Footer />

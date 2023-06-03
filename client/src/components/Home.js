@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -8,10 +8,13 @@ import Button from '@material-ui/core/Button';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiOutlineMail, AiFillHome } from "react-icons/ai";
 import backgroundImage from './bg.jpg';
+import Carousel from 'react-bootstrap/Carousel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginTop:"30px",
+    
   },
   paper: {
     padding: theme.spacing(2),
@@ -54,9 +57,55 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePage() {
   const classes = useStyles();
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
 
   return (
     <div className={classes.root}>
+      <div style={{justifyContent:"center",display:"flex"}}>
+       <Carousel activeIndex={index} onSelect={handleSelect} className='mycarousel' >
+      <Carousel.Item >
+        <img
+        style={{height:"300px"}}
+          className="d-block w-100"
+          src="https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+         style={{height:"300px"}}
+          className="d-block w-100"
+          src="https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg"
+          alt="Second slide"
+        />
+
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+         style={{height:"300px"}}
+          className="d-block w-100"
+          src="https://img-19.commentcamarche.net/cI8qqj-finfDcmx6jMK6Vr-krEw=/1500x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+         
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+    </div>
       <div className={classes.comingSoonWrapper}>
         <div className={classes.comingSoonContent}>
           <Typography variant="h2" gutterBottom>

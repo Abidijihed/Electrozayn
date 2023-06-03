@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
       textDecorationColor: 'blue',
       backgroundColor: 'white',
+      color:"black"
     },
   },
   title2: {
@@ -93,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
       textDecorationColor: 'blue',
       backgroundColor: 'white',
+      color:"black"
     },
   },
 }));
