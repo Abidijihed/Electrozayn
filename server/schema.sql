@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS electrozayn_db;
-CREATE DATABASE IF NOT EXISTS electrozayn_db;
+-- DROP DATABASE IF EXISTS electrozayn_db;
+-- CREATE DATABASE IF NOT EXISTS electrozayn_db;
 USE electrozayn_db;
 
 CREATE TABLE IF NOT EXISTS  products(
@@ -15,6 +15,13 @@ id INT NOT NULL AUTO_INCREMENT,
     availibility VARCHAR(255) NOT NULL,
     catigory VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS  products(
+id INT NOT NULL AUTO_INCREMENT,
+    product_image VARCHAR(255) NOT NULL,
+    products_id INT NOT NULL,
+    PRIMARY KEY (products_id, id),
+    FOREIGN KEY (products_id) REFERENCES products(id)
 );
 
 CREATE TABLE IF NOT EXISTS user(
@@ -58,10 +65,15 @@ CREATE TABLE IF NOT EXISTS newselater(
 );
 CREATE TABLE IF NOT EXISTS addtocard (
   id INT NOT NULL AUTO_INCREMENT,
-  products_id INT NOT NULL,
+  product_name VARCHAR(255) NOT NULL,
+  Origin_price VARCHAR(150) NOT NULL,
+  Promo_price VARCHAR(255) NOT NULL,
+  reference VARCHAR(255) NOT NULL,
+  check_add_or_not BOOLEAN NOT NULL,
+  product_image VARCHAR(255) NOT NULL,
   user_id INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id),
-  FOREIGN KEY (products_id) REFERENCES products(id),
+  PRIMARY KEY (id,user_id, check_add_or_not),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
+

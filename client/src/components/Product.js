@@ -51,6 +51,7 @@ const useStyles = makeStyles({
 });
 
 function ProductCard({ data }) {
+  const [check,setChek]=useState(false)
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
 
@@ -76,6 +77,18 @@ const deleteProduct = (id)=>{
       }, 1500);
     }
   })
+}
+const AddTocard=async(data)=>{
+  setChek(!check)
+  const user_id = localStorage.getItem('id');
+  await axios.post("https://www.electrozayn.com/api/product/added_to/card/"+user_id,{
+            product_name:data.product_name,
+            Origin_price:data.Origin_price,
+            Promo_price:data.Promo_price,
+            reference:data.reference,
+            product_image:data.product_image,
+            check_add_or_not:check,
+  }).then((res)=>console.log(res.data))
 }
   const classes = useStyles();
 
@@ -137,10 +150,15 @@ const deleteProduct = (id)=>{
               );
             })}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+        { check === true ? <div style={{ display: 'flex', justifyContent: 'flex-end',backgroundColor:"green"}}  >
 
 <FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
 </div>
+:<div style={{ display: 'flex', justifyContent: 'flex-end'}}  >
+
+<FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
+</div>
+}
         </CardActionArea>
 
       </Card>

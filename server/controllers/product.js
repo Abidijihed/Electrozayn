@@ -25,6 +25,19 @@ module.exports={
         connection.query(query,(err,result)=>{
           err ? res.status(500).send(err):res.status(200).send("product deleted")
         })
+      }),
+      AddTocard:((req,res)=>{
+        const query=`INSERT INTO products(product_name,Origin_price,Promo_price,reference,check_add_or_not, product_image,user_id) VALUES("${req.body.product_name}","${req.body.Origin_price}","${req.body.Promo_price}","${req.body.reference}","${req.body.check_add_or_not}","${req.body.product_image}",${req.params.id})`
+        connection.query(query,(err,result)=>{
+          err? res.status(500).send(err):res.status(201).send("product added to card")
+        })
+      }),
+      getCard:((req,res)=>{
+        console.log(req.body)
+        const query=`select * from products where check_add_or_not=${req.body.check_add_or_not===true}`
+        connection.query(query,(err,result)=>{
+            err? res.status(500).send(err):res.status(201).send(result)
+        })
       })
     
   }
