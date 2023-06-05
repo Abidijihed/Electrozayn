@@ -64,5 +64,16 @@ module.exports = {
       }
     });
   },
-  
+  UpdateProductCard: ((req, res) => {
+    console.log(req.params)
+    const query = `UPDATE addtocart SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
+    connection.query(query, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send("Product updated successfully");
+      }
+    });
+})
+
 };

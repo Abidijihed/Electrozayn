@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,14 +11,15 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
   Info as InfoIcon,
-} from '@material-ui/icons';
-import logo from './logo.png';
-
+} from "@material-ui/icons";
+import logo from "./logo.png";
+import { FaShoppingCart } from "react-icons/fa";
+import { Badge } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,45 +29,45 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     flex: 0.7, // Expand to fill the available space
-    display: 'flex',
-    justifyContent: 'center', // Center the search input
-    position: 'relative',
-    color: 'black',
+    display: "flex",
+    justifyContent: "center", // Center the search input
+    position: "relative",
+    color: "black",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.palette.background.paper,
     },
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2), // Add margin to center the input
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
+      width: "auto",
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: '50px',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "50px",
   },
   inputRoot: {
-    color: 'inherit',
-    width: '100%',
+    color: "inherit",
+    width: "100%",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -75,40 +76,46 @@ const useStyles = makeStyles((theme) => ({
   },
   aboutButton: {
     marginRight: theme.spacing(2),
-    textDecoration: 'none',
-    color: 'white',
-    '&:hover': {
-      textDecoration: 'underline',
-      textDecorationColor: 'blue',
-      backgroundColor: 'white',
-      color: 'black',
+    textDecoration: "none",
+    color: "white",
+    "&:hover": {
+      textDecoration: "underline",
+      textDecorationColor: "blue",
+      backgroundColor: "white",
+      color: "black",
     },
   },
   title2: {
-    display: 'inline-block',
-    marginRight: '20px',
-    textDecoration: 'none',
-    color: 'white',
-    '&:hover': {
-      textDecoration: 'underline',
-      textDecorationColor: 'blue',
-      backgroundColor: 'white',
-      color: 'black',
+    display: "inline-block",
+    marginRight: "20px",
+    textDecoration: "none",
+    color: "white",
+    "&:hover": {
+      textDecoration: "underline",
+      textDecorationColor: "blue",
+      backgroundColor: "white",
+      color: "black",
     },
   },
   sticky: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
-    width: '100%',
+    width: "100%",
     zIndex: 1,
   },
+  shopIcon:{
+    color: "white",
+    fontSize: "30px",
+    fontWeight:900
+  }
 }));
 
 function NavBar({ handleChange }) {
+  var shop = localStorage.getItem("products");
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isSticky, setIsSticky] = useState(false);
 
   const handleMenuOpen = (event) => {
@@ -119,7 +126,7 @@ function NavBar({ handleChange }) {
     setAnchorEl(null);
   };
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -130,17 +137,22 @@ function NavBar({ handleChange }) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={isSticky ? classes.sticky : ''}>
-        <Toolbar style={{ backgroundColor: '#004aad', justifyContent: 'space-between' }}>
+      <AppBar position="static" className={isSticky ? classes.sticky : ""}>
+        <Toolbar
+          style={{
+            backgroundColor: "#004aad",
+            justifyContent: "space-between",
+          }}
+        >
           <div>
             <IconButton
               edge="start"
@@ -148,7 +160,7 @@ function NavBar({ handleChange }) {
               color="inherit"
               aria-label="menu"
               onClick={handleMenuOpen}
-              style={{ display: isSmallScreen ? 'flex' : 'none' }}
+              style={{ display: isSmallScreen ? "flex" : "none" }}
             >
               <MenuIcon />
             </IconButton>
@@ -158,36 +170,60 @@ function NavBar({ handleChange }) {
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
-              style={{ display: isSmallScreen ? 'block' : 'none' }}
+              style={{ display: isSmallScreen ? "block" : "none" }}
             >
-              <MenuItem component={Link} to="/contact" onClick={handleMenuClose}>
+              <MenuItem
+                component={Link}
+                to="/contact"
+                onClick={handleMenuClose}
+              >
                 Contact Us
               </MenuItem>
               <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
                 About Us
               </MenuItem>
               {!token && (
-                <MenuItem component={Link} to="/login" onClick={handleMenuClose}>
+                <MenuItem
+                  component={Link}
+                  to="/login"
+                  onClick={handleMenuClose}
+                >
                   Log In
                 </MenuItem>
               )}
               {token && (
-                <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+                <MenuItem
+                  component={Link}
+                  to="/profile"
+                  onClick={handleMenuClose}
+                >
                   Profile
                 </MenuItem>
               )}
-              <MenuItem component={Link} to="/ListProduct" onClick={handleMenuClose}>
+              <MenuItem
+                component={Link}
+                to="/ListProduct"
+                onClick={handleMenuClose}
+              >
                 ListProduct
               </MenuItem>
             </Menu>
             <Typography variant="h6" className={classes.title}>
               <Link to="/" className={classes.title2}>
                 Electrozayn
-                <img src={logo} alt="logo" style={{ width: '150px', height: '80px', backgroundImage: 'none' }} />
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{
+                    width: "150px",
+                    height: "80px",
+                    backgroundImage: "none",
+                  }}
+                />
               </Link>
             </Typography>
           </div>
-          <input placeholder='Search....'               onChange={(e) => handleChange(e)}/>
+          <input placeholder="Search...." onChange={(e) => handleChange(e)} />
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -204,7 +240,7 @@ function NavBar({ handleChange }) {
             />
           </div> */}
 
-          <div style={{ display: 'contents' }}>
+          <div style={{ display: "contents" }}>
             <IconButton
               edge="end"
               className={classes.aboutButton}
@@ -212,7 +248,7 @@ function NavBar({ handleChange }) {
               aria-label="contact"
               component={Link}
               to="/contact"
-              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              style={{ display: isSmallScreen ? "none" : "flex" }}
             >
               <Typography variant="body1">Contact Us</Typography>
             </IconButton>
@@ -223,7 +259,7 @@ function NavBar({ handleChange }) {
               aria-label="about"
               component={Link}
               to="/about"
-              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              style={{ display: isSmallScreen ? "none" : "flex" }}
             >
               <Typography variant="body1">About Us</Typography>
             </IconButton>
@@ -235,7 +271,7 @@ function NavBar({ handleChange }) {
                 aria-label="log in"
                 component={Link}
                 to="/login"
-                style={{ display: isSmallScreen ? 'none' : 'flex' }}
+                style={{ display: isSmallScreen ? "none" : "flex" }}
               >
                 <Typography variant="body1">Log In</Typography>
               </IconButton>
@@ -248,7 +284,7 @@ function NavBar({ handleChange }) {
                 aria-label="profile"
                 component={Link}
                 to="/profile"
-                style={{ display: isSmallScreen ? 'none' : 'flex' }}
+                style={{ display: isSmallScreen ? "none" : "flex" }}
               >
                 <Typography variant="body1">Profile</Typography>
               </IconButton>
@@ -260,10 +296,16 @@ function NavBar({ handleChange }) {
               aria-label="contact"
               component={Link}
               to="/ListProduct"
-              style={{ display: isSmallScreen ? 'none' : 'flex' }}
+              style={{ display: isSmallScreen ? "none" : "flex" }}
             >
               <Typography variant="body1">ListProduct</Typography>
             </IconButton>
+            <Typography variant="body1" component={Link} to="/chekout">
+              <Badge badgeContent={shop} color="secondary">
+              <FaShoppingCart className={classes.shopIcon}  />
+
+              </Badge>
+            </Typography>
           </div>
         </Toolbar>
       </AppBar>

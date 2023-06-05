@@ -56,9 +56,10 @@ function ProductCard({ data }) {
   const [user, setUser] = useState([]);
   const getProductsCard = () => {
     axios
-      .get('http://localhost:5500/api/product/card')
+      .get('https://www.electrozayn.com/api/product/card')
       .then((res) => {
-        const product = res.data.find((product) => product.id === data.id);
+        const product = res.data.find((product) => product.products_id=== data.id);
+        localStorage.setItem("products",res.data.length)
         if (product) {
           setChek(product.check_add_or_not);
         }
@@ -98,9 +99,9 @@ const deleteProduct = (id)=>{
 const AddTocard = (data) => {
   const user_id = localStorage.getItem('id');
   const updatedCheck = !check; // Invert the value of `check`
-
+if(updatedCheck === true ){
   axios
-    .post(`http://localhost:5500/api/product/added_to/card/${user_id}`, {
+    .post(`https://www.electrozayn.com/api/product/added_to/card/${user_id}`, {
       product_name: data.product_name,
       Origin_price: data.Origin_price,
       Promo_price: data.Promo_price,
@@ -111,14 +112,22 @@ const AddTocard = (data) => {
 
     })
     .then((res) => {
-      console.log(res.data);
       setChek(updatedCheck); // Update the state with the updated value
-      // getProductsCard();
-
+      getProductsCard()
     })
     .catch((err) => {
       console.log(err);
     });
+  }else{
+    axios.put(`https://www.electrozayn.com/api/update/card/${data.id}`)
+    .then((res)=>{
+      setChek(updatedCheck); // Update the state with the updated value
+      getProductsCard()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 };
   const classes = useStyles();
 
@@ -180,7 +189,7 @@ const AddTocard = (data) => {
               );
             })}
           </div>
-       <div style={{ display: 'flex', justifyContent: 'flex-end',color:check === 1?"green":"black"}}  >
+       <div style={{ display: 'flex', justifyContent: 'flex-end',color:check===1?"green":"black"}}  >
 
 <FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
 </div>

@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import Login from './components/Login'
 import ListProduct from './components/ListProduct'
 import About from './components/About';
+import Checkout from './components/Checkout';
 import "./App.css"
 // import PrivateRoutes from './components/PrivateRoute';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +33,7 @@ function App() {
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-
+          <Route path="/chekout" element={<Checkout/>} />
           <Route path='/ListProduct' element={<ListProduct search={search}/>} />
         </Routes>
         <Footer />
