@@ -43,12 +43,13 @@ export default function Checkout() {
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
       setProducts(res.data.data);
     });
+    calculatetotal()
   }, []);
 
-  useEffect(() => {
+ const calculatetotal=() => {
     const totalPrice = products.reduce((sum, product) => sum + product.Promo_price, 0);
     setTotal(totalPrice);
-  }, [products]);
+  };
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -64,7 +65,7 @@ export default function Checkout() {
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
-      {products.map((product) => (
+      {products?.map((product) => (
         <Card key={product.id} className={classes.card}>
           <img src={product.product_image} alt={product.product_name} className={classes.image} />
           <CardContent>
