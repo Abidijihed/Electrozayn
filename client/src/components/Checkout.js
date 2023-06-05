@@ -42,7 +42,7 @@ export default function Checkout() {
 
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
-      setProducts(res.data.data);
+      console.log(res.data)
       setIsLoading(false);
     });
   }, []);
