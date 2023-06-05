@@ -9,7 +9,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiOutlineMail, AiFillHome } from "react-icons/ai";
 import backgroundImage from './bg.jpg';
 import Carousel from 'react-bootstrap/Carousel';
-import ListProducts from "./ListProduct"
+import ListProducts from "./Product"
 import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,17 +66,17 @@ function HomePage({search}) {
   };
 useEffect(()=>{
   axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
-    console.log(res)
     setData(res.data);
   });
 },[])
   return (
    <>
-   {search.length > 0 ?<div> {data?.filter(
+   {search.length > 0 ?<div> {data
+      .filter(
         (el) =>
-          el.catigory?.toLowerCase().includes(search?.toLowerCase()) ||
-          el.reference?.toLowerCase().includes(search?.toLowerCase()) ||
-          el.product_name?.toLowerCase().includes(search?.toLowerCase())
+          el.catigory.toLowerCase().includes(search.toLowerCase()) ||
+          el.reference.toLowerCase().includes(search.toLowerCase()) ||
+          el.product_name.toLowerCase().includes(search.toLowerCase())
       )
       .map((el) => (
         <ListProducts data={el} key={el.id} />
