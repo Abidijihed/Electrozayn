@@ -49,7 +49,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => (sum + product.Promo_price), 0);
+    const totalPrice = products.reduce((sum, product) => (sum + Number(product.Promo_price)), 0);
     setTotal(totalPrice);
   }, [products]);
 
