@@ -80,6 +80,7 @@ export default function Checkout() {
           <Card key={product.id} className={classes.card}>
             <img src={product.product_image} alt={product.product_name} className={classes.image} />
             <CardContent>
+              {console.log(products)}
               <Typography variant="subtitle1">{product.product_name}</Typography>
               <Typography variant="caption">{product.reference}</Typography>
               <Typography variant="caption">{product.Promo_price}</Typography>
