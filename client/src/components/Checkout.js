@@ -38,18 +38,19 @@ export default function Checkout() {
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
       setProducts(res.data.data);
+      setIsLoading(false);
     });
-    calculatetotal()
   }, []);
 
- const calculatetotal=() => {
+  useEffect(() => {
     const totalPrice = products.reduce((sum, product) => sum + product.Promo_price, 0);
     setTotal(totalPrice);
-  };
+  }, [products]);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -65,15 +66,19 @@ export default function Checkout() {
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
-      {products?.map((product) => (
-        <Card key={product.id} className={classes.card}>
-          <img src={product.product_image} alt={product.product_name} className={classes.image} />
-          <CardContent>
-            <Typography variant="subtitle1">{product.product_name}</Typography>
-            <Typography variant="caption">{product.reference}</Typography>
-          </CardContent>
-        </Card>
-      ))}
+      {isLoading ? (
+        <Typography>Loading...</Typography>
+      ) : (
+        products.map((product) => (
+          <Card key={product.id} className={classes.card}>
+            <img src={product.product_image} alt={product.product_name} className={classes.image} />
+            <CardContent>
+              <Typography variant="subtitle1">{product.product_name}</Typography>
+              <Typography variant="caption">{product.reference}</Typography>
+            </CardContent>
+          </Card>
+        ))
+      )}
       <FormControlLabel
         control={
           <Checkbox
@@ -100,4 +105,3 @@ export default function Checkout() {
     </div>
   );
 }
-
