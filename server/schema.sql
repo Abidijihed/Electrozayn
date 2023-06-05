@@ -81,6 +81,6 @@ CREATE TABLE IF NOT EXISTS addtocart (
   products_id INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id,products_id),
-  FOREIGN KEY (products_id) REFERENCES products(id)
+  FOREIGN KEY (products_id) REFERENCES products(id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
