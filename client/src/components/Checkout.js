@@ -42,7 +42,7 @@ export default function Checkout() {
 
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
-      console.log(res.data)
+      setProducts(res.data);
       setIsLoading(false);
     });
   }, []);
@@ -65,7 +65,6 @@ export default function Checkout() {
 
   return (
     <div className={classes.root}>
-      {console.log(products)}
       <Typography variant="h6">Checkout</Typography>
       {isLoading ? (
         <Typography>Loading...</Typography>
