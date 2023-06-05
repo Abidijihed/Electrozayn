@@ -45,6 +45,9 @@ export default function Checkout() {
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
       setProducts(res.data);
       setIsLoading(false);
+      if(res.data){
+        window.location.reload()
+      }
     });
   }, []);
 
