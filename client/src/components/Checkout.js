@@ -65,6 +65,7 @@ export default function Checkout() {
 
   return (
     <div className={classes.root}>
+      {console.log(products)}
       <Typography variant="h6">Checkout</Typography>
       {isLoading ? (
         <Typography>Loading...</Typography>
