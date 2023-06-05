@@ -71,8 +71,7 @@ useEffect(()=>{
 },[])
   return (
    <>
-   {console.log(search)}
-   {/* {  search.length>0 ?<div> {data
+   {search.length > 0 ?<div> {data
       .filter(
         (el) =>
           el.catigory.toLowerCase().includes(search.toLowerCase()) ||
@@ -142,7 +141,7 @@ useEffect(()=>{
     
   </div>
     
-    } */}
+    }
     </>
   );
 }

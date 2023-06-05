@@ -83,8 +83,10 @@ export default function Checkout() {
               {console.log(products)}
               <Typography variant="subtitle1">{product.product_name}</Typography>
               <Typography variant="caption">{product.reference}</Typography>
-              <Typography variant="caption">{product.Promo_price}</Typography>
-            </CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Promo Price: {product.Promo_price} TND
+              </Typography>      
+                    </CardContent>
           </Card>
         ))
       )}
