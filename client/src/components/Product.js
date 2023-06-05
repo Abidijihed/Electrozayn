@@ -51,16 +51,33 @@ const useStyles = makeStyles({
 });
 
 function ProductCard({ data }) {
-  const [check,setChek]=useState(false)
+  const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
-
+  const getProductsCard = () => {
+    axios
+      .get('http://localhost:5500/api/product/card')
+      .then((res) => {
+        const product = res.data.find((product) => product.id === data.id);
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
   useEffect(() => {
     const user_id = localStorage.getItem('id');
-    axios.get('https://www.electrozayn.com/api/user/getone/' + user_id).then((res) => {
-      setUser(res.data);
-    });
+    axios
+      .get('https://www.electrozayn.com/api/user/getone/' + user_id)
+      .then((res) => {
+        setUser(res.data);
+      });
+    getProductsCard();
   }, []);
+  
 const deleteProduct = (id)=>{
   axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
   .then((res)=>{
@@ -78,18 +95,31 @@ const deleteProduct = (id)=>{
     }
   })
 }
-const AddTocard=async(data)=>{
-  setChek(!check)
+const AddTocard = (data) => {
   const user_id = localStorage.getItem('id');
-  await axios.post("https://www.electrozayn.com/api/product/added_to/card/"+user_id,{
-            product_name:data.product_name,
-            Origin_price:data.Origin_price,
-            Promo_price:data.Promo_price,
-            reference:data.reference,
-            product_image:data.product_image,
-            check_add_or_not:check,
-  }).then((res)=>console.log(res.data))
-}
+  const updatedCheck = !check; // Invert the value of `check`
+
+  axios
+    .post(`http://localhost:5500/api/product/added_to/card/${user_id}`, {
+      product_name: data.product_name,
+      Origin_price: data.Origin_price,
+      Promo_price: data.Promo_price,
+      reference: data.reference,
+      product_image: data.product_image,
+      check_add_or_not: updatedCheck, // Use the updated value of `check`
+      products_id:data.id
+
+    })
+    .then((res) => {
+      console.log(res.data);
+      setChek(updatedCheck); // Update the state with the updated value
+      // getProductsCard();
+
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
   const classes = useStyles();
 
   return (
@@ -150,15 +180,11 @@ const AddTocard=async(data)=>{
               );
             })}
           </div>
-        { check === true ? <div style={{ display: 'flex', justifyContent: 'flex-end',backgroundColor:"green"}}  >
-
-<FaShoppingCart className={classes.shopIcon} onClick={() => console.log('hello')} />
-</div>
-:<div style={{ display: 'flex', justifyContent: 'flex-end'}}  >
+       <div style={{ display: 'flex', justifyContent: 'flex-end',color:check === 1?"green":"black"}}  >
 
 <FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
 </div>
-}
+
         </CardActionArea>
 
       </Card>

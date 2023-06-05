@@ -187,7 +187,8 @@ function NavBar({ handleChange }) {
               </Link>
             </Typography>
           </div>
-          <div className={classes.search}>
+          <input placeholder='Search....'               onChange={(e) => handleChange(e)}/>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -201,7 +202,7 @@ function NavBar({ handleChange }) {
               style={{ color: 'black' }}
               onChange={(e) => handleChange(e)}
             />
-          </div>
+          </div> */}
 
           <div style={{ display: 'contents' }}>
             <IconButton

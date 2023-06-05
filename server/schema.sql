@@ -78,7 +78,9 @@ CREATE TABLE IF NOT EXISTS addtocart (
   check_add_or_not BOOLEAN NOT NULL,
   product_image VARCHAR(255) NOT NULL,
   user_id INT NOT NULL,
+  products_id INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id),
+  PRIMARY KEY (id,products_id),
+  FOREIGN KEY (products_id) REFERENCES products(id)
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
