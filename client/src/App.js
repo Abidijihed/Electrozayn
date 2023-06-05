@@ -27,7 +27,7 @@ function App() {
        
         <NavBar handleChange={handleChange}/>
         <Routes>
-          <Route exact path="/" element={<HomePage/>} />
+          <Route exact path="/" element={<HomePage search={search}/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/signup"  element={<SignupPage/>}/>
          <Route path="/profile"  element={<Profile />}/>

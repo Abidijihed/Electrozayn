@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   makeStyles,
   Typography,
+  Button,
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -48,7 +49,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => sum + product.Promo_price, 0);
+    const totalPrice = products.reduce((sum, product) => (sum + product.Promo_price), 0);
     setTotal(totalPrice);
   }, [products]);
 
@@ -63,6 +64,12 @@ export default function Checkout() {
     return total;
   };
 
+  const handleValidation = () => {
+    // Perform validation logic here
+    // Show confirmation alert
+    alert('Confirmation: Your order has been validated.');
+  };
+
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
@@ -75,6 +82,7 @@ export default function Checkout() {
             <CardContent>
               <Typography variant="subtitle1">{product.product_name}</Typography>
               <Typography variant="caption">{product.reference}</Typography>
+              <Typography variant="caption">{product.Promo_price}</Typography>
             </CardContent>
           </Card>
         ))
@@ -102,6 +110,9 @@ export default function Checkout() {
       <Typography variant="h6" className={classes.total}>
         Total: {handleTotal()} TND
       </Typography>
+      <Button variant="contained" color="primary" onClick={handleValidation}>
+        Validate Order
+      </Button>
     </div>
   );
 }

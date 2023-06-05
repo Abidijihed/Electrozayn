@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -9,7 +9,8 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiOutlineMail, AiFillHome } from "react-icons/ai";
 import backgroundImage from './bg.jpg';
 import Carousel from 'react-bootstrap/Carousel';
-
+import ListProducts from "./ListProduct"
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -55,73 +56,93 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HomePage() {
+function HomePage({search}) {
+  const [data, setData] = useState([]);
   const classes = useStyles();
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
-
+useEffect(()=>{
+  axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+    setData(res.data);
+  });
+},[])
   return (
-    <div className={classes.root}>
-      <div style={{justifyContent:"center",display:"flex"}}>
-       <Carousel activeIndex={index} onSelect={handleSelect} className='mycarousel' >
-      <Carousel.Item >
-        <img
-        style={{height:"300px"}}
-          className="d-block w-100"
-          src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
-          alt="First slide"
-        />
+   <>
+   {  search.length>0 ?<div> {data
+      .filter(
+        (el) =>
+          el.catigory.toLowerCase().includes(search.toLowerCase()) ||
+          el.reference.toLowerCase().includes(search.toLowerCase()) ||
+          el.product_name.toLowerCase().includes(search.toLowerCase())
+      )
+      .map((el) => (
+        <ListProducts data={el} key={el.id} />
+      ))}
+   </div>
+    : <div className={classes.root}>
+    <div style={{justifyContent:"center",display:"flex"}}>
+     <Carousel activeIndex={index} onSelect={handleSelect} className='mycarousel' >
+    <Carousel.Item >
+      <img
+      style={{height:"300px"}}
+        className="d-block w-100"
+        src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+        alt="First slide"
+      />
+  
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+       style={{height:"300px"}}
+        className="d-block w-100"
+        src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+        alt="Second slide"
+      />
+
+     
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+       style={{height:"300px"}}
+        className="d-block w-100"
+        src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+        alt="Third slide"
+      />
+
     
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-         style={{height:"300px"}}
-          className="d-block w-100"
-          src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
-          alt="Second slide"
-        />
-
-       
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-         style={{height:"300px"}}
-          className="d-block w-100"
-          src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
-          alt="Third slide"
-        />
-
-      
-      </Carousel.Item>
-    </Carousel>
-    </div>
-      <div className={classes.comingSoonWrapper}>
-        <div className={classes.comingSoonContent}>
-          <Typography variant="h2" gutterBottom>
-            Coming Soon...
-          </Typography>
-          <Typography variant="h5" paragraph>
-            Website under construction
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            <BsFillTelephoneFill/> +216 22 181 411
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            <BsFillTelephoneFill/> +216 55 181 417
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            <AiOutlineMail/> aymensatellite@gmail.com
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            <AiFillHome/> 1 Rue de Pirée rue d'Athènes Tunis 1000
-          </Typography>
-        </div>
+    </Carousel.Item>
+  </Carousel>
+  </div>
+    <div className={classes.comingSoonWrapper}>
+      <div className={classes.comingSoonContent}>
+        <Typography variant="h2" gutterBottom>
+          Coming Soon...
+        </Typography>
+        <Typography variant="h5" paragraph>
+          Website under construction
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <BsFillTelephoneFill/> +216 22 181 411
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <BsFillTelephoneFill/> +216 55 181 417
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <AiOutlineMail/> aymensatellite@gmail.com
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <AiFillHome/> 1 Rue de Pirée rue d'Athènes Tunis 1000
+        </Typography>
       </div>
-      
     </div>
+    
+  </div>
+    
+    }
+    </>
   );
 }
 

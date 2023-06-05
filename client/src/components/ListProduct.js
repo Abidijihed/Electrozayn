@@ -6,6 +6,7 @@ function MyPage({ search }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
   const [data, setData] = useState([]);
+  
   const handleAddProduct = (product) => {
     // Handle adding the product here
     console.log(product);
