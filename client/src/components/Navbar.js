@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleChange })=> {
+const Navbar = ({ handleChange,data })=> {
   const token = localStorage.getItem("token");
   var shop = localStorage.getItem("products");
   const classes = useStyles();
@@ -214,7 +214,7 @@ const Navbar = ({ handleChange })=> {
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
-              <Badge badgeContent={shop} color="secondary" component={Link} to="/chekout">
+              <Badge badgeContent={data} color="secondary" component={Link} to="/chekout">
                 <FaShoppingCart fontSize="xlarge" color='white'/>
               </Badge>
             </IconButton>

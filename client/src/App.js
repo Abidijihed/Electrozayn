@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import HomePage from './components/Home';
@@ -11,22 +11,28 @@ import ListProduct from './components/ListProduct'
 import About from './components/About';
 import Checkout from './components/Checkout';
 import "./App.css"
+import axios from 'axios';
 // import PrivateRoutes from './components/PrivateRoute';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-  
+const [data,setData]=useState([])
   const [search,setSearch]=useState("")
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
+  useEffect(() => {
+    axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
+      setData(res.data);
+    });
+  }, []);
   return (
     
       <div>
         <BrowserRouter>
        
-        <NavBar handleChange={handleChange}/>
+        <NavBar handleChange={handleChange} data={data.length}/>
         <Routes>
           <Route exact path="/" element={<HomePage search={search}/>} />
           <Route path="/contact" element={<ContactPage/>} />
