@@ -113,7 +113,7 @@ const Navbar = ({ handleChange })=> {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Typography variant="h6" align="center" style={{marginTop:"10px"}}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px",color:"white",textDecoration:"underline"}}>
           Electrozayne
         </Typography>
       </div>
