@@ -110,7 +110,7 @@ const Navbar = ({ handleChange})=> {
     if (shopValue) {
       setShop(shopValue);
     }
-  }, []); 
+  }, [shop]); 
    const classes = useStyles();
 
 
@@ -121,7 +121,7 @@ const Navbar = ({ handleChange})=> {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Typography variant="h6" align="center" style={{marginTop:"10px",color:"white",textDecoration:"underline"}}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px",textDecoration:"underline"}}>
           Electrozayne
         </Typography>
       </div>
