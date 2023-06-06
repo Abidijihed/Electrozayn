@@ -158,16 +158,9 @@ const Navbar = ({ handleChange,data })=> {
     <>
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar>
-          
-            <Typography className={classes.title} variant="h6" noWrap component={Link} to="/">
+            <Typography className={classes.title} variant="h6" noWrap component={Link} to="/" style={{color:"white"}}>
               ElectroZayn
             </Typography>
-          
-          {/* <Hidden mdDown>
-            <Typography className={classes.title} variant="h6" noWrap>
-              ElectroZayn
-            </Typography> */}
-          {/* </Hidden> */}
           <Hidden mdUp>
             <IconButton
               edge="end"

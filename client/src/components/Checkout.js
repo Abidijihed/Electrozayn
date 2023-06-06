@@ -7,6 +7,7 @@ import {
   makeStyles,
   Typography,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -49,7 +50,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => (sum + Number(product.Promo_price)), 0);
+    const totalPrice = products.reduce((sum, product) => sum + Number(product.Promo_price), 0);
     setTotal(totalPrice);
   }, [products]);
 
@@ -74,7 +75,7 @@ export default function Checkout() {
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
       {isLoading ? (
-        <Typography>Loading...</Typography>
+        <CircularProgress />
       ) : (
         products.map((product) => (
           <Card key={product.id} className={classes.card}>
@@ -84,8 +85,8 @@ export default function Checkout() {
               <Typography variant="caption">{product.reference}</Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 Promo Price: {product.Promo_price} TND
-              </Typography>      
-                    </CardContent>
+              </Typography>
+            </CardContent>
           </Card>
         ))
       )}
