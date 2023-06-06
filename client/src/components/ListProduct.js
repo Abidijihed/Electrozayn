@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import AddProductModal from "./Modal";
 import axios from "axios";
 import ListProducts from "./Product";
-function MyPage({ search }) {
+function MyPage({ search,AddToCart,check }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
   const [data, setData] = useState([]);
-  
+
   const handleAddProduct = (product) => {
     // Handle adding the product here
     console.log(product);
@@ -54,7 +54,7 @@ function MyPage({ search }) {
             el.product_name.toLowerCase().includes(search.toLowerCase())
         )
         .map((el) => (
-          <ListProducts data={el} key={el.id} />
+          <ListProducts data={el} key={el.id} AddToCart={AddToCart} check={check}/>
         ))}
     </div>
   );

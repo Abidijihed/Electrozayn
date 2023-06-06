@@ -17,18 +17,62 @@ import axios from 'axios';
 
 
 function App() {
+  const [check,setChek]=useState()
 const [data,setData]=useState([])
   const [search,setSearch]=useState("")
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
-  useEffect(() => {
-   setTimeout(()=>{
-    axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
-      setData(res.data);
-    },2000);
-   })
-  }, []);
+  const getProductsCard = () => {
+    axios
+      .get('https://www.electrozayn.com/api/product/card')
+      .then((res) => {
+        const product = res.data.find((product) => product.products_id=== data.id);
+        setData(res.data);
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(()=>{
+    getProductsCard()
+  },[])
+  const AddToCart = (data) => {
+    const user_id = localStorage.getItem('id');
+    const updatedCheck = !check; // Invert the value of `check`
+  if(updatedCheck === true ){
+    axios
+      .post(`https://www.electrozayn.com/api/product/added_to/card/${user_id}`, {
+        product_name: data.product_name,
+        Origin_price: data.Origin_price,
+        Promo_price: data.Promo_price,
+        reference: data.reference,
+        product_image: data.product_image,
+        check_add_or_not: updatedCheck, // Use the updated value of `check`
+        products_id:data.id
+  
+      })
+      .then((res) => {
+        setChek(updatedCheck); // Update the state with the updated value
+        getProductsCard()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }else{
+      axios.put(`https://www.electrozayn.com/api/update/card/${data.id}`)
+      .then((res)=>{
+        setChek(updatedCheck); // Update the state with the updated value
+        getProductsCard()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  };
   return (
     
       <div>
@@ -43,7 +87,7 @@ const [data,setData]=useState([])
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/chekout" element={<Checkout/>} />
-          <Route path='/products' element={<ListProduct search={search}/>} />
+          <Route path='/products' element={<ListProduct search={search} AddToCart={AddToCart} check={check}/>} />
         </Routes>
         <Footer />
         </BrowserRouter>
