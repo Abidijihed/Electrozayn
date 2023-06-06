@@ -86,7 +86,7 @@ const deleteProduct = (id)=>{
 
   return (
     <>
-    {console.log(check)}
+    {/* {console.log(check)} */}
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
