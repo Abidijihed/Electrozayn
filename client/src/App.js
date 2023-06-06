@@ -18,8 +18,16 @@ import axios from 'axios';
 
 function App() {
   const [check,setChek]=useState()
-const [data,setData]=useState([])
+const [shop,setShop]=useState([])
   const [search,setSearch]=useState("")
+  const [data, setData] = useState([]);
+
+
+  const getProducts = () => {
+    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+      setData(res.data);
+    });
+  };
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
@@ -28,7 +36,7 @@ const [data,setData]=useState([])
       .get('https://www.electrozayn.com/api/product/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id=== data.id);
-        setData(res.data);
+        setShop(res.data);
         if (product) {
           setChek(product.check_add_or_not);
         }
@@ -39,6 +47,7 @@ const [data,setData]=useState([])
   };
   useEffect(()=>{
     getProductsCard()
+    getProducts()
   },[])
   const AddToCart = (data) => {
     const user_id = localStorage.getItem('id');
@@ -78,7 +87,7 @@ const [data,setData]=useState([])
       <div>
         <BrowserRouter>
        
-        <NavBar handleChange={handleChange} data={data.length}/>
+        <NavBar handleChange={handleChange} data={shop}/>
         <Routes>
           <Route exact path="/" element={<HomePage search={search}/>} />
           <Route path="/contact" element={<ContactPage/>} />
@@ -87,7 +96,7 @@ const [data,setData]=useState([])
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/chekout" element={<Checkout/>} />
-          <Route path='/products' element={<ListProduct search={search} AddToCart={AddToCart} check={check}/>} />
+          <Route path='/products' element={<ListProduct search={search} AddToCart={AddToCart} check={check} data={data}/>} />
         </Routes>
         <Footer />
         </BrowserRouter>
