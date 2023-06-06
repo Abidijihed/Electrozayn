@@ -93,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
     flexShrink: 0,
+    color:"white"
   },
   drawerPaper: {
     width: 240,
@@ -101,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ handleChange,data })=> {
   const token = localStorage.getItem("token");
-  var shop = localStorage.getItem("products");
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -113,7 +113,7 @@ const Navbar = ({ handleChange,data })=> {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Typography variant="h6" align="center" style={{marginTop:"10px",color:"white",textDecoration:"underline"}}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px",textDecoration:"underline"}}>
           Electrozayne
         </Typography>
       </div>
