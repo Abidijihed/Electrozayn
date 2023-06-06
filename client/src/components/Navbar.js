@@ -103,7 +103,7 @@ const Navbar = ({ handleChange})=> {
   const token = localStorage.getItem("token");
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [shop, setShop] = useState('');
+  const [shop, setShop] = useState(0);
 
   useEffect(() => {
     const shopValue = localStorage.getItem('shop');
