@@ -26,7 +26,13 @@ import {
   FaSignInAlt,
   FaSearch,
   FaBars,
+ 
 } from 'react-icons/fa';
+import { 
+   MdOutlineMailOutline,
+  MdOutlineAddShoppingCart
+ } from 'react-icons/md';
+
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -115,7 +121,7 @@ const Navbar = ({ handleChange })=> {
       <List>
         <ListItem button component={Link} to="/contact">
           <ListItemIcon>
-            <FaPhoneAlt />
+            <MdOutlineMailOutline />
           </ListItemIcon>
           <ListItemText primary="Contact Us" />
         </ListItem>
@@ -140,7 +146,7 @@ const Navbar = ({ handleChange })=> {
         <Divider />
         <ListItem button component={Link} to="/products">
           <ListItemIcon>
-            <FaShoppingCart />
+            <MdOutlineAddShoppingCart />
           </ListItemIcon>
           <ListItemText primary="Product List" />
         </ListItem>
@@ -153,7 +159,7 @@ const Navbar = ({ handleChange })=> {
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar>
           
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title} variant="h6" noWrap component={Link} to="/">
               ElectroZayn
             </Typography>
           
@@ -203,10 +209,13 @@ const Navbar = ({ handleChange })=> {
               <IconButton color="inherit" className={classes.navIcon} component={Link} to="/about">
                 <FaInfo />
               </IconButton>
+              <IconButton color="inherit" className={classes.navIcon} component={Link} to="/products">
+                <MdOutlineAddShoppingCart />
+              </IconButton>
             </Hidden>
             <IconButton color="inherit">
               <Badge badgeContent={shop} color="secondary" component={Link} to="/chekout">
-                <FaShoppingCart fontSize="xlarge" />
+                <FaShoppingCart fontSize="xlarge" color='white'/>
               </Badge>
             </IconButton>
           </div>
