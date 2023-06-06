@@ -34,7 +34,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/chekout" element={<Checkout/>} />
-          <Route path='/ListProduct' element={<ListProduct search={search}/>} />
+          <Route path='/products' element={<ListProduct search={search}/>} />
         </Routes>
         <Footer />
         </BrowserRouter>

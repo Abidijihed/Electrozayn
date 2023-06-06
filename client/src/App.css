@@ -2,7 +2,20 @@
   .mycarousel {
    width: 500px;
   }
+  #search{
+    width: 200px !important;
+  }
+}
+@media (min-width: 900px) {
+ 
+  #search{
+    width: 350px !important;
+  }
+  #allsearch{
+    margin-right: 115px !important;
+  }
 }
 .mycarousel{
   width: 1200px;
+
 }

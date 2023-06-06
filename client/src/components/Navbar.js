@@ -1,316 +1,234 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
 import {
   AppBar,
   Toolbar,
   Typography,
-  makeStyles,
-  InputBase,
   IconButton,
-  Menu,
-  MenuItem,
-  useMediaQuery,
-  useTheme,
-} from "@material-ui/core";
+  Badge,
+  InputBase,
+  Hidden,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from '@mui/material';
 import {
-  Menu as MenuIcon,
-  Search as SearchIcon,
-  Info as InfoIcon,
-} from "@material-ui/icons";
-import logo from "./logo.png";
-import { FaShoppingCart } from "react-icons/fa";
-import { Badge } from "@material-ui/core";
+  makeStyles,
+} from '@material-ui/core';
+import {alpha } from '@mui/material/styles';
+import {
+  FaShoppingCart,
+  FaUser,
+  FaPhoneAlt,
+  FaInfo,
+  FaSignInAlt,
+  FaSearch,
+  FaBars,
+} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  appBar: {
+    backgroundColor: '#004aad',
+    zIndex: theme.zIndex.drawer + 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-start',
+    },
   },
   title: {
     flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   search: {
-    flex: 0.7, // Expand to fill the available space
-    display: "flex",
-    justifyContent: "center", // Center the search input
-    position: "relative",
-    color: "black",
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-
-    "&:hover": {
-      backgroundColor: theme.palette.background.paper,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2), // Add margin to center the input
-    [theme.breakpoints.up("sm")]: {
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
       marginLeft: theme.spacing(3),
-      width: "auto",
+      width: 'auto',
     },
+  },
+  searchInput: {
+    marginLeft: theme.spacing(1),
+    color: 'black',
+    backgroundColor:"white"
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: "50px",
+    marginLeft: theme.spacing(1),
+    color:"black"
   },
-  inputRoot: {
-    color: "inherit",
-    width: "100%",
+  navIcons: {
+    display: 'flex',
+    alignItems: 'initial',
   },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  aboutButton: {
-    marginRight: theme.spacing(2),
-    textDecoration: "none",
-    color: "white",
-    "&:hover": {
-      textDecoration: "underline",
-      textDecorationColor: "blue",
+  navIcon: {
+    marginLeft: theme.spacing(2),
+    fontSize:"25px",
+    '&:hover': {
       backgroundColor: "white",
-      color: "black",
     },
   },
-  title2: {
-    display: "inline-block",
-    marginRight: "20px",
-    textDecoration: "none",
-    color: "white",
-    "&:hover": {
-      textDecoration: "underline",
-      textDecorationColor: "blue",
-      backgroundColor: "white",
-      color: "black",
-    },
+  toolbar: theme.mixins.toolbar,
+  drawer: {
+    width: 240,
+    flexShrink: 0,
   },
-  sticky: {
-    position: "fixed",
-    top: 0,
-    width: "100%",
-    zIndex: 1,
+  drawerPaper: {
+    width: 240,
   },
-  shopIcon:{
-    color: "white",
-    fontSize: "30px",
-    fontWeight:900
-  }
 }));
 
-function NavBar({ handleChange }) {
+const Navbar = ({ handleChange })=> {
+  const token = localStorage.getItem("token");
   var shop = localStorage.getItem("products");
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [isSticky, setIsSticky] = useState(false);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.pageYOffset > 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+  const drawer = (
+    <div>
+      <div className={classes.toolbar}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px"}}>
+          Electrozayne
+        </Typography>
+      </div>
+      <Divider />
+      <List>
+        <ListItem button component={Link} to="/contact">
+          <ListItemIcon>
+            <FaPhoneAlt />
+          </ListItemIcon>
+          <ListItemText primary="Contact Us" />
+        </ListItem>
+        <ListItem button component={Link} to="/about">
+          <ListItemIcon>
+            <FaInfo />
+          </ListItemIcon>
+          <ListItemText primary="About Us" />
+        </ListItem>
+       {!token&& <ListItem button component={Link} to="/login">
+          <ListItemIcon>
+            <FaSignInAlt />
+          </ListItemIcon>
+          <ListItemText primary="Login" />
+        </ListItem>}
+      { token&& <ListItem button component={Link} to="/profile">
+          <ListItemIcon>
+            <FaUser />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItem>}
+        <Divider />
+        <ListItem button component={Link} to="/products">
+          <ListItemIcon>
+            <FaShoppingCart />
+          </ListItemIcon>
+          <ListItemText primary="Product List" />
+        </ListItem>
+      </List>
+    </div>
+  );
+  
   return (
-    <div className={classes.root}>
-      <AppBar position="static" className={isSticky ? classes.sticky : ""}>
-        <Toolbar
-          style={{
-            backgroundColor: "#004aad",
-            justifyContent: "space-between",
-          }}
-        >
-          <div>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMenuOpen}
-              style={{ display: isSmallScreen ? "flex" : "none" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="nav-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              style={{ display: isSmallScreen ? "block" : "none" }}
-            >
-              <MenuItem
-                component={Link}
-                to="/contact"
-                onClick={handleMenuClose}
-              >
-                Contact Us
-              </MenuItem>
-              <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
-                About Us
-              </MenuItem>
-              {!token && (
-                <MenuItem
-                  component={Link}
-                  to="/login"
-                  onClick={handleMenuClose}
-                >
-                  Log In
-                </MenuItem>
-              )}
-              {token && (
-                <MenuItem
-                  component={Link}
-                  to="/profile"
-                  onClick={handleMenuClose}
-                >
-                  Profile
-                </MenuItem>
-              )}
-              <MenuItem
-                component={Link}
-                to="/ListProduct"
-                onClick={handleMenuClose}
-              >
-                ListProduct
-              </MenuItem>
-            </Menu>
-            <Typography variant="h6" className={classes.title}>
-              <Link to="/" className={classes.title2}>
-                Electrozayn
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{
-                    width: "150px",
-                    height: "80px",
-                    backgroundImage: "none",
-                  }}
-                />
-              </Link>
+    <>
+      <AppBar position="sticky" className={classes.appBar}>
+        <Toolbar>
+          
+            <Typography className={classes.title} variant="h6" noWrap>
+              ElectroZayn
             </Typography>
-          </div>
-          <input placeholder="Search...." onChange={(e) => handleChange(e)} />
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          
+          {/* <Hidden mdDown>
+            <Typography className={classes.title} variant="h6" noWrap>
+              ElectroZayn
+            </Typography> */}
+          {/* </Hidden> */}
+          <Hidden mdUp>
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+            >
+              <FaBars />
+            </IconButton>
+          </Hidden>
+          {/* <Hidden smDown> */}
+            <div className={classes.search} id='allsearch'>
+              <div className={classes.searchIcon}>
+                <FaSearch />
+              </div>
+              <InputBase
+              id='search'
+                placeholder="Search..."
+                onChange={(e) => handleChange(e)}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                className={classes.searchInput}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              style={{ color: 'black' }}
-              onChange={(e) => handleChange(e)}
-            />
-          </div> */}
-
-          <div style={{ display: "contents" }}>
-            <IconButton
-              edge="end"
-              className={classes.aboutButton}
-              color="inherit"
-              aria-label="contact"
-              component={Link}
-              to="/contact"
-              style={{ display: isSmallScreen ? "none" : "flex" }}
-            >
-              <Typography variant="body1">Contact Us</Typography>
-            </IconButton>
-            <IconButton
-              edge="end"
-              className={classes.aboutButton}
-              color="inherit"
-              aria-label="about"
-              component={Link}
-              to="/about"
-              style={{ display: isSmallScreen ? "none" : "flex" }}
-            >
-              <Typography variant="body1">About Us</Typography>
-            </IconButton>
-            {!token && (
-              <IconButton
-                edge="end"
-                className={classes.aboutButton}
-                color="inherit"
-                aria-label="log in"
-                component={Link}
-                to="/login"
-                style={{ display: isSmallScreen ? "none" : "flex" }}
-              >
-                <Typography variant="body1">Log In</Typography>
+          {/* </Hidden> */}
+          <div className={classes.navIcons}>
+            <Hidden smDown>
+              <IconButton color="inherit" className={classes.navIcon} >
+                <FaUser />
               </IconButton>
-            )}
-            {token && (
-              <IconButton
-                edge="end"
-                className={classes.aboutButton}
-                color="inherit"
-                aria-label="profile"
-                component={Link}
-                to="/profile"
-                style={{ display: isSmallScreen ? "none" : "flex" }}
-              >
-                <Typography variant="body1">Profile</Typography>
+            {!token&&  <IconButton color="inherit" className={classes.navIcon} component={Link} to="/login">
+                <FaSignInAlt />
+              </IconButton>}
+              <IconButton color="inherit" className={classes.navIcon}>
+                <FaPhoneAlt />
               </IconButton>
-            )}
-            <IconButton
-              edge="end"
-              className={classes.aboutButton}
-              color="inherit"
-              aria-label="contact"
-              component={Link}
-              to="/ListProduct"
-              style={{ display: isSmallScreen ? "none" : "flex" }}
-            >
-              <Typography variant="body1">ListProduct</Typography>
-            </IconButton>
-            <Typography variant="body1" component={Link} to="/chekout">
+              <IconButton color="inherit" className={classes.navIcon}>
+                <FaInfo />
+              </IconButton>
+            </Hidden>
+            <IconButton color="inherit">
               <Badge badgeContent={shop} color="secondary">
-              <FaShoppingCart className={classes.shopIcon}  />
-
+                <FaShoppingCart fontSize="xlarge" />
               </Badge>
-            </Typography>
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-    </div>
+      <Hidden mdUp>
+        <nav className={classes.drawer}>
+          <Drawer
+            variant="temporary"
+            anchor="right"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </nav>
+      </Hidden>
+    </>
   );
-}
+};
 
-export default NavBar;
+export default Navbar;
