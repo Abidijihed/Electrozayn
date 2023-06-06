@@ -191,21 +191,21 @@ const Navbar = ({ handleChange })=> {
           {/* </Hidden> */}
           <div className={classes.navIcons}>
             <Hidden smDown>
-              <IconButton color="inherit" className={classes.navIcon} >
+              <IconButton color="inherit" className={classes.navIcon} component={Link} to="/profile" >
                 <FaUser />
               </IconButton>
             {!token&&  <IconButton color="inherit" className={classes.navIcon} component={Link} to="/login">
                 <FaSignInAlt />
               </IconButton>}
-              <IconButton color="inherit" className={classes.navIcon}>
+              <IconButton color="inherit" className={classes.navIcon} component={Link} to="/contact">
                 <FaPhoneAlt />
               </IconButton>
-              <IconButton color="inherit" className={classes.navIcon}>
+              <IconButton color="inherit" className={classes.navIcon} component={Link} to="/about">
                 <FaInfo />
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
-              <Badge badgeContent={shop} color="secondary">
+              <Badge badgeContent={shop} color="secondary" component={Link} to="/chekout">
                 <FaShoppingCart fontSize="xlarge" />
               </Badge>
             </IconButton>
