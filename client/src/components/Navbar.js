@@ -110,7 +110,8 @@ const Navbar = ({ handleChange})=> {
     if (shopValue) {
       setShop(shopValue);
     }
-  }, []);  const classes = useStyles();
+  }, []); 
+   const classes = useStyles();
 
 
   const handleDrawerToggle = () => {

@@ -59,7 +59,7 @@ function ProductCard({ data }) {
       .get('https://www.electrozayn.com/api/product/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id=== data.id);
-        localStorage.setItem("products",res.data.length)
+        localStorage.setItem("shop",res.data.length)
         if (product) {
           setChek(product.check_add_or_not);
         }
