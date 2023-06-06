@@ -50,11 +50,25 @@ const useStyles = makeStyles({
   }
 });
 
-function ProductCard({ data,AddToCart,check }) {
+function ProductCard({ data }) {
+  const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
-
-
+  const getProductsCard = () => {
+    axios
+      .get('https://www.electrozayn.com/api/product/card')
+      .then((res) => {
+        const product = res.data.find((product) => product.products_id=== data.id);
+        localStorage.setItem("products",res.data.length)
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
   useEffect(() => {
     const user_id = localStorage.getItem('id');
     axios
@@ -62,6 +76,7 @@ function ProductCard({ data,AddToCart,check }) {
       .then((res) => {
         setUser(res.data);
       });
+    getProductsCard();
   }, []);
   
 const deleteProduct = (id)=>{
@@ -81,12 +96,43 @@ const deleteProduct = (id)=>{
     }
   })
 }
+const AddTocard = (data) => {
+  const user_id = localStorage.getItem('id');
+  const updatedCheck = !check; // Invert the value of `check`
+if(updatedCheck === true ){
+  axios
+    .post(`https://www.electrozayn.com/api/product/added_to/card/${user_id}`, {
+      product_name: data.product_name,
+      Origin_price: data.Origin_price,
+      Promo_price: data.Promo_price,
+      reference: data.reference,
+      product_image: data.product_image,
+      check_add_or_not: updatedCheck, // Use the updated value of `check`
+      products_id:data.id
 
+    })
+    .then((res) => {
+      setChek(updatedCheck); // Update the state with the updated value
+      getProductsCard()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }else{
+    axios.put(`https://www.electrozayn.com/api/update/card/${data.id}`)
+    .then((res)=>{
+      setChek(updatedCheck); // Update the state with the updated value
+      getProductsCard()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+};
   const classes = useStyles();
 
   return (
     <>
-    {/* {console.log(check)} */}
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
@@ -145,7 +191,7 @@ const deleteProduct = (id)=>{
           </div>
        <div style={{ display: 'flex', justifyContent: 'flex-end',color:check===1?"green":"black"}}  >
 
-<FaShoppingCart className={classes.shopIcon} onClick={() => AddToCart(data)} />
+<FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
 </div>
 
         </CardActionArea>

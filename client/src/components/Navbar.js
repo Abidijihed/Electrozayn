@@ -93,15 +93,15 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
     flexShrink: 0,
-    color:"white"
   },
   drawerPaper: {
     width: 240,
   },
 }));
 
-const Navbar = ({ handleChange,data })=> {
+const Navbar = ({ handleChange})=> {
   const token = localStorage.getItem("token");
+  var shop = localStorage.getItem("products");
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -113,7 +113,7 @@ const Navbar = ({ handleChange,data })=> {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Typography variant="h6" align="center" style={{marginTop:"10px",textDecoration:"underline"}}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px",color:"white",textDecoration:"underline"}}>
           Electrozayne
         </Typography>
       </div>
@@ -158,9 +158,16 @@ const Navbar = ({ handleChange,data })=> {
     <>
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar>
+          
             <Typography className={classes.title} variant="h6" noWrap component={Link} to="/" style={{color:"white"}}>
               ElectroZayn
             </Typography>
+          
+          {/* <Hidden mdDown>
+            <Typography className={classes.title} variant="h6" noWrap>
+              ElectroZayn
+            </Typography> */}
+          {/* </Hidden> */}
           <Hidden mdUp>
             <IconButton
               edge="end"
@@ -207,7 +214,7 @@ const Navbar = ({ handleChange,data })=> {
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
-              <Badge badgeContent={data} color="secondary" component={Link} to="/chekout">
+              <Badge badgeContent={shop} color="secondary" component={Link} to="/chekout">
                 <FaShoppingCart fontSize="xlarge" color='white'/>
               </Badge>
             </IconButton>

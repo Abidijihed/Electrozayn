@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import AddProductModal from "./Modal";
 import axios from "axios";
 import ListProducts from "./Product";
-function MyPage({ search,AddToCart,check,data }) {
+function MyPage({ search }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
-
+  const [data, setData] = useState([]);
   const handleAddProduct = (product) => {
     // Handle adding the product here
     console.log(product);
+  };
+  const getProducts = () => {
+    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+      setData(res.data);
+    });
   };
   useEffect(() => {
     const user_id = localStorage.getItem("id");
@@ -17,6 +22,7 @@ function MyPage({ search,AddToCart,check,data }) {
       .then((res) => {
         setUser(res.data);
       });
+    getProducts();
   }, []);
   return (
     <div>
@@ -47,7 +53,7 @@ function MyPage({ search,AddToCart,check,data }) {
             el.product_name.toLowerCase().includes(search.toLowerCase())
         )
         .map((el) => (
-          <ListProducts data={el} key={el.id} AddToCart={AddToCart} check={check}/>
+          <ListProducts data={el} key={el.id} />
         ))}
     </div>
   );
