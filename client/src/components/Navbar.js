@@ -103,7 +103,7 @@ const Navbar = ({ handleChange})=> {
   const token = localStorage.getItem("token");
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [shop, setShop] = useState(0);
+  const [shop, setShop] = useState('');
 
   useEffect(() => {
     const shopValue = localStorage.getItem('shop');
@@ -221,7 +221,7 @@ const Navbar = ({ handleChange})=> {
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
-              <Badge badgeContent={shop} color="secondary" component={Link} to="/chekout">
+              <Badge badgeContent={Number(shop)} color="secondary" component={Link} to="/chekout">
                 <FaShoppingCart fontSize="xlarge" color='white'/>
               </Badge>
             </IconButton>
