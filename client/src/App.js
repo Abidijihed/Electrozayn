@@ -23,9 +23,11 @@ const [data,setData]=useState([])
     setSearch(e.target.value)
   }
   useEffect(() => {
+   setTimeout(()=>{
     axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
       setData(res.data);
-    });
+    },2000);
+   })
   }, []);
   return (
     
