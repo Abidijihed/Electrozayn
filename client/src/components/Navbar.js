@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -101,10 +101,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ handleChange})=> {
   const token = localStorage.getItem("token");
-  var shop = localStorage.getItem("products");
-  const classes = useStyles();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [shop, setShop] = useState('');
+
+  useEffect(() => {
+    const shopValue = localStorage.getItem('shop');
+    if (shopValue) {
+      setShop(shopValue);
+    }
+  }, []);  const classes = useStyles();
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
