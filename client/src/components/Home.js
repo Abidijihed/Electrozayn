@@ -71,7 +71,6 @@ useEffect(()=>{
 },[])
   return (
    <>
-   <h1>https://discord.gg/EDW3FPxc</h1>
    {search.length > 0 ?<div> {data
       .filter(
         (el) =>
