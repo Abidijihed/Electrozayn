@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import HomePage from './components/Home';
@@ -11,16 +11,23 @@ import ListProduct from './components/ListProduct'
 import About from './components/About';
 import Checkout from './components/Checkout';
 import "./App.css"
+import axios from 'axios';
 // import PrivateRoutes from './components/PrivateRoute';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-  
+  const [allproducts,setqantity]=useState([])
   const [search,setSearch]=useState("")
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
+  useEffect(()=>{
+    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+      
+      setqantity(res.data);
+    });
+  },[])
   return (
     
       <div>
@@ -34,7 +41,7 @@ function App() {
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          <Route path="/chekout" element={<Checkout/>} />
+          <Route path="/chekout" element={<Checkout allproducts={allproducts}/>} />
           <Route path='/products' element={<ListProduct search={search}/>} />
         </Routes>
         <Footer />

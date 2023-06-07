@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Checkout() {
+export default function Checkout({ allproducts }) {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
@@ -71,6 +71,28 @@ export default function Checkout() {
     alert('Confirmation: Your order has been validated.');
   };
 
+  const handleIncreaseQuantity = (productId) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => {
+        if (product.id === productId) {
+          return { ...product, quantity: product.quantity + 1 };
+        }
+        return product;
+      })
+    );
+  };
+
+  const handleDecreaseQuantity = (productId) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => {
+        if (product.id === productId && product.quantity > 0) {
+          return { ...product, quantity: product.quantity - 1 };
+        }
+        return product;
+      })
+    );
+  };
+
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
@@ -86,6 +108,11 @@ export default function Checkout() {
               <Typography variant="body2" color="textSecondary" component="p">
                 Promo Price: {product.Promo_price} TND
               </Typography>
+              <div>
+                <Button onClick={() => handleDecreaseQuantity(product.id)}>-</Button>
+                <Typography>{product.quantity}</Typography>
+                <Button onClick={() => handleIncreaseQuantity(product.id)}>+</Button>
+              </div>
             </CardContent>
           </Card>
         ))

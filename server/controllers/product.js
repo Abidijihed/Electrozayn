@@ -30,6 +30,12 @@ module.exports = {
       err ? res.status(500).send(err) : res.status(201).send("product updated");
     });
   },
+  updatequantity:((req,res)=>{
+     const query=`UPDATE products SET quantity = quantity - ${req.body.quantity} WHERE id = ${req.params.id}`
+     connection.query(query,(err,result)=>{
+      err?res.status(500).send(err):res.status(201).send("Quantity Updated")
+     })
+  }),
   DeleteProduct: (req, res) => {
     const query = `DELETE FROM products WHERE id=${req.params.id}`;
     connection.query(query, (err, result) => {
