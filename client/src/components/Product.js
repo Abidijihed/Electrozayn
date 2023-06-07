@@ -71,18 +71,17 @@ function ProductCard({ data ,getlengthShop}) {
       });
   };
   
-  useEffect(async() => {
-    getProductsCard()
+  useEffect(() => {
     const user_id = localStorage.getItem('id');
-   await axios
+    axios
       .get('https://www.electrozayn.com/api/user/getone/' + user_id)
       .then((res) => {
         setUser(res.data);
       });
-    
+      getProductsCard()
     getlengthShop()
 
-  }, [check]);
+  }, []);
   
 const deleteProduct = (id)=>{
   axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
