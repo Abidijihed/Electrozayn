@@ -47,7 +47,7 @@ export default function Checkout({ getlengthShop }) {
       const updatedProducts = res.data.map((product) => ({
         ...product,
         quantity: 1,
-        total: product.Promo_price,
+        total: Number(product.Promo_price),
       }));
       setProducts(updatedProducts);
       setIsLoading(false);
