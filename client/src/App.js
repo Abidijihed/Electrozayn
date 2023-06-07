@@ -29,11 +29,10 @@ function App() {
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    // getlengthShop()
 
-  },[])
+  // },[shop])
   return (
     
       <div>

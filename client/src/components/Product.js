@@ -60,6 +60,7 @@ function ProductCard({ data ,getlengthShop}) {
       .then((res) => {
         const product = res.data.find((product) => product.products_id=== data.id);
         localStorage.setItem("shop",res.data.length)
+        console.log(product.check_add_or_not)
         if (product) {
           setChek(product.check_add_or_not);
         }
@@ -77,8 +78,9 @@ function ProductCard({ data ,getlengthShop}) {
         setUser(res.data);
       });
     getProductsCard();
-    
-  }, []);
+    getlengthShop()
+
+  }, [check]);
   
 const deleteProduct = (id)=>{
   axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
