@@ -56,7 +56,7 @@ function ProductCard({ data ,getlengthShop}) {
   const [user, setUser] = useState([]);
   const getProductsCard = () => {
     axios
-      .get('https://www.electrozayn.com/api/get_product/card')
+      .get('https://www.electrozayn.com/api/get_all_shopcard/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id=== data.id);
         localStorage.setItem("shop",res.data.length)

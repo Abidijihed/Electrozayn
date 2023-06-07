@@ -117,6 +117,17 @@ UpdateProductCard1: ((req, res) => {
       res.status(200).send("Product updated successfully");
     }
   });
-})
+}),
+getCardalllshopcard: (req, res) => {
+  const query = `SELECT * FROM shopcard WHERE check_add_or_not = ${true} )`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+},
 
 };

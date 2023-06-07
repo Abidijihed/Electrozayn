@@ -12,6 +12,7 @@ router.post('/api/product/added_to/card/:id',postrouter.AddToCart);
 
  router.post('/api/product/add_to_shop_card/:id',postrouter.AddToCart1);
  router.get('/api/get_product/card',postrouter.getCard1);
+ router.get('/api/get_all_shopcard/card',postrouter.getCardalllshopcard);
  router.put('/api/update/shop_card/:id',postrouter.UpdateProductCard1);
 
 module.exports={PosteRouter:router};
