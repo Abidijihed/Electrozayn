@@ -84,7 +84,7 @@ export default function Checkout({ getlengthShop }) {
           const updatedProduct = {
             ...product,
             quantity: product.quantity + 1,
-            total: (product.quantity + 1) * product.Promo_price,
+            total: quantity * Number(product.Promo_price),
           };
           return updatedProduct;
         }
@@ -101,7 +101,7 @@ export default function Checkout({ getlengthShop }) {
           const updatedProduct = {
             ...product,
             quantity: product.quantity - 1,
-            total: (product.quantity - 1) * product.Promo_price,
+            total: quantity * Number(product.Promo_price),
           };
           return updatedProduct;
         }
@@ -133,7 +133,7 @@ export default function Checkout({ getlengthShop }) {
               </Typography>
               <div>
                 <Button onClick={() => handleDecreaseQuantity(product.id)}>-</Button>
-                <Typography>{product.quantity}</Typography>
+                <Typography>{quantity}</Typography>
                 <Button onClick={() => handleIncreaseQuantity(product.id)}>+</Button>
               </div>
             </CardContent>
