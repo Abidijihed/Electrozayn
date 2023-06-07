@@ -41,13 +41,13 @@ export default function Checkout({ getlengthShop }) {
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
       const updatedProducts = res.data.map((product) => ({
         ...product,
-        total: product.Promo_price * quantity,
+        quantity: 1, // Initialize quantity to 1
+        total: product.Promo_price, // Set initial total to Promo_price
       }));
       setProducts(updatedProducts);
       setIsLoading(false);
@@ -84,33 +84,29 @@ export default function Checkout({ getlengthShop }) {
           const updatedProduct = {
             ...product,
             quantity: product.quantity + 1,
-            total: quantity * Number(product.Promo_price),
+            total: (product.quantity + 1) * Number(product.Promo_price),
           };
           return updatedProduct;
         }
         return product;
       })
     );
-    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const handleDecreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId && product.quantity > 0 && quantity > 1) {
+        if (product.id === productId && product.quantity > 1) {
           const updatedProduct = {
             ...product,
             quantity: product.quantity - 1,
-            total: quantity * Number(product.Promo_price),
+            total: (product.quantity - 1) * Number(product.Promo_price),
           };
           return updatedProduct;
         }
         return product;
       })
     );
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
   };
 
   return (
@@ -133,7 +129,7 @@ export default function Checkout({ getlengthShop }) {
               </Typography>
               <div>
                 <Button onClick={() => handleDecreaseQuantity(product.id)}>-</Button>
-                <Typography>{quantity}</Typography>
+                <Typography>{product.quantity}</Typography>
                 <Button onClick={() => handleIncreaseQuantity(product.id)}>+</Button>
               </div>
             </CardContent>
