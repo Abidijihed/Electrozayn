@@ -46,7 +46,7 @@ function App() {
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          <Route path="/chekout" element={<Checkout/>} getlengthShop={getlengthShop}/>
+          <Route path="/chekout" element={<Checkout getlengthShop={getlengthShop}/>} />
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
         <Footer />
