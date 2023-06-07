@@ -83,7 +83,7 @@ function ProductCard({ data ,getlengthShop}) {
     getProductsCard();
     getlengthShop()
 
-  }, []);
+  }, [check]);
   
 const deleteProduct = (id)=>{
   axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
