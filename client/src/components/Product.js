@@ -58,7 +58,7 @@ function ProductCard({ data ,getlengthShop}) {
     axios
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
       .then((res) => {
-        const product = res.data.find((product) => product.products_i === data.id);
+        const product = res.data.find((product) => product.products_id === data.id);
         localStorage.setItem("shop",res.data.length)
         console.log(product)
         if (product) {
