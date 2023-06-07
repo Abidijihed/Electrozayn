@@ -43,7 +43,8 @@ export default function Checkout({ allproducts }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://www.electrozayn.com/api/product/card').then((res) => {
+    axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
+      console.log(res.data)
       setProducts(res.data);
       setIsLoading(false);
     });

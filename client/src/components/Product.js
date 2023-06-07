@@ -101,12 +101,7 @@ const AddTocard = (data) => {
   const updatedCheck = !check; // Invert the value of `check`
 if(updatedCheck === true ){
   axios
-    .post(`https://www.electrozayn.com/api/product/added_to/card/${user_id}`, {
-      product_name: data.product_name,
-      Origin_price: data.Origin_price,
-      Promo_price: data.Promo_price,
-      reference: data.reference,
-      product_image: data.product_image,
+    .post(`https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`, {
       check_add_or_not: updatedCheck, // Use the updated value of `check`
       products_id:data.id
 
@@ -119,7 +114,7 @@ if(updatedCheck === true ){
       console.log(err);
     });
   }else{
-    axios.put(`https://www.electrozayn.com/api/update/card/${data.id}`)
+    axios.put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
     .then((res)=>{
       setChek(updatedCheck); // Update the state with the updated value
       getProductsCard()

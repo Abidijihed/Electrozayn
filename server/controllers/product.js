@@ -80,6 +80,43 @@ module.exports = {
         res.status(200).send("Product updated successfully");
       }
     });
+}),
+AddToCart1: (req, res) => {
+  console.log(req.body)
+  const query = `INSERT INTO shopcard(check_add_or_not, user_id,products_id) VALUES (?, ?, ?)`;
+  const values = [req.body.check_add_or_not, req.params.id,req.body.products_id];
+  
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+    
+    res.status(201).send("Product added to cart");
+  });
+},
+
+getCard1: (req, res) => {
+  const query = `SELECT * FROM products WHERE id IN (SELECT id FROM shopcard WHERE check_add_or_not = ${true} )`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+},
+UpdateProductCard1: ((req, res) => {
+  console.log(req.params)
+  const query = `UPDATE shopcard SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send("Product updated successfully");
+    }
+  });
 })
 
 };
