@@ -132,7 +132,6 @@ if(updatedCheck === true ){
   return (
     <>
       <Card className={classes.root}>
-        {console.log(check)}
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>
@@ -188,7 +187,7 @@ if(updatedCheck === true ){
               );
             })}
           </div>
-       <div style={{ display: 'flex', justifyContent: 'flex-end',color:check===1?"green":"black"}}  >
+       <div style={{ display: 'flex', justifyContent: 'flex-end', color:check === true ?"green":"black"}}  >
 
 <FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
 </div>
