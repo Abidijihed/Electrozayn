@@ -51,7 +51,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => sum + Number(product.Promo_price), 0);
+    const totalPrice = products.reduce((sum, product) => sum + (product.Promo_price * product.quantity), 0);
     setTotal(totalPrice);
   }, [products]);
 
@@ -71,18 +71,17 @@ export default function Checkout() {
     // Show confirmation alert
     alert('Confirmation: Your order has been validated.');
   };
-
   const handleIncreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId) {
+        if (product.id === productId && product.quantity < product.max_quantity) {
           return { ...product, quantity: product.quantity + 1 };
         }
         return product;
       })
     );
   };
-
+  
   const handleDecreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
@@ -93,7 +92,7 @@ export default function Checkout() {
       })
     );
   };
-
+  
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>

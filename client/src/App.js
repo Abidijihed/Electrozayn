@@ -31,7 +31,7 @@ function App() {
   }
   useEffect(()=>{
 
-    getlengthShop()
+    // getlengthShop()
 
   },[])
   return (
