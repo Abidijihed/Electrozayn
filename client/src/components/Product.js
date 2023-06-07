@@ -52,7 +52,6 @@ const useStyles = makeStyles({
 });
 
 function ProductCard({ data ,getlengthShop}) {
-  const [isLoading, setIsLoading] = useState(true);
   const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
@@ -62,7 +61,6 @@ function ProductCard({ data ,getlengthShop}) {
       .then((res) => {
         const product = res.data.find((product) => product.products_id === data.id);
         if (product) {
-          setIsLoading(false)
           setChek(product.check_add_or_not);
         }
         localStorage.setItem("shop",res.data.length)
@@ -137,10 +135,7 @@ if(updatedCheck === true ){
 
   return (
     <>
-      {isLoading ? <>
-      <CircularProgress />
-     </>
-      :<> <Card className={classes.root}>
+     <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>
@@ -210,7 +205,7 @@ if(updatedCheck === true ){
         product={data}
         id={data.id}
       />
-    </>}
+   
     </>
   );
 }
