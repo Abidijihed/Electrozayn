@@ -56,8 +56,8 @@ function ProductCard({ data ,getlengthShop}) {
   const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
-  const getProductsCard = async() => {
-   await axios
+  const getProductsCard = () => {
+    axios
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id === data.id);
@@ -73,14 +73,15 @@ function ProductCard({ data ,getlengthShop}) {
       });
   };
   
-  useEffect(() => {
+  useEffect(async() => {
+    getProductsCard()
     const user_id = localStorage.getItem('id');
-    axios
+   await axios
       .get('https://www.electrozayn.com/api/user/getone/' + user_id)
       .then((res) => {
         setUser(res.data);
       });
-    getProductsCard();
+    
     getlengthShop()
 
   }, [check]);
