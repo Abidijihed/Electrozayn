@@ -6,6 +6,7 @@ import {
   CardContent,
   Typography,
   makeStyles,
+  CircularProgress
 } from '@material-ui/core';
 import { Button } from 'react-bootstrap';
 import AddProductModal from './UpdateModal';
@@ -51,6 +52,7 @@ const useStyles = makeStyles({
 });
 
 function ProductCard({ data ,getlengthShop}) {
+  const [isLoading, setIsLoading] = useState(true);
   const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
@@ -59,11 +61,12 @@ function ProductCard({ data ,getlengthShop}) {
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id === data.id);
-        localStorage.setItem("shop",res.data.length)
-        console.log(product)
         if (product) {
+          setIsLoading(false)
           setChek(product.check_add_or_not);
         }
+        localStorage.setItem("shop",res.data.length)
+
       })
       .catch((err) => {
         console.log(err);
@@ -133,7 +136,10 @@ if(updatedCheck === true ){
 
   return (
     <>
-      <Card className={classes.root}>
+      {isLoading ? <>
+      <CircularProgress />
+     </>
+      :<> <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>
@@ -203,6 +209,7 @@ if(updatedCheck === true ){
         product={data}
         id={data.id}
       />
+    </>}
     </>
   );
 }

@@ -44,7 +44,6 @@ export default function Checkout({getlengthShop}) {
  const  [quantity,setQuantity]=useState(1)
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
-      console.log(res.data)
       setProducts(res.data);
       setIsLoading(false);
     });
@@ -54,7 +53,6 @@ export default function Checkout({getlengthShop}) {
   useEffect(() => {
     const totalPrice = products.reduce((sum, product) => sum + (Number(product.Promo_price) * Number(quantity)), 0);
     setTotal(totalPrice);
-    console.log(totalPrice)
   }, [products]);
 
   const handlePaymentMethodChange = (event) => {
