@@ -54,8 +54,8 @@ function ProductCard({ data ,getlengthShop}) {
   const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
-  const getProductsCard = () => {
-    axios
+  const getProductsCard = async() => {
+   await axios
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id === data.id);

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Checkout() {
+export default function Checkout({getlengthShop}) {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
@@ -48,6 +48,7 @@ export default function Checkout() {
       setProducts(res.data);
       setIsLoading(false);
     });
+    getlengthShop()
   }, []);
 
   useEffect(() => {
@@ -87,13 +88,16 @@ export default function Checkout() {
   const handleDecreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId && product.quantity > 0 && quantity >0) {
+        if (product.id === productId && product.quantity > 0 && quantity > 1) {
           return { ...product, quantity: product.quantity - 1 };
         }
         return product;
       })
     );
-    setQuantity((prevQuantity) => prevQuantity - 1);
+    if(quantity > 1){
+      setQuantity((prevQuantity) => prevQuantity - 1);
+
+    }
   };
   
   return (
