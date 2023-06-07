@@ -12,20 +12,20 @@ import { Button } from 'react-bootstrap';
 import AddProductModal from './UpdateModal';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     flex: '0 0 calc(33.33% - 1rem)',
-    marginTop: "50px",
+    marginTop: '50px',
     marginBottom: '1rem',
     marginRight: '1rem',
     marginLeft: '1rem',
     display: 'inline-block',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
     position: 'relative',
-    width:"450px"
+    width: '450px',
   },
   media: {
     height: 200,
@@ -34,13 +34,9 @@ const useStyles = makeStyles({
     backgroundImage: 'none',
   },
   shopIcon: {
-    // position: 'absolute',
-    // top: '0.5rem',
-    // left: '0.5rem',
-    marginRight: "13px",
-    marginBottom:"6px",
-    fontSize: '1.5rem',
-    fontSize:"40px"
+    marginRight: '13px',
+    marginBottom: '6px',
+    fontSize: '40px',
   },
   promoPrice: {
     color: 'green',
@@ -48,13 +44,14 @@ const useStyles = makeStyles({
   originalPrice: {
     color: 'red',
     textDecoration: 'line-through',
-  }
+  },
 });
 
-function ProductCard({ data ,getlengthShop}) {
-  const [check,setChek]=useState()
+function ProductCard({ data, getlengthShop }) {
+  const [check, setChek] = useState();
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
+
   const getProductsCard = () => {
     axios
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
@@ -63,75 +60,76 @@ function ProductCard({ data ,getlengthShop}) {
         if (product) {
           setChek(product.check_add_or_not);
         }
-        localStorage.setItem("shop",res.data.length)
-
+        localStorage.setItem('shop', res.data.length);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  
+
   useEffect(() => {
     const user_id = localStorage.getItem('id');
-    axios
-      .get('https://www.electrozayn.com/api/user/getone/' + user_id)
-      .then((res) => {
-        setUser(res.data);
-      });
-      getProductsCard()
-    getlengthShop()
-
+    axios.get('https://www.electrozayn.com/api/user/getone/' + user_id).then((res) => {
+      setUser(res.data);
+    });
+    getProductsCard();
+    getlengthShop();
   }, []);
-  
-const deleteProduct = (id)=>{
-  axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
-  .then((res)=>{
-    if(res.data==="product deleted"){
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Your product deleted !',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      setTimeout(() => {
-        window.location.reload()
-      }, 1500);
-    }
-  })
-}
-const AddTocard = (data) => {
-  const user_id = localStorage.getItem('id');
-  const updatedCheck = !check; // Invert the value of `check`
-if(updatedCheck === true ){
-  axios
-    .post(`https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`, {
-      check_add_or_not: updatedCheck, // Use the updated value of `check`
-      products_id:data.id
 
-    })
-    .then((res) => {
-      setChek(updatedCheck); // Update the state with the updated value
-      getProductsCard()
-      getlengthShop()
-    })
-    .catch((err) => {
-      console.log(err);
+  const deleteProduct = (id) => {
+    axios.delete('https://www.electrozayn.com/api/delete/product/' + id).then((res) => {
+      if (res.data === 'product deleted') {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your product deleted !',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
     });
-  }else{
-    axios.put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
-    .then((res)=>{
-      setChek(updatedCheck); // Update the state with the updated value
-      getProductsCard()
-      getlengthShop()
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-};
+  };
+
+  const AddTocard = (data) => {
+    const user_id = localStorage.getItem('id');
+    const updatedCheck = !check; // Invert the value of `check`
+    if (updatedCheck === true) {
+      axios
+        .post(`https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`, {
+          check_add_or_not: updatedCheck, // Use the updated value of `check`
+          products_id: data.id,
+        })
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   const classes = useStyles();
 
+  useEffect(() => {
+    getProductsCard(); // Call the function when navigating to the component
+  }, []);
+  
   return (
     <>
      <Card className={classes.root}>

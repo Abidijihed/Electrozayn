@@ -35,23 +35,28 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Checkout({getlengthShop}) {
+export default function Checkout({ getlengthShop }) {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
- const  [quantity,setQuantity]=useState(1)
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
-      setProducts(res.data);
+      const updatedProducts = res.data.map((product) => ({
+        ...product,
+        total: product.Promo_price * quantity,
+      }));
+      setProducts(updatedProducts);
       setIsLoading(false);
     });
-    getlengthShop()
+    getlengthShop();
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => sum + (Number(product.Promo_price) * Number(quantity)), 0);
+    const totalPrice = products.reduce((sum, product) => sum + product.total, 0);
     setTotal(totalPrice);
   }, [products]);
 
@@ -71,33 +76,43 @@ export default function Checkout({getlengthShop}) {
     // Show confirmation alert
     alert('Confirmation: Your order has been validated.');
   };
+
   const handleIncreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId && product.quantity < product.max_quantity ) {
-          return { ...product, quantity: product.quantity + 1 };
+        if (product.id === productId && product.quantity < product.max_quantity) {
+          const updatedProduct = {
+            ...product,
+            quantity: product.quantity + 1,
+            total: (product.quantity + 1) * product.Promo_price,
+          };
+          return updatedProduct;
         }
         return product;
       })
     );
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
-  
+
   const handleDecreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
         if (product.id === productId && product.quantity > 0 && quantity > 1) {
-          return { ...product, quantity: product.quantity - 1 };
+          const updatedProduct = {
+            ...product,
+            quantity: product.quantity - 1,
+            total: (product.quantity - 1) * product.Promo_price,
+          };
+          return updatedProduct;
         }
         return product;
       })
     );
-    if(quantity > 1){
+    if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-
     }
   };
-  
+
   return (
     <div className={classes.root}>
       <Typography variant="h6">Checkout</Typography>
@@ -113,9 +128,12 @@ export default function Checkout({getlengthShop}) {
               <Typography variant="body2" color="textSecondary" component="p">
                 Promo Price: {product.Promo_price} TND
               </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Total: {product.total} TND
+              </Typography>
               <div>
                 <Button onClick={() => handleDecreaseQuantity(product.id)}>-</Button>
-                <Typography>{quantity}</Typography>
+                <Typography>{product.quantity}</Typography>
                 <Button onClick={() => handleIncreaseQuantity(product.id)}>+</Button>
               </div>
             </CardContent>
