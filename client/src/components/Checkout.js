@@ -41,7 +41,7 @@ export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
- const  [quantity,setQuantity]=useState(0)
+ const  [quantity,setQuantity]=useState(1)
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
       console.log(res.data)
@@ -51,7 +51,7 @@ export default function Checkout() {
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => sum + (Number(product.Promo_price) * Number(product.quantity)), 0);
+    const totalPrice = products.reduce((sum, product) => sum + (Number(product.Promo_price) * Number(quantity)), 0);
     setTotal(totalPrice);
     console.log(totalPrice)
   }, [products]);
@@ -75,7 +75,7 @@ export default function Checkout() {
   const handleIncreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId && product.quantity < product.max_quantity) {
+        if (product.id === productId && product.quantity < product.max_quantity ) {
           return { ...product, quantity: product.quantity + 1 };
         }
         return product;
@@ -87,7 +87,7 @@ export default function Checkout() {
   const handleDecreaseQuantity = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {
-        if (product.id === productId && product.quantity > 0) {
+        if (product.id === productId && product.quantity > 0 && quantity >0) {
           return { ...product, quantity: product.quantity - 1 };
         }
         return product;

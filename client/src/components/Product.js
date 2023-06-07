@@ -80,7 +80,7 @@ function ProductCard({ data ,getlengthShop}) {
     getProductsCard();
     getlengthShop()
 
-  }, [check]);
+  }, []);
   
 const deleteProduct = (id)=>{
   axios.delete("https://www.electrozayn.com/api/delete/product/"+id)
@@ -189,7 +189,7 @@ if(updatedCheck === true ){
               );
             })}
           </div>
-       <div style={{ display: 'flex', justifyContent: 'flex-end', color:check === true ?"green":"black"}}  >
+       <div style={{ display: 'flex', justifyContent: 'flex-end', color:check === 1 ?"green":"black"}}  >
 
 <FaShoppingCart className={classes.shopIcon} onClick={() => AddTocard(data)} />
 </div>
