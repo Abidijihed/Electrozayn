@@ -132,6 +132,7 @@ if(updatedCheck === true ){
   return (
     <>
       <Card className={classes.root}>
+        {console.log(check)}
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>
