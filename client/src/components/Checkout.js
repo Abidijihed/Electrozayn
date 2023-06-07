@@ -46,8 +46,8 @@ export default function Checkout({ getlengthShop }) {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
       const updatedProducts = res.data.map((product) => ({
         ...product,
-        quantity: 1, // Initialize quantity to 1
-        total: product.Promo_price, // Set initial total to Promo_price
+        quantity: 1,
+        total: product.Promo_price,
       }));
       setProducts(updatedProducts);
       setIsLoading(false);
