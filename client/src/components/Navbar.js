@@ -121,7 +121,7 @@ const Navbar = ({ handleChange})=> {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Typography variant="h6" align="center" style={{marginTop:"10px",textDecoration:"underline"}}>
+        <Typography variant="h6" align="center" style={{marginTop:"10px",textDecoration:"underline"}} component={Link} to="/">
           Electrozayne
         </Typography>
       </div>
