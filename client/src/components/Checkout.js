@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Checkout({ allproducts }) {
+export default function Checkout() {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');

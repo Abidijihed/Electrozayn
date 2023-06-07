@@ -99,18 +99,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleChange})=> {
+const Navbar = ({ handleChange,shop})=> {
   const token = localStorage.getItem("token");
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const [shop, setShop] = useState('');
-
-  useEffect(() => {
-    const shopValue = localStorage.getItem('shop');
-    if (shopValue) {
-      setShop(shopValue);
-    }
-  }, [shop]); 
+ 
    const classes = useStyles();
 
 

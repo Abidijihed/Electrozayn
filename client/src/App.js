@@ -17,23 +17,29 @@ import axios from 'axios';
 
 
 function App() {
-  const [allproducts,setqantity]=useState([])
   const [search,setSearch]=useState("")
+  const [shop, setShop] = useState('');
+
+  const getlengthShop=() => {
+    const shopValue = localStorage.getItem('shop');
+    if (shopValue) {
+      setShop(shopValue);
+    }
+  }
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
   useEffect(()=>{
-    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
-      
-      setqantity(res.data);
-    });
+
+    getlengthShop()
+
   },[])
   return (
     
       <div>
         <BrowserRouter>
        
-        <NavBar handleChange={handleChange}/>
+        <NavBar handleChange={handleChange} shop={shop} />
         <Routes>
           <Route exact path="/" element={<HomePage search={search}/>} />
           <Route path="/contact" element={<ContactPage/>} />
@@ -41,8 +47,8 @@ function App() {
          <Route path="/profile"  element={<Profile />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          <Route path="/chekout" element={<Checkout allproducts={allproducts}/>} />
-          <Route path='/products' element={<ListProduct search={search}/>} />
+          <Route path="/chekout" element={<Checkout/>} />
+          <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
         <Footer />
         </BrowserRouter>

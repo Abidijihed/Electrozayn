@@ -50,13 +50,13 @@ const useStyles = makeStyles({
   }
 });
 
-function ProductCard({ data }) {
+function ProductCard({ data ,getlengthShop}) {
   const [check,setChek]=useState()
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
   const getProductsCard = () => {
     axios
-      .get('https://www.electrozayn.com/api/product/card')
+      .get('https://www.electrozayn.com/api/get_product/card')
       .then((res) => {
         const product = res.data.find((product) => product.products_id=== data.id);
         localStorage.setItem("shop",res.data.length)
@@ -77,6 +77,7 @@ function ProductCard({ data }) {
         setUser(res.data);
       });
     getProductsCard();
+    
   }, []);
   
 const deleteProduct = (id)=>{
@@ -109,6 +110,7 @@ if(updatedCheck === true ){
     .then((res) => {
       setChek(updatedCheck); // Update the state with the updated value
       getProductsCard()
+      getlengthShop()
     })
     .catch((err) => {
       console.log(err);
@@ -118,6 +120,7 @@ if(updatedCheck === true ){
     .then((res)=>{
       setChek(updatedCheck); // Update the state with the updated value
       getProductsCard()
+      getlengthShop()
     })
     .catch((err) => {
       console.log(err);

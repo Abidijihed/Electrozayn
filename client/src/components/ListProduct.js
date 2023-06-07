@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddProductModal from "./Modal";
 import axios from "axios";
 import ListProducts from "./Product";
-function MyPage({ search }) {
+function MyPage({ search ,getlengthShop}) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
   const [data, setData] = useState([]);
@@ -53,7 +53,7 @@ function MyPage({ search }) {
             el.product_name.toLowerCase().includes(search.toLowerCase())
         )
         .map((el) => (
-          <ListProducts data={el} key={el.id} />
+          <ListProducts data={el} key={el.id} getlengthShop={getlengthShop} />
         ))}
     </div>
   );
