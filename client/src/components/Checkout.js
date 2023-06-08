@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import axios from 'axios';
-
+import { TiDelete } from "react-icons/ti";
 const useStyles = makeStyles({
   root: {
     display: 'flex',
@@ -52,7 +52,14 @@ export default function Checkout({ getlengthShop }) {
       setIsLoading(false);
     });
     getlengthShop();
-  }, []);
+  }, [products]);
+  const handleUpdate = (id) => {
+   axios.put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
+   .then((res)=>{
+    console.log(res.data)
+    setProducts(products)
+   })
+  }
 
   useEffect(() => {
     const totalPrice = products.reduce(
@@ -61,7 +68,7 @@ export default function Checkout({ getlengthShop }) {
     );
     setTotal(totalPrice);
   }, [products]);
-  
+
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
@@ -74,7 +81,7 @@ export default function Checkout({ getlengthShop }) {
     }
     return total;
   };
-  
+
 
   const incrementQuantity = (productId) => {
     setProducts((prevProducts) =>
@@ -126,17 +133,21 @@ export default function Checkout({ getlengthShop }) {
               <Typography variant="body2" color="textSecondary" component="p">
                 Promo Price: {product.Promo_price} TND
               </Typography>
-              
+
               <div style={{ display: 'flex' }}>
                 <Button onClick={() => incrementQuantity(product.id)}>+</Button>
                 <Typography>{product.quantity}</Typography>
                 <Button onClick={() => decrementQuantity(product.id)}>-</Button>
               </div>
               <Typography variant="body2" color="black" component="h3">
-                
+
                 Total: {Number(product.Promo_price) * Number(product.quantity)} TND
               </Typography>
             </CardContent>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', color: "red" }}  >
+
+              <TiDelete className={classes.shopIcon} onClick={() => handleUpdate(product.id)} />
+            </div>
           </Card>
         ))
       )}
