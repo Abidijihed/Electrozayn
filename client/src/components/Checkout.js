@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Card,
   CardContent,
@@ -109,7 +111,9 @@ export default function Checkout({ getlengthShop }) {
     axios
       .put(`https://www.electrozayn.com/api/update_quantity/${productId}`, { quantity })
       .then((res) => {
-        console.log(res.data); // Quantity Updated
+        toast.success('Success Notification !', {
+          position: toast.POSITION.TOP_RIGHT
+      });// Quantity Updated
       })
       .catch((error) => {
         console.error(error);
