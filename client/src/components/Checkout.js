@@ -128,6 +128,7 @@ export default function Checkout({ getlengthShop }) {
 
   return (
     <div className={classes.root}>
+      <ToastContainer />
       <Typography variant="h6">Checkout</Typography>
       {isLoading ? (
         <CircularProgress />
