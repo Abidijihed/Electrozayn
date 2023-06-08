@@ -104,7 +104,9 @@ setChek(check)
           products_id: data.id,
         })
         .then((res) => {
+          
           setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard()
           getlengthShop();
         })
         .catch((err) => {
@@ -115,6 +117,7 @@ setChek(check)
         .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
         .then((res) => {
           setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
           getlengthShop();
         })
         .catch((err) => {
@@ -127,7 +130,7 @@ setChek(check)
 
   useEffect(() => {
     getProductsCard(); // Call the function when navigating to the component
-  }, []);
+  }, [check]);
   
   return (
     <>

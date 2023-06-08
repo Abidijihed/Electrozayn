@@ -61,7 +61,6 @@ export default function Checkout({ getlengthShop }) {
   const handleUpdate = (id) => {
    axios.put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
    .then((res)=>{
-    console.log(res.data)
     setProducts(products)
    })
   }
