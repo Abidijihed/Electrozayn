@@ -29,10 +29,10 @@ function App() {
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
-  // useEffect(()=>{
+  useEffect(()=>{
 
-
-  // },[shop])
+setShop(shop)
+  },[shop])
   return (
     
       <div>

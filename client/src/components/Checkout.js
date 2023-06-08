@@ -33,6 +33,11 @@ const useStyles = makeStyles({
     marginTop: '1rem',
     fontWeight: 'bold',
   },
+  deleteIcon: {
+    marginRight: '13px',
+    fontSize: '25px',
+    cursor:"pointer"
+  },
 });
 
 export default function Checkout({ getlengthShop }) {
@@ -146,7 +151,7 @@ export default function Checkout({ getlengthShop }) {
             </CardContent>
             <div style={{ display: 'flex', justifyContent: 'flex-end', color: "red" }}  >
 
-              <TiDelete className={classes.shopIcon} onClick={() => handleUpdate(product.id)} />
+              <TiDelete className={classes.deleteIcon} onClick={() => handleUpdate(product.id)} />
             </div>
           </Card>
         ))

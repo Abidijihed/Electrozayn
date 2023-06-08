@@ -72,9 +72,9 @@ function ProductCard({ data, getlengthShop }) {
     axios.get('https://www.electrozayn.com/api/user/getone/' + user_id).then((res) => {
       setUser(res.data);
     });
-    getProductsCard();
-    getlengthShop();
-  }, []);
+setChek(check)   
+ getlengthShop();
+  }, [check]);
 
   const deleteProduct = (id) => {
     axios.delete('https://www.electrozayn.com/api/delete/product/' + id).then((res) => {
@@ -105,7 +105,6 @@ function ProductCard({ data, getlengthShop }) {
         })
         .then((res) => {
           setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
           getlengthShop();
         })
         .catch((err) => {
@@ -116,7 +115,6 @@ function ProductCard({ data, getlengthShop }) {
         .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
         .then((res) => {
           setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
           getlengthShop();
         })
         .catch((err) => {
