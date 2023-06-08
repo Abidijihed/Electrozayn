@@ -40,7 +40,7 @@ function App() {
        
         <NavBar handleChange={handleChange} shop={shop} />
         <Routes>
-          <Route exact path="/" element={<HomePage search={search}/>} />
+          <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/signup"  element={<SignupPage/>}/>
          <Route path="/profile"  element={<Profile />}/>

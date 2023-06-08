@@ -42,46 +42,8 @@ module.exports = {
       err ? res.status(500).send(err) : res.status(200).send("product deleted");
     });
   },
-  AddToCart: (req, res) => {
-    console.log(req.body)
-    const query = `INSERT INTO addtocart(product_name, Origin_price, Promo_price, reference, check_add_or_not, product_image, user_id,products_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    const values = [req.body.product_name, req.body.Origin_price, req.body.Promo_price, req.body.reference, req.body.check_add_or_not, req.body.product_image, req.params.id,req.body.products_id];
-    
-    connection.query(query, values, (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(err);
-      }
-      
-      res.status(201).send("Product added to cart");
-    });
-  },
-  
-  getCard: (req, res) => {
-    const query = "SELECT * FROM addtocart WHERE check_add_or_not = ?";
-    const checkAddOrNot = true;
-  
-    connection.query(query, [checkAddOrNot], (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send(err);
-      } else {
-        res.status(200).send(result);
-      }
-    });
-  },
-  UpdateProductCard: ((req, res) => {
-    console.log(req.params)
-    const query = `UPDATE addtocart SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
-    connection.query(query, (err, result) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).send("Product updated successfully");
-      }
-    });
-}),
-AddToCart1: (req, res) => {
+
+AddToCart: (req, res) => {
   console.log(req.body)
   const query = `INSERT INTO shopcard(check_add_or_not, user_id,products_id) VALUES (?, ?, ?)`;
   const values = [req.body.check_add_or_not, req.params.id,req.body.products_id];
@@ -96,7 +58,7 @@ AddToCart1: (req, res) => {
   });
 },
 
-getCard1: (req, res) => {
+getCard: (req, res) => {
   const query = `SELECT * FROM products WHERE id IN (SELECT id FROM shopcard WHERE check_add_or_not = ${true} )`;
   connection.query(query, (err, result) => {
     if (err) {
@@ -107,7 +69,7 @@ getCard1: (req, res) => {
     }
   });
 },
-UpdateProductCard1: ((req, res) => {
+UpdateProductCard: ((req, res) => {
   console.log(req.params)
   const query = `UPDATE shopcard SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
   connection.query(query, (err, result) => {

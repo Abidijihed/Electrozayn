@@ -44,69 +44,71 @@ export default function Checkout({ getlengthShop }) {
 
   useEffect(() => {
     axios.get('https://www.electrozayn.com/api/get_product/card').then((res) => {
-      const updatedProducts = res.data.map((product) => ({
+      const productsWithQuantity = res.data.map((product) => ({
         ...product,
-        quantity: 1,
-        total: Number(product.Promo_price),
+        quantity: 1, // Initialize quantity as 1 for each product
       }));
-      setProducts(updatedProducts);
+      setProducts(productsWithQuantity);
       setIsLoading(false);
     });
     getlengthShop();
   }, []);
 
   useEffect(() => {
-    const totalPrice = products.reduce((sum, product) => sum + product.total, 0);
+    const totalPrice = products.reduce(
+      (sum, product) => sum + Number(product.Promo_price) * product.quantity,
+      0
+    );
     setTotal(totalPrice);
   }, [products]);
-
+  
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
-
   const handleTotal = () => {
+    if (isLoading || products.length === 0) {
+      return 0;
+    }
     if (paymentMethod === 'pay_on_delivery') {
       return total + 7;
     }
     return total;
   };
+  
+
+  const incrementQuantity = (productId) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId ? { ...product, quantity: product.quantity + 1 } : product
+      )
+    );
+  };
+
+  const decrementQuantity = (productId) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId && product.quantity > 1
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      )
+    );
+  };
+
+  const updateQuantityOnServer = (productId, quantity) => {
+    axios
+      .put(`https://www.electrozayn.com/api/update_quantity/${productId}`, { quantity })
+      .then((res) => {
+        console.log(res.data); // Quantity Updated
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const handleValidation = () => {
-    // Perform validation logic here
-    // Show confirmation alert
-    alert('Confirmation: Your order has been validated.');
-  };
-
-  const handleIncreaseQuantity = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) => {
-        if (product.id === productId && product.quantity < product.max_quantity) {
-          const updatedProduct = {
-            ...product,
-            quantity: product.quantity + 1,
-            total: (product.quantity + 1) * Number(product.Promo_price),
-          };
-          return updatedProduct;
-        }
-        return product;
-      })
-    );
-  };
-
-  const handleDecreaseQuantity = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) => {
-        if (product.id === productId && product.quantity > 1) {
-          const updatedProduct = {
-            ...product,
-            quantity: product.quantity - 1,
-            total: (product.quantity - 1) * Number(product.Promo_price),
-          };
-          return updatedProduct;
-        }
-        return product;
-      })
-    );
+    products.forEach((product) => {
+      updateQuantityOnServer(product.id, product.quantity);
+    });
   };
 
   return (
@@ -124,14 +126,16 @@ export default function Checkout({ getlengthShop }) {
               <Typography variant="body2" color="textSecondary" component="p">
                 Promo Price: {product.Promo_price} TND
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Total: {product.total} TND
-              </Typography>
-              <div>
-                <Button onClick={() => handleDecreaseQuantity(product.id)}>-</Button>
+              
+              <div style={{ display: 'flex' }}>
+                <Button onClick={() => incrementQuantity(product.id)}>+</Button>
                 <Typography>{product.quantity}</Typography>
-                <Button onClick={() => handleIncreaseQuantity(product.id)}>+</Button>
+                <Button onClick={() => decrementQuantity(product.id)}>-</Button>
               </div>
+              <Typography variant="body2" color="black" component="h3">
+                
+                Total: {Number(product.Promo_price) * Number(product.quantity)} TND
+              </Typography>
             </CardContent>
           </Card>
         ))
@@ -157,7 +161,7 @@ export default function Checkout({ getlengthShop }) {
         label="Pay with Card"
       />
       <Typography variant="h6" className={classes.total}>
-        Total: {handleTotal()} TND
+        Total Price: {handleTotal()} TND
       </Typography>
       <Button variant="contained" color="primary" onClick={handleValidation}>
         Validate Order

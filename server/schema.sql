@@ -69,28 +69,15 @@ CREATE TABLE IF NOT EXISTS newsletter (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS addtocart (
-  id INT NOT NULL AUTO_INCREMENT,
-  product_name VARCHAR(255) NOT NULL,
-  Origin_price VARCHAR(150) NOT NULL,
-  Promo_price VARCHAR(255) NOT NULL,
-  reference VARCHAR(255) NOT NULL,
-  check_add_or_not BOOLEAN NOT NULL,
-  product_image VARCHAR(255) NOT NULL,
-  user_id INT NOT NULL,
-  products_id INT NOT NULL,
-  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id,products_id),
-  FOREIGN KEY (products_id) REFERENCES products(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
-);
+
 CREATE TABLE IF NOT EXISTS shopcard (
   id INT NOT NULL AUTO_INCREMENT,
   check_add_or_not BOOLEAN NOT NULL,
   user_id INT NOT NULL,
   products_id INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id,products_id,check_add_or_not),
+  PRIMARY KEY (id, products_id, check_add_or_not),
   FOREIGN KEY (products_id) REFERENCES products(id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
+

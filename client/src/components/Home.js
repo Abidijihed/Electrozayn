@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HomePage({search}) {
+function HomePage({search,getlengthShop}) {
   const [data, setData] = useState([]);
   const classes = useStyles();
   const [index, setIndex] = useState(0);
@@ -79,7 +79,7 @@ useEffect(()=>{
           el.product_name.toLowerCase().includes(search.toLowerCase())
       )
       .map((el) => (
-        <ListProducts data={el} key={el.id} />
+        <ListProducts data={el} key={el.id} getlengthShop={getlengthShop} />
       ))}
    </div>
     : <div className={classes.root}>
