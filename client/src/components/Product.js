@@ -94,6 +94,7 @@ function ProductCard({ data, getlengthShop }) {
   };
 
   const AddTocard = (data) => {
+    
     const user_id = localStorage.getItem('id');
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
