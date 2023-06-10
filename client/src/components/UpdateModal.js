@@ -114,7 +114,7 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
     <Modal open={open} onClose={handleClose}>
       <div className={classes.paper}>
         <Typography variant="h6" gutterBottom>
-          Add Product
+          Update Product
         </Typography>
        
           <TextField

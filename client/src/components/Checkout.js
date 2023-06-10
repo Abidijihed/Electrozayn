@@ -44,6 +44,7 @@ const useStyles = makeStyles({
 
 export default function Checkout({ getlengthShop }) {
   const classes = useStyles();
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
@@ -183,7 +184,7 @@ export default function Checkout({ getlengthShop }) {
       <Typography variant="h6" className={classes.total}>
         Total Price: {handleTotal()} TND
       </Typography>
-      <Button variant="contained" color="primary" onClick={handleValidation}>
+      <Button variant="contained" color="primary" onClick={() => setOpenAddProductModal(true)}>
         Validate Order
       </Button>
     </div>

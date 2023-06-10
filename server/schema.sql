@@ -81,3 +81,16 @@ CREATE TABLE IF NOT EXISTS shopcard (
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE IF NOT EXISTS order (
+  id INT NOT NULL AUTO_INCREMENT,
+  validate_add_or_not BOOLEAN NOT NULL,
+  FirstName VARCHAR(200) NOT NULL,
+  Email VARCHAR(200) NOT NULL,
+  PhoneNumber VARCHAR(255) NOT NULL,
+  country VARCHAR(200) NOT NULL,
+  Zip VARCHAR(250) NOT NULL,
+  user_id INT NOT NULL,
+  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (id, validate_add_or_not, user_id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);

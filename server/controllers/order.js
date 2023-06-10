@@ -1,0 +1,113 @@
+const { connection } = require("../databaseconfig/config");
+module.exports={
+    CreateOrder: (req, res) => {
+        const { FirstName, Email, PhoneNumber, country, Zip } = req.body;
+        const user_id = req.params.id;
+        const validate_add_or_not = false;
+      
+        const query = `
+          INSERT INTO order (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip, user_id)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
+             connection.query(query, [validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip, user_id], (err, result) => {
+          if (err) {
+            res.status(500).send(err);
+          } else {
+            res.status(200).send("order created");
+            const query=`UPDATE user SET FirstName="${FirstName}",country="${country}",Zip="${Zip}" WHERE id=${req.params.id}`
+            connection.query(query, (err, result) => {
+                err ? res.status(500).send(err):res.status(201).send('user updated')
+            })
+          }
+        });
+      },
+      getAllOrder: (req, res) => {
+        const query = 'SELECT * FROM order';
+      
+        // Execute the query to fetch all orders
+        connection.query(query, (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send(result);
+          }
+        });
+      },
+      updateOrder: (req, res) => {
+        const { order_id } = req.params;
+        const { FirstName, Email, PhoneNumber, country, Zip } = req.body;
+      
+        const query = `
+          UPDATE order
+          SET FirstName = ?, Email = ?, PhoneNumber = ?, country = ?, Zip = ?
+          WHERE id = ?
+        `;
+      
+        // Execute the query to update the order
+        connection.query(query, [FirstName, Email, PhoneNumber, country, Zip, order_id], (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send('An error occurred while updating the order' );
+          } else {
+            res.status(200).send('info order updated');
+          }
+        });
+      },
+      deleteOrder: (req, res) => {
+        const { order_id } = req.params;
+        const { user_id } = req.params;
+      
+        const query = `
+          DELETE FROM order
+          WHERE id = ? AND user_id = ?
+        `;
+      
+        // Execute the query to delete the order
+        connection.query(query, [order_id, user_id], (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(err)
+          } else {
+            res.status(200).send("order deleted");
+          }
+        });
+      },
+      confirmOrder: (req, res) => {
+        const { order_id } = req.params;
+      
+        const query = `
+          UPDATE order
+          SET validate_add_or_not = true
+          WHERE id = ?
+        `;
+      
+        // Execute the query to confirm the order
+        connection.query(query, [order_id], (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send("order confirmed");
+          }
+        });
+      },
+      getAllOrderUser: (req, res) => {
+        const query = `SELECT * FROM order WHERE user_id = ${req.params.id}`;
+      
+        // Execute the query to fetch all orders
+        connection.query(query, (err, result) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send(result);
+          }
+        });
+      },
+      
+      
+      
+      
+      
+}
