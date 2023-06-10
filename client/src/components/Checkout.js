@@ -102,8 +102,8 @@ export default function Checkout({ getlengthShop }) {
     if (paymentMethod === "pay_on_delivery") {
       totalPrice += 7;
     }
-  setTotal(totalPrice)
-  }
+    return totalPrice;
+  };
   
 
   const incrementQuantity = (productId) => {
@@ -231,7 +231,7 @@ export default function Checkout({ getlengthShop }) {
       <CheckoutValidation
         open={openCheckoutValidation}
         handleClose={() => setOpenCheckoutValidation(false)}
-        totalPrice={totalPrice}
+        totalPrice={handleTotal()}
         products={products}
         handleValidation={handleValidation}
       />
