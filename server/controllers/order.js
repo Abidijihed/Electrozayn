@@ -7,8 +7,8 @@ module.exports={
         const validate_add_or_not = false;
       
         const query = `
-          INSERT INTO userorder (validate_add_or_not, FirstName, Email,address, PhoneNumber, country, Zip,total_price,product_name,product_quantity ,user_id)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO userorder (validate_add_or_not, FirstName, Email, address, PhoneNumber, country, Zip,total_price,product_name,product_quantity ,user_id)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
         `;
              connection.query(query, [validate_add_or_not, FirstName, Email,address, PhoneNumber, country, Zip,total_price,product_name,product_quantity, user_id], (err, result) => {
           if (err) {
