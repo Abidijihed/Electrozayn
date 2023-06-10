@@ -2,7 +2,7 @@ const router=require('express').Router();
 const orderController=require('../controllers/order')
 
 // Route for creating an order
-router.post('/api/create/order/:user_id', orderController.CreateOrder);
+router.post('/api/create/order/:id', orderController.CreateOrder);
 
 // Route for getting all orders
 router.get('/api/get_all_order', orderController.getAllOrder);

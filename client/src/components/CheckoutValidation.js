@@ -44,7 +44,7 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
   const handleSubmit = async () => {
     var quantity=0
     var productname=""
-    var user_id = localStorage.getItem("id");
+    var id = localStorage.getItem("id");
     if (FirstName === "") {
       setFirstNameError(true);
     } else {
@@ -89,7 +89,7 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
          productname+=el.product_name+" "
         })
       axios
-        .post(`https://www.electrozayn.com/api/create/order/${user_id}`, {
+        .post(`https://www.electrozayn.com/api/create/order/${id}`, {
           FirstName: FirstName,
           Email: Email,
           PhoneNumber: PhoneNumber,
