@@ -102,7 +102,7 @@ export default function Checkout({ getlengthShop }) {
     if (paymentMethod === "pay_on_delivery") {
       totalPrice += 7;
     }
-  
+  setTotal(totalPrice)
     return totalPrice;
   };
   
@@ -219,6 +219,7 @@ export default function Checkout({ getlengthShop }) {
         label="Pay with Card"
       />
       <Typography variant="h6" className={classes.total}>
+        {totalPrice}
         Total Price: {handleTotal()} {" "} TND
       </Typography>
       <Button
