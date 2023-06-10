@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS sessions (
   session VARCHAR(250) NOT NULL,
   date VARCHAR(250) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  -- FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 DROP TABLE adminnotification;
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS adminnotification (
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   new BOOLEAN NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  -- FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 DROP TABLE newsletter;
@@ -80,8 +80,8 @@ CREATE TABLE IF NOT EXISTS shopcard (
   products_id INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id, products_id, check_add_or_not),
-  FOREIGN KEY (products_id) REFERENCES products(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  -- FOREIGN KEY (products_id) REFERENCES products(id),
+  -- FOREIGN KEY (user_id) REFERENCES user(id)
 );
  DROP TABLE userorder;
 CREATE TABLE IF NOT EXISTS userorder (
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS userorder (
   product_name VARCHAR(200) NOT NULL,
   product_quantity INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id, validate_add_or_not, user_id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  -- PRIMARY KEY (id, validate_add_or_not, user_id),
+  -- FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
