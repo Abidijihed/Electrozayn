@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   button: {
-    color: "blue",
+    color: "white",
     marginTop: theme.spacing(10),
   },
 }));
@@ -41,11 +41,10 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
   const [countryError, setCountryError] = useState(false);
   const [ZipError, setZipError] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     var quantity=0
     var productname=""
     var user_id = localStorage.getItem("id");
-    e.preventDefault();
     if (FirstName === "") {
       setFirstNameError(true);
     } else {
@@ -174,7 +173,6 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
           className={classes.button}
           variant="contained"
           color="primary"
-          backgroundColor="white"
         >
           Validate
         </Button>
