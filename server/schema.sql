@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS products (
   category VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
-DROP TABLE product_images;
 CREATE TABLE IF NOT EXISTS product_images (
   id INT NOT NULL AUTO_INCREMENT,
   product_image VARCHAR(255) NOT NULL,
@@ -24,7 +23,6 @@ CREATE TABLE IF NOT EXISTS product_images (
   PRIMARY KEY (id),
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
-DROP TABLE user;
 CREATE TABLE IF NOT EXISTS user (
   id INT NOT NULL AUTO_INCREMENT,
   FirstName VARCHAR(200),
@@ -41,9 +39,6 @@ CREATE TABLE IF NOT EXISTS user (
   PRIMARY KEY (id)
 );
 
-INSERT INTO user (Email, Password, role) VALUES ("lahmeri.nada@yahoo.fr", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", "admin");
-
-DROP TABLE sessions;
 CREATE TABLE IF NOT EXISTS sessions (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
@@ -53,7 +48,6 @@ CREATE TABLE IF NOT EXISTS sessions (
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-DROP TABLE adminnotification;
 CREATE TABLE IF NOT EXISTS adminnotification (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
@@ -64,15 +58,13 @@ CREATE TABLE IF NOT EXISTS adminnotification (
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-DROP TABLE newsletter;
 CREATE TABLE IF NOT EXISTS newsletter (
   id INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(250) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id)
 );
-DROP TABLE addtocart; 
-DROP TABLE shopcard;
+
 CREATE TABLE IF NOT EXISTS shopcard (
   id INT NOT NULL AUTO_INCREMENT,
   check_add_or_not BOOLEAN NOT NULL,
@@ -83,7 +75,7 @@ CREATE TABLE IF NOT EXISTS shopcard (
   FOREIGN KEY (products_id) REFERENCES products(id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
- DROP TABLE userorder;
+
 CREATE TABLE IF NOT EXISTS userorder (
   id INT NOT NULL AUTO_INCREMENT,
   validate_add_or_not BOOLEAN NOT NULL,
