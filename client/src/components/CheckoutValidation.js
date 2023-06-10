@@ -160,6 +160,10 @@ function CheckoutValidation({ open, handleClose, total,handleValidation }) {
           value={PhoneNumber}
           onChange={(PhoneNumber) => setPhone(PhoneNumber)}
         />
+        <Typography variant="body2" color="black" component="h3">
+                Total: {total}
+                TND
+              </Typography>
         <Button
           onClick={() => handleSubmit()}
           className={classes.button}

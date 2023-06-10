@@ -81,7 +81,7 @@ export default function Checkout({ getlengthShop }) {
       0
     );
     setTotal(totalPrice);
-  }, [total]);
+  }, []);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
