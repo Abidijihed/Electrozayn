@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
+function UpdateModal({ open, handleClose, handleAddProduct,id,product }) {
   const classes = useStyles();
   const [productName, setProductName] = useState(product.product_name);
   const [description, setDescription] = useState(product.description);
@@ -198,4 +198,4 @@ function AddProductModal({ open, handleClose, handleAddProduct,id,product }) {
   );
 }
 
-export default AddProductModal;
+export default UpdateModal;

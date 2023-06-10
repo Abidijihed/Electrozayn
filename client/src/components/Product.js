@@ -9,7 +9,7 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import { Button } from 'react-bootstrap';
-import AddProductModal from './UpdateModal';
+import UpdateModal from './UpdateModal';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 function ProductCard({ data, getlengthShop }) {
   const [check, setChek] = useState();
-  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
 
   const getProductsCard = () => {
@@ -181,7 +181,7 @@ setChek(check)
               return (
                 <>
                   {el.role === 'admin' ? (
-                    <Button onClick={() => setOpenAddProductModal(true)}>Update</Button>
+                    <Button onClick={() => setOpenUpdateModal(true)}>Update</Button>
                   ) : null}
                   {el.role === 'admin' ? (
                     <Button onClick={() => deleteProduct(data.id)} style={{ backgroundColor: "red" }}>Delete</Button>
@@ -198,9 +198,9 @@ setChek(check)
         </CardActionArea>
 
       </Card>
-      <AddProductModal
-        open={openAddProductModal}
-        handleClose={() => setOpenAddProductModal(false)}
+      <UpdateModal
+        open={openUpdateModal}
+        handleClose={() => setOpenUpdateModal(false)}
         product={data}
         id={data.id}
       />

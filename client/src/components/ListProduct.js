@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AddProductModal from "./Modal";
+import AddProductModal from "./AddModal";
 import axios from "axios";
 import ListProducts from "./Product";
 function MyPage({ search ,getlengthShop}) {
