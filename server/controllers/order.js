@@ -6,7 +6,7 @@ module.exports={
         const validate_add_or_not = false;
       
         const query = `
-          INSERT INTO order (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity user_id)
+          INSERT INTO userorder (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity ,user_id)
           VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
              connection.query(query, [validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity, user_id], (err, result) => {
@@ -22,7 +22,7 @@ module.exports={
         });
       },
       getAllOrder: (req, res) => {
-        const query = 'SELECT * FROM order';
+        const query = 'SELECT * FROM userorder';
       
         // Execute the query to fetch all orders
         connection.query(query, (err, result) => {
@@ -35,17 +35,17 @@ module.exports={
         });
       },
       updateOrder: (req, res) => {
-        const { order_id } = req.params;
+        const { id } = req.params;
         const { FirstName, Email, PhoneNumber, country, Zip } = req.body;
       
         const query = `
-          UPDATE order
+          UPDATE userorder
           SET FirstName = ?, Email = ?, PhoneNumber = ?, country = ?, Zip = ?
           WHERE id = ?
         `;
       
         // Execute the query to update the order
-        connection.query(query, [FirstName, Email, PhoneNumber, country, Zip, order_id], (err, result) => {
+        connection.query(query, [FirstName, Email, PhoneNumber, country, Zip, id], (err, result) => {
           if (err) {
             console.error(err);
             res.status(500).send('An error occurred while updating the order' );
@@ -55,16 +55,16 @@ module.exports={
         });
       },
       deleteOrder: (req, res) => {
-        const { order_id } = req.params;
+        const { id } = req.params;
         const { user_id } = req.params;
       
         const query = `
-          DELETE FROM order
+          DELETE FROM userorder
           WHERE id = ? AND user_id = ?
         `;
       
         // Execute the query to delete the order
-        connection.query(query, [order_id, user_id], (err, result) => {
+        connection.query(query, [id, user_id], (err, result) => {
           if (err) {
             console.error(err);
             res.status(500).send(err)
@@ -74,16 +74,16 @@ module.exports={
         });
       },
       confirmOrder: (req, res) => {
-        const { order_id } = req.params;
+        const { id } = req.params;
       
         const query = `
-          UPDATE order
+          UPDATE userorder
           SET validate_add_or_not = true
           WHERE id = ?
         `;
       
         // Execute the query to confirm the order
-        connection.query(query, [order_id], (err, result) => {
+        connection.query(query, [id], (err, result) => {
           if (err) {
             console.error(err);
             res.status(500).send(err);
@@ -93,7 +93,7 @@ module.exports={
         });
       },
       getAllOrderUser: (req, res) => {
-        const query = `SELECT * FROM order WHERE user_id = ${req.params.id}`;
+        const query = `SELECT * FROM userorder WHERE user_id = ${req.params.id}`;
       
         // Execute the query to fetch all orders
         connection.query(query, (err, result) => {
