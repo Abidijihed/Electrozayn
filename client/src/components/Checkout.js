@@ -68,8 +68,10 @@ export default function Checkout({ getlengthShop }) {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
-        setProducts(products);
-      });
+        setProducts(res.data);
+      }).catch((err)=>{
+        console.log(err)
+      })
   };
 
   useEffect(() => {
@@ -100,7 +102,8 @@ export default function Checkout({ getlengthShop }) {
           ? { ...product, quantity: product.quantity + 1 }
           : product
       )
-    );
+    )
+    setProducts(products)
   };
 
   const decrementQuantity = (productId) => {
@@ -216,6 +219,8 @@ export default function Checkout({ getlengthShop }) {
         open={openCheckoutValidation}
         handleClose={() => setOpenCheckoutValidation(false)}
         total={total}
+        products={products}
+        handleValidation={handleValidation}
       />
     </div>
   );

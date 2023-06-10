@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose, total }) {
+function CheckoutValidation({ open, handleClose, total,handleValidation }) {
   const classes = useStyles();
   const [FirstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -83,6 +83,7 @@ function CheckoutValidation({ open, handleClose, total }) {
       country &&
       Zip
     ) {
+
       axios
         .post(`https://www.electrozayn.com/api/create/order/${user_id}`, {
           FirstName: FirstName,
@@ -91,9 +92,13 @@ function CheckoutValidation({ open, handleClose, total }) {
           address: address,
           country: country,
           Zip: Zip,
+          total_price:total,
+          product_name:"test",
+           product_quantity:1
         })
         .then((res) => {
           console.log(res.data);
+          handleValidation()
         });
     }
   };
