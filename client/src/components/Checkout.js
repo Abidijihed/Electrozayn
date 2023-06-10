@@ -64,11 +64,12 @@ export default function Checkout({ getlengthShop }) {
       });
     getlengthShop();
   }, [products]);
+
   const handleUpdate = (id) => {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
-        setProducts(res.data);
+        setProducts(products);
       }).catch((err)=>{
         console.log(err)
       })
