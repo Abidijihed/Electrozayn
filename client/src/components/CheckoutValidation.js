@@ -147,7 +147,6 @@ var user_id=localStorage.getItem('id')
             onChange={(e) => setZip(e.target.value)}
           />
            <PhoneInput
-           style={{border:"none",borderBottom:"1px solid",width:"195px"}}
         country={'tn'}
           label="Phone Number"
           required
