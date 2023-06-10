@@ -1,22 +1,23 @@
 const { connection } = require("../databaseconfig/config");
 module.exports={
     CreateOrder: (req, res) => {
+      console.log(req.body)
         const { FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity } = req.body;
         const user_id = req.params.id;
         const validate_add_or_not = false;
       
         const query = `
           INSERT INTO userorder (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity ,user_id)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
              connection.query(query, [validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity, user_id], (err, result) => {
           if (err) {
-            res.status(500).send(err);
+           res.status(500).send(err)
           } else {
             res.status(200).send("order created");
             const query=`UPDATE user SET FirstName="${FirstName}",country="${country}",Zip="${Zip}" WHERE id=${req.params.id}`
             connection.query(query, (err, result) => {
-                err ? res.status(500).send(err):res.status(201).send('user updated')
+                err ? res.status(500).send(err):res.status(201).send('user updated and order created')
             })
           }
         });

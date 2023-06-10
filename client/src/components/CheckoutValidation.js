@@ -85,9 +85,9 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
       Zip
     ) {
         products.map((el)=>{
-         quantity+=Number(el.product_quantity)
+         quantity+=el.quantity
+         productname+=el.product_name+" "
         })
-        console.log(quantity)
       axios
         .post(`https://www.electrozayn.com/api/create/order/${user_id}`, {
           FirstName: FirstName,
@@ -97,8 +97,8 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
           country: country,
           Zip: Zip,
           total_price:totalPrice,
-          product_name:"test",
-           product_quantity:1
+          product_name:productname,
+           product_quantity:quantity
         })
         .then((res) => {
           console.log(res.data);
@@ -164,10 +164,11 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
           value={PhoneNumber}
           onChange={(PhoneNumber) => setPhone(PhoneNumber)}
         />
+        <br></br>
         <Typography variant="body2" color="black" component="h3">
                 Total: {totalPrice} {" "} TND
-                
               </Typography>
+              
         <Button
           onClick={() => handleSubmit()}
           className={classes.button}
