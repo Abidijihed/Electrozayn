@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose, products, total }) {
+function CheckoutValidation({ open, handleClose, total }) {
   const classes = useStyles();
   const [FirstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -104,7 +104,7 @@ function CheckoutValidation({ open, handleClose, products, total }) {
         <Typography variant="h6" gutterBottom>
           Validate Order
         </Typography>
-{console.log(products)}
+{console.log(total)}
         <TextField
           className={classes.input}
           required

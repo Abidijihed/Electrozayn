@@ -216,7 +216,6 @@ export default function Checkout({ getlengthShop }) {
         open={openCheckoutValidation}
         handleClose={() => setOpenCheckoutValidation(false)}
         total={total}
-        products={products}
       />
     </div>
   );
