@@ -101,8 +101,11 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
            product_quantity:quantity
         })
         .then((res) => {
-          console.log(res.data);
-          handleValidation()
+            if(res.data === "user updated and order created"){
+                handleValidation()
+
+            }
+          
         });
     }
   };

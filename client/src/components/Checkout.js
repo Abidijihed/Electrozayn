@@ -134,7 +134,7 @@ export default function Checkout({ getlengthShop }) {
         quantity,
       })
       .then((res) => {
-        toast.success("Success Notification !", {
+        toast.success("Success Validation Order !", {
           position: toast.POSITION.TOP_RIGHT,
         }); // Quantity Updated
       })
