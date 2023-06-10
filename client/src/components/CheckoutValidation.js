@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose }) {
+function CheckoutValidation({ open, handleClose,products,total }) {
     
   const classes = useStyles();
   const [FirstName, setFirstName] = useState('');
@@ -98,6 +98,7 @@ var user_id=localStorage.getItem('id')
 
   return (
     <Modal open={open} onClose={handleClose}>
+        {console.log(products,total)}
       <div className={classes.paper}>
         <Typography variant="h6" gutterBottom>
           Validate Order
@@ -146,6 +147,7 @@ var user_id=localStorage.getItem('id')
             onChange={(e) => setZip(e.target.value)}
           />
            <PhoneInput
+           style={{border:"none",borderBottom:"1px solid",width:"195px"}}
         country={'tn'}
           label="Phone Number"
           required
@@ -160,7 +162,7 @@ var user_id=localStorage.getItem('id')
             color="primary"
             type="submit"
           >
-            Update
+            Validate
           </Button>
       
       </div>
