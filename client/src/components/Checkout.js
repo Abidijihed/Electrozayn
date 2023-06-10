@@ -103,8 +103,7 @@ export default function Checkout({ getlengthShop }) {
       totalPrice += 7;
     }
   setTotal(totalPrice)
-    return totalPrice;
-  };
+  }
   
 
   const incrementQuantity = (productId) => {
