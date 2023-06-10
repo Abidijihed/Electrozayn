@@ -97,6 +97,8 @@ export default function Checkout({ getlengthShop }) {
   };
 
   const incrementQuantity = (productId) => {
+    console.log(productId)
+
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId
