@@ -48,7 +48,7 @@ export default function Checkout({ getlengthShop }) {
   const [openCheckoutValidation, setOpenCheckoutValidation] = useState(false);
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState("pay_on_delivery");
-  const [total, setTotal] = useState(0);
+  const [totalPrice, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -70,9 +70,10 @@ export default function Checkout({ getlengthShop }) {
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
         setProducts(products);
-      }).catch((err)=>{
-        console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -90,14 +91,24 @@ export default function Checkout({ getlengthShop }) {
     if (isLoading || products.length === 0) {
       return 0;
     }
+    
+    let totalPrice = 0;
+    
+    products.forEach((product) => {
+      const productTotal = Number(product.Promo_price) * Number(product.quantity);
+      totalPrice += productTotal;
+    });
+  
     if (paymentMethod === "pay_on_delivery") {
-      return total + 7;
+      totalPrice += 7;
     }
-    return total;
+  
+    return totalPrice;
   };
+  
 
   const incrementQuantity = (productId) => {
-    console.log(productId)
+    console.log(productId);
 
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
@@ -105,7 +116,7 @@ export default function Checkout({ getlengthShop }) {
           ? { ...product, quantity: product.quantity + 1 }
           : product
       )
-    )
+    );
   };
 
   const decrementQuantity = (productId) => {
@@ -208,8 +219,7 @@ export default function Checkout({ getlengthShop }) {
         label="Pay with Card"
       />
       <Typography variant="h6" className={classes.total}>
-        {console.log(total)}
-        Total Price: {handleTotal()} TND
+        Total Price: {handleTotal()} {" "} TND
       </Typography>
       <Button
         variant="contained"
@@ -221,7 +231,7 @@ export default function Checkout({ getlengthShop }) {
       <CheckoutValidation
         open={openCheckoutValidation}
         handleClose={() => setOpenCheckoutValidation(false)}
-        total={total}
+        totalPrice={totalPrice}
         products={products}
         handleValidation={handleValidation}
       />

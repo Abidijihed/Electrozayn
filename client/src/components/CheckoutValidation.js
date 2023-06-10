@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose, total,handleValidation }) {
+function CheckoutValidation({ open, handleClose, totalPrice,handleValidation }) {
   const classes = useStyles();
   const [FirstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -92,7 +92,7 @@ function CheckoutValidation({ open, handleClose, total,handleValidation }) {
           address: address,
           country: country,
           Zip: Zip,
-          total_price:total,
+          total_price:totalPrice,
           product_name:"test",
            product_quantity:1
         })
@@ -109,7 +109,7 @@ function CheckoutValidation({ open, handleClose, total,handleValidation }) {
         <Typography variant="h6" gutterBottom>
           Validate Order
         </Typography>
-{console.log(total)}
+{console.log(totalPrice)}
         <TextField
           className={classes.input}
           required
@@ -161,7 +161,7 @@ function CheckoutValidation({ open, handleClose, total,handleValidation }) {
           onChange={(PhoneNumber) => setPhone(PhoneNumber)}
         />
         <Typography variant="body2" color="black" component="h3">
-                Total: {total}
+                Total: {totalPrice}
                 TND
               </Typography>
         <Button
