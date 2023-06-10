@@ -103,7 +103,6 @@ export default function Checkout({ getlengthShop }) {
           : product
       )
     )
-    setProducts(products)
   };
 
   const decrementQuantity = (productId) => {
