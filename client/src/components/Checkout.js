@@ -11,6 +11,7 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
+import CheckoutValidation from './CheckoutValidation';
 import axios from 'axios';
 import { TiDelete } from "react-icons/ti";
 const useStyles = makeStyles({
@@ -44,7 +45,7 @@ const useStyles = makeStyles({
 
 export default function Checkout({ getlengthShop }) {
   const classes = useStyles();
-  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [openCheckoutValidation, setOpenCheckoutValidation] = useState(false);
   const [products, setProducts] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('pay_on_delivery');
   const [total, setTotal] = useState(0);
@@ -184,9 +185,16 @@ export default function Checkout({ getlengthShop }) {
       <Typography variant="h6" className={classes.total}>
         Total Price: {handleTotal()} TND
       </Typography>
-      <Button variant="contained" color="primary" onClick={() => setOpenAddProductModal(true)}>
+      <Button variant="contained" color="primary" onClick={() => setOpenCheckoutValidation(true)}>
         Validate Order
       </Button>
+      <CheckoutValidation
+        open={openCheckoutValidation}
+        handleClose={() => setOpenCheckoutValidation(false)}
+       total={total}
+       products={products}
+       
+      />
     </div>
   );
 }

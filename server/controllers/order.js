@@ -1,15 +1,15 @@
 const { connection } = require("../databaseconfig/config");
 module.exports={
     CreateOrder: (req, res) => {
-        const { FirstName, Email, PhoneNumber, country, Zip } = req.body;
+        const { FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity } = req.body;
         const user_id = req.params.id;
         const validate_add_or_not = false;
       
         const query = `
-          INSERT INTO order (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip, user_id)
+          INSERT INTO order (validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity user_id)
           VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
-             connection.query(query, [validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip, user_id], (err, result) => {
+             connection.query(query, [validate_add_or_not, FirstName, Email, PhoneNumber, country, Zip,total_price,product_name,product_quantity, user_id], (err, result) => {
           if (err) {
             res.status(500).send(err);
           } else {

@@ -90,7 +90,11 @@ CREATE TABLE IF NOT EXISTS order (
   country VARCHAR(200) NOT NULL,
   Zip VARCHAR(250) NOT NULL,
   user_id INT NOT NULL,
+  total_price DECIMAL(10, 2) NOT NULL,
+  product_name VARCHAR(200) NOT NULL,
+  product_quantity INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id, validate_add_or_not, user_id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (user_id) REFERENCES `user`(id)
 );
+
