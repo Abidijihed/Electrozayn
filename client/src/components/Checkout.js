@@ -63,7 +63,7 @@ export default function Checkout({ getlengthShop }) {
         setIsLoading(false);
       });
     getlengthShop();
-  }, [products]);
+  }, []);
 
   const handleUpdate = (id) => {
     axios
@@ -81,7 +81,7 @@ export default function Checkout({ getlengthShop }) {
       0
     );
     setTotal(totalPrice);
-  }, [products]);
+  }, [total]);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
