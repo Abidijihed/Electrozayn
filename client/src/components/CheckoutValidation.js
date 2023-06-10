@@ -169,7 +169,7 @@ function CheckoutValidation({ open, handleClose, total,handleValidation }) {
           className={classes.button}
           variant="contained"
           color="primary"
-          type="submit"
+          backgroundColor="white"
         >
           Validate
         </Button>

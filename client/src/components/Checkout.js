@@ -208,6 +208,7 @@ export default function Checkout({ getlengthShop }) {
         label="Pay with Card"
       />
       <Typography variant="h6" className={classes.total}>
+        {console.log(total)}
         Total Price: {handleTotal()} TND
       </Typography>
       <Button
