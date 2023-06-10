@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose, totalPrice,handleValidation }) {
+function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,products }) {
   const classes = useStyles();
   const [FirstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -42,6 +42,8 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation }) 
   const [ZipError, setZipError] = useState(false);
 
   const handleSubmit = async (e) => {
+    var quantity=0
+    var productname=""
     var user_id = localStorage.getItem("id");
     e.preventDefault();
     if (FirstName === "") {
@@ -83,7 +85,10 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation }) 
       country &&
       Zip
     ) {
-
+        products.map((el)=>{
+         quantity+=Number(el.product_quantity)
+        })
+        console.log(quantity)
       axios
         .post(`https://www.electrozayn.com/api/create/order/${user_id}`, {
           FirstName: FirstName,
@@ -161,8 +166,8 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation }) 
           onChange={(PhoneNumber) => setPhone(PhoneNumber)}
         />
         <Typography variant="body2" color="black" component="h3">
-                Total: {totalPrice}
-                TND
+                Total: {totalPrice} {" "} TND
+                
               </Typography>
         <Button
           onClick={() => handleSubmit()}
