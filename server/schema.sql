@@ -95,6 +95,6 @@ CREATE TABLE IF NOT EXISTS order (
   product_quantity INT NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id, validate_add_or_not, user_id),
-  FOREIGN KEY (user_id) REFERENCES `user`(id)
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
