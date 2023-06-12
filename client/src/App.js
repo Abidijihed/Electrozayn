@@ -43,14 +43,19 @@ setShop(shop)
           <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/signup"  element={<SignupPage/>}/>
-         {/* <PrivateRoute> */}
-         <Route path="/profile"  element={<Profile />}/>
-         {/* </PrivateRoute> */}
+          
+         <Route path="/profile"  element={
+          <PrivateRoute>
+         <Profile />
+         </PrivateRoute>
+         }/>
+         
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/chekout" element={<Checkout getlengthShop={getlengthShop}/>} />
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
+        
         <Footer />
         </BrowserRouter>
       </div>

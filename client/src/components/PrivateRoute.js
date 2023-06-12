@@ -5,9 +5,9 @@ function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
 
   return (
-    <React.Fragment>
-      {token ? children : <Navigate to="/" />}
-    </React.Fragment>
+    <>
+      {token ? children : <Navigate to="/login" />}
+    </>
   );
 }
 
