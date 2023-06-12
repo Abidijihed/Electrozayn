@@ -55,6 +55,7 @@ function ProfilePage() {
   })
 
   return (
+    
     <>
       {user.map((el) => {
         return (
@@ -96,7 +97,7 @@ function ProfilePage() {
               </div>
               <Divider />
               <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>City:</Typography>
+                <Typography variant="h6" gutterBottom>Code Zip:</Typography>
                 <Typography variant="body1">{el?el.Zip:null}</Typography>
               </div>
               <Divider />
@@ -106,10 +107,25 @@ function ProfilePage() {
               </div>
               <Divider />
             </CardContent>
+
             <Button>LogOut</Button>
           </Card>
+
         );
       })}
+      <div>
+        {order.map((el)=>{
+         return(
+          <div>
+             <h1 style={{ color: el.validate_add_or_not === 0 ? 'red' : 'green' }}>
+        {el.validate_add_or_not === 0 ? 'Waiting for Confirmation' : 'Confirmed'}
+      </h1>
+            <h3>{el.product_name}</h3>
+          </div>
+
+         )
+        })}
+      </div>
     </>
   );
 }
