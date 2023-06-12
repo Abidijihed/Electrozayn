@@ -37,23 +37,40 @@ function ProfilePage() {
   const classes = useStyles();
   const [user, setUser] = useState([]);
   const [order,setOrder]=useState([])
+  const [role,setRole]=useState("")
+
   const dispatch = useDispatch();
   useEffect(() => {
     const user_id = localStorage.getItem("id");
     axios.get("https://www.electrozayn.com/api/user/getone/"+ user_id)
       .then((res) => {
         setUser(res.data);
+        res.data.map((el)=>{
+        setRole(el.role)
+        })
       });
   }, [user]);
   useEffect(()=>{
     const user_id = localStorage.getItem("id");
+    if(role==="admin"){
+      axios.get(`https://www.electrozayn.com/api/get_all_order`)
+      .then((res)=>{
+        setOrder(res.data)
+      })
+    }else{
     axios.get(`https://www.electrozayn.com/api/get_user_order/${user_id}`)
     .then((res)=>{
       setOrder(res.data)
-      console.log(res.data)
     })
+  }
   })
-
+const confirmOrder=(id)=>{
+  axios.put(`https://www.electrozayn.com/api/confirm/order/${id}`)
+  .then((res)=>{
+    console.log(res.data)
+    setOrder(order)
+  })
+}
   return (
     
     <>
@@ -121,8 +138,9 @@ function ProfilePage() {
         {el.validate_add_or_not === 0 ? 'Waiting for Confirmation' : 'Confirmed'}
       </h1>
             <h3>{el.product_name}</h3>
-          </div>
+            {role === "admin"? <button onClick={()=>confirmOrder(el.id)}>confirm</button>:null}
 
+          </div>
          )
         })}
       </div>
