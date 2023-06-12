@@ -63,7 +63,7 @@ export default function Checkout({ getlengthShop }) {
         setIsLoading(false);
       });
     getlengthShop();
-  }, [products]);
+  }, []);
 
   const handleUpdate = (id) => {
     axios
