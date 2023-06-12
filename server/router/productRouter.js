@@ -12,5 +12,6 @@ router.delete("/api/delete/product/:id",productController.DeleteProduct);
  router.get('/api/get_all_shopcard/card',productController.getCardalllshopcard);
  router.put('/api/update/shop_card/:id',productController.UpdateProductCard);
 router.put('/api/update_quantity/:id',productController.updatequantity)
+router.delete('/api/delete_shop_card/:id',productController.DeleteAllShopCArd)
 module.exports={PosteRouter:router};
 

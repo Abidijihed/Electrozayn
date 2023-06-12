@@ -12,7 +12,7 @@ import About from './components/About';
 import Checkout from './components/Checkout';
 import "./App.css"
 import axios from 'axios';
-// import PrivateRoutes from './components/PrivateRoute';
+import PrivateRoute from './components/PrivateRoute'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -43,7 +43,9 @@ setShop(shop)
           <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/signup"  element={<SignupPage/>}/>
+         <PrivateRoute>
          <Route path="/profile"  element={<Profile />}/>
+         </PrivateRoute>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/chekout" element={<Checkout getlengthShop={getlengthShop}/>} />

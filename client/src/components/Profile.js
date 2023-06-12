@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 function ProfilePage() {
   const classes = useStyles();
   const [user, setUser] = useState([]);
-
+  const [order,setOrder]=useState([])
   const dispatch = useDispatch();
   useEffect(() => {
     const user_id = localStorage.getItem("id");
@@ -44,7 +44,15 @@ function ProfilePage() {
       .then((res) => {
         setUser(res.data);
       });
-  }, [dispatch]);
+  }, [user]);
+  useEffect(()=>{
+    const user_id = localStorage.getItem("id");
+    axios.get(`https://www.electrozayn.com/api/get_user_order/${user_id}`)
+    .then((res)=>{
+      setOrder(res.data)
+      console.log(res.data)
+    })
+  })
 
   return (
     <>

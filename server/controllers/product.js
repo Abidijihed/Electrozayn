@@ -90,6 +90,12 @@ getCardalllshopcard: (req, res) => {
     }
   });
 },
+DeleteAllShopCArd:((req,res)=>{
+  const query=`delete * from shopcard where user_id=${req.params.id}`
+  connection.query(query,(err,result)=>{
+    err ? res.status(500).send(err) : res.status(200).send('deleted')
+  })
+})
 
 
 };
