@@ -69,7 +69,6 @@ export default function Checkout({ getlengthShop }) {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
-        setProducts(products);
       })
       .catch((err) => {
         console.log(err);
@@ -91,24 +90,23 @@ export default function Checkout({ getlengthShop }) {
     if (isLoading || products.length === 0) {
       return 0;
     }
-    
+
     let totalPrice = 0;
-    
+
     products.forEach((product) => {
-      const productTotal = Number(product.Promo_price) * Number(product.quantity);
+      const productTotal =
+        Number(product.Promo_price) * Number(product.quantity);
       totalPrice += productTotal;
     });
-  
+
     if (paymentMethod === "pay_on_delivery") {
       totalPrice += 7;
     }
     return totalPrice;
   };
-  
 
   const incrementQuantity = (productId) => {
     console.log(productId);
-
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId
@@ -219,7 +217,7 @@ export default function Checkout({ getlengthShop }) {
       />
       <Typography variant="h6" className={classes.total}>
         {totalPrice}
-        Total Price: {handleTotal()} {" "} TND
+        Total Price: {handleTotal()} TND
       </Typography>
       <Button
         variant="contained"
