@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigation} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Modal, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
@@ -41,7 +41,7 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
   const [addressError, setAddressError] = useState(false);
   const [countryError, setCountryError] = useState(false);
   const [ZipError, setZipError] = useState(false);
-  const navigation = useNavigation();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     var quantity=0
@@ -109,7 +109,7 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
             .then((res)=>{
               if(res.data === "deleted"){
                 setTimeout(() => {
-                  navigation("/profile")
+                  navigate("/profile")
                   window.location.reload()
                 }, 1500);
               }
