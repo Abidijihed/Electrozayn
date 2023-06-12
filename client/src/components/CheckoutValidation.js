@@ -126,7 +126,6 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
         <Typography variant="h6" gutterBottom>
           Validate Order
         </Typography>
-{console.log(totalPrice)}
         <TextField
           className={classes.input}
           required

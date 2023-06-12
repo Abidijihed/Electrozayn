@@ -69,6 +69,7 @@ export default function Checkout({ getlengthShop }) {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
+        window.location.reload()
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +107,6 @@ export default function Checkout({ getlengthShop }) {
   };
 
   const incrementQuantity = (productId) => {
-    console.log(productId);
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId

@@ -94,7 +94,9 @@ function ProfilePage() {
       .then((res) => {
         console.log(res.data);
         setOrder(order);
-      });
+      }).catch((err)=>{
+        console.log(err)
+      })
   };
 
   return (
