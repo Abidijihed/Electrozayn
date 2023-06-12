@@ -39,6 +39,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     objectFit: "cover",
   },
+  prettyButton: {
+    background: "linear-gradient(to right, #4facfe 0%, #00f2fe 100%)",
+    border: 0,
+    borderRadius: 10,
+    color: "white",
+    padding: "10px 20px",
+    cursor: "pointer",
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
+    transition: "transform 0.3s",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  },
 }));
 
 function ProfilePage() {
@@ -58,7 +71,8 @@ function ProfilePage() {
           setRole(el.role);
         });
       });
-  }, [user]);
+  }, []);
+
   useEffect(() => {
     const user_id = localStorage.getItem("id");
     if (role === "admin") {
@@ -72,7 +86,8 @@ function ProfilePage() {
           setOrder(res.data);
         });
     }
-  });
+  }, [role]);
+
   const confirmOrder = (id) => {
     axios
       .put(`https://www.electrozayn.com/api/confirm/order/${id}`)
@@ -81,104 +96,102 @@ function ProfilePage() {
         setOrder(order);
       });
   };
+
   return (
     <>
-          {/* first section */}
-
-      {user.map((el) => {
-        return (
-          <Card className={classes.root}>
-            <CardHeader
-              avatar={
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
+      {/* First section */}
+      {user.map((el) => (
+        <Card className={classes.root} key={el.id}>
+          <CardHeader
+            avatar={
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+            }
+            title={
+              <Typography variant="h4" className={classes.title}>
+                Profile Information
+              </Typography>
+            }
+          />
+          <CardContent>
+            <img
+              src={
+                el.profileImage ||
+                "https://img.favpng.com/12/15/21/computer-icons-avatar-user-profile-recommender-system-png-favpng-HaMDUPFH1etkLCdiFjgTKHzAs.jpg"
               }
-              title={
-                <Typography variant="h4" className={classes.title}>
-                  Profile Information
-                </Typography>
-              }
+              alt="Profile"
+              className={classes.profileImage}
             />
-            <CardContent>
-              <img
-                src={
-                  el.profileImage
-                    ? el.profileImage
-                    : "https://img.favpng.com/12/15/21/computer-icons-avatar-user-profile-recommender-system-png-favpng-HaMDUPFH1etkLCdiFjgTKHzAs.jpg"
-                }
-                alt="Profile"
-                className={classes.profileImage}
-              />
 
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Email:
-                </Typography>
-                <Typography variant="body1">{el.Email}</Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Phone Number:
-                </Typography>
-                <Typography variant="body1">{el.phoneNumber}</Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  First Name:
-                </Typography>
-                <Typography variant="body1">
-                  {el ? el.FirstName : null}
-                </Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Last Name:
-                </Typography>
-                <Typography variant="body1">
-                  {el ? el.LastName : null}
-                </Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Address:
-                </Typography>
-                <Typography variant="body1">
-                  {el ? el.Address : null}
-                </Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Code Zip:
-                </Typography>
-                <Typography variant="body1">{el ? el.Zip : null}</Typography>
-              </div>
-              <Divider />
-              <div className={classes.section}>
-                <Typography variant="h6" gutterBottom>
-                  Country:
-                </Typography>
-                <Typography variant="body1">
-                  {el ? el.country : null}
-                </Typography>
-              </div>
-              <Divider />
-            </CardContent>
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Email:
+              </Typography>
+              <Typography variant="body1">{el.Email}</Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Phone Number:
+              </Typography>
+              <Typography variant="body1">{el.phoneNumber}</Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                First Name:
+              </Typography>
+              <Typography variant="body1">
+                {el ? el.FirstName : null}
+              </Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Last Name:
+              </Typography>
+              <Typography variant="body1">
+                {el ? el.LastName : null}
+              </Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Address:
+              </Typography>
+              <Typography variant="body1">
+                {el ? el.Address : null}
+              </Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Code Zip:
+              </Typography>
+              <Typography variant="body1">{el ? el.Zip : null}</Typography>
+            </div>
+            <Divider />
+            <div className={classes.section}>
+              <Typography variant="h6" gutterBottom>
+                Country:
+              </Typography>
+              <Typography variant="body1">
+                {el ? el.country : null}
+              </Typography>
+            </div>
+            <Divider />
+          </CardContent>
 
-            <Button>LogOut</Button>
-          </Card>
-        );
-      })}
-      {/* second section */}
+          <Button>LogOut</Button>
+        </Card>
+      ))}
+
+      {/* Second section */}
       <div>
-        {order.map((el) => {
-          return (
-            <div>
+        {order.map((el) => (
+          <Card className={classes.root} key={el.id}>
+            <CardContent>
               <h1
                 style={{
                   color: el.validate_add_or_not === 0 ? "red" : "green",
@@ -189,12 +202,17 @@ function ProfilePage() {
                   : "Confirmed"}
               </h1>
               <h3>{el.product_name}</h3>
-              {role === "admin" ? (
-                <button onClick={() => confirmOrder(el.id)}>confirm</button>
-              ) : null}
-            </div>
-          );
-        })}
+              {role === "admin" && (
+                <Button
+                  className={classes.prettyButton}
+                  onClick={() => confirmOrder(el.id)}
+                >
+                  Confirm
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </>
   );
