@@ -107,7 +107,8 @@ const ProductInfo = () => {
 
   useEffect(() => {
     axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`).then((res) => {
-      setProduct(res.data);
+      setProduct(res.data[0]);
+
       setSelectedImage(res.data[0].product_image);
     });
   }, [oneProduct]);
@@ -178,38 +179,39 @@ const ProductInfo = () => {
             />
           </div>
           <CardContent>
+            {console.log(oneProduct)}
             <Typography variant="h6" gutterBottom>
               Product Info
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {oneProduct[0].product_name}
+              {oneProduct?.product_name}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {oneProduct[0].description}
+              {oneProduct?.description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct[0].Promo_price <= 0 ? (
+              {oneProduct?.Promo_price <= 0 ? (
                 <span className={classes.promoPrice}>
-                  Price: {oneProduct[0].Origin_price} TND
+                  Price: {oneProduct?.Origin_price} TND
                 </span>
               ) : (
                 <span className={classes.originalPrice}>
-                  Original Price: {oneProduct[0].Origin_price} TND
+                  Original Price: {oneProduct?.Origin_price} TND
                 </span>
               )}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
-              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct[0].reference}
+              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
               <span style={{ color: 'green', fontSize: '16px' }}>
-                {oneProduct[0].quantity > 3 ? 'En Stock' : 'En Arrivage'}
+                {oneProduct?.quantity > 3 ? 'En Stock' : 'En Arrivage'}
               </span>
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Category:</span>
-              {oneProduct[0].catigory}
+              {oneProduct?.catigory}
             </Typography>
           </CardContent>
         </div>
