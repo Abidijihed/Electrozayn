@@ -153,7 +153,6 @@ const ProductInfo = () => {
 
   return (
     <div className={classes.root} id="productinfo">
-        {console.log(oneProduct)}
       <div className={classes.thumbnailContainer}>
       { images.map((el)=><img
       key={el.id}
@@ -170,7 +169,6 @@ const ProductInfo = () => {
       </div>
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
-            {console.log(selectedImage)}
           <div className={classes.imageContainer}>
             <img
               src={selectedImage}
@@ -184,34 +182,34 @@ const ProductInfo = () => {
               Product Info
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {oneProduct?.product_name}
+              {oneProduct[0].product_name}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {oneProduct?.description}
+              {oneProduct[0].description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct?.Promo_price <= 0 ? (
+              {oneProduct[0].Promo_price <= 0 ? (
                 <span className={classes.promoPrice}>
-                  Price: {oneProduct?.Origin_price} TND
+                  Price: {oneProduct[0].Origin_price} TND
                 </span>
               ) : (
                 <span className={classes.originalPrice}>
-                  Original Price: {oneProduct?.Origin_price} TND
+                  Original Price: {oneProduct[0].Origin_price} TND
                 </span>
               )}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
-              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
+              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct[0].reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
               <span style={{ color: 'green', fontSize: '16px' }}>
-                {oneProduct?.quantity > 3 ? 'En Stock' : 'En Arrivage'}
+                {oneProduct[0].quantity > 3 ? 'En Stock' : 'En Arrivage'}
               </span>
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Category:</span>
-              {oneProduct?.catigory}
+              {oneProduct[0].catigory}
             </Typography>
           </CardContent>
         </div>
