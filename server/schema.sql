@@ -20,9 +20,9 @@ DROP product_images;
 CREATE TABLE IF NOT EXISTS product_images (
   id INT NOT NULL AUTO_INCREMENT,
   product_image VARCHAR(255) NOT NULL,
-  product_id INT NOT NULL,
-  PRIMARY KEY (id,product_id),
-  FOREIGN KEY (product_id) REFERENCES products(id)
+  products_id INT NOT NULL,
+  PRIMARY KEY (id,products_id),
+  FOREIGN KEY (products_id) REFERENCES products(id)
 );
 CREATE TABLE IF NOT EXISTS user (
   id INT NOT NULL AUTO_INCREMENT,
