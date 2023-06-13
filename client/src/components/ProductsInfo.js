@@ -186,24 +186,24 @@ const ProductInfo = () => {
               Product Info
             </Typography>
             <Typography variant="body1" gutterBottom>
-              {oneProduct.product_name}
+              {oneProduct?.product_name}
             </Typography>
             <Typography variant="body1" gutterBottom>
-                {oneProduct.description}
+                {oneProduct?.description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct.Promo_price <= 0 ? <span className={classes.promoPrice}> Price: {oneProduct.Origin_price} TND</span>
-              :<span className={classes.originalPrice}> Original Price: {oneProduct.Origin_price} TND</span>}
+              {oneProduct?.Promo_price <= 0 ? <span className={classes.promoPrice}> Price: {oneProduct?.Origin_price}{' '} TND</span>
+              :<span className={classes.originalPrice}> Original Price: {oneProduct?.Origin_price}{' '} TND</span>}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
-              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct.reference}
+              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
-              <span style={{ color: 'green', fontSize: '16px' }}>{oneProduct.quantity>3?"En Stock":"En Arrivage"}</span>
+              <span style={{ color: 'green', fontSize: '16px' }}>{oneProduct?.quantity>3?"En Stock":"En Arrivage"}</span>
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Category:</span>{oneProduct.catigory}
+              <span style={{ fontWeight: 'bold' }}>Category:</span>{oneProduct?.catigory}
             </Typography>
           </CardContent>
         </div>
