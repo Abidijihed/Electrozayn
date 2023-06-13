@@ -111,13 +111,13 @@ const ProductInfo = () => {
  
       setSelectedImage(res.data[0].product_image);
     });
-  }, [oneProduct]);
+  }, []);
    useEffect(()=>{
     axios.get(`https://www.electrozayn.com/api/get_all_images/${id}`)
     .then((res)=>{
         setImages(res.data)
     })
-   },[images])
+   },[])
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
   };
