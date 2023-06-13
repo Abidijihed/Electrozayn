@@ -5,94 +5,93 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-  },
-  card: {
-    width: 800,
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'row',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-  },
-  thumbnailContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    marginRight: theme.spacing(4),
-  },
-  thumbnail: {
-    width: 60,
-    height: 60,
-    objectFit: 'cover',
-    marginBottom: theme.spacing(1),
-    cursor: 'pointer',
-    transition: 'transform 0.3s',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
-  },
-  infoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flex: 1,
-    [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(4),
-      alignItems: 'center',
+    root: {
       display: 'flex',
-    flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
     },
-  },
-  imageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2),
-    flex: 1,
-  },
-  image: {
-    width: '300px',
-    height: '400px',
-    transition: 'transform 0.3s',
-    '&:hover': {
-      transform: 'scale(1.2)',
+    card: {
+      width: 800,
+      padding: theme.spacing(4),
+      display: 'flex',
+      flexDirection: 'row',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
     },
-  },
-  addImageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-  },
-  addImageButton: {
-    marginLeft: theme.spacing(1),
-  },
-  reference: {
-    fontSize: '24px',
-    color: 'blue',
-  },
-  promoPrice: {
-    color: 'green',
-  },
-  originalPrice: {
-    color: 'red',
-    textDecoration: 'line-through',
-  },
-}));
-
+    thumbnailContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      marginRight: theme.spacing(4),
+    },
+    thumbnail: {
+      width: 60,
+      height: 60,
+      objectFit: 'cover',
+      marginBottom: theme.spacing(1),
+      cursor: 'pointer',
+      transition: 'transform 0.3s',
+      '&:hover': {
+        transform: 'scale(1.1)',
+      },
+    },
+    infoContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      flex: 1,
+      [theme.breakpoints.down('sm')]: {
+        marginTop: theme.spacing(4),
+        alignItems: 'center',
+        display: 'flex',
+      flexDirection: 'column',
+      },
+    },
+    imageContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: theme.spacing(2),
+      flex: 1,
+    },
+    image: {
+      width: '300px',
+      height: '400px',
+      transition: 'transform 0.3s',
+      '&:hover': {
+        transform: 'scale(1.2)',
+      },
+    },
+    addImageContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: theme.spacing(2),
+    },
+    addImageButton: {
+      marginLeft: theme.spacing(1),
+    },
+    reference: {
+      fontSize: '24px',
+      color: 'blue',
+    },
+    promoPrice: {
+      color: 'green',
+    },
+    originalPrice: {
+      color: 'red',
+      textDecoration: 'line-through',
+    },
+  }));
 const ProductInfo = () => {
   const classes = useStyles();
   const [selectedImage, setSelectedImage] = useState('');
   const [zoomed, setZoomed] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [role, setRole] = useState('');
-  const [oneProduct,setProduct]=useState(null)
+  const [oneProduct, setProduct] = useState(null);
   const [productImage, setProductImage] = useState([]);
 
   const { id } = useParams();
@@ -105,13 +104,13 @@ const ProductInfo = () => {
       });
     });
   }, []);
-  useEffect(()=>{
-    axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`)
-    .then((res)=>{
-        setProduct(res.data)
-        setSelectedImage(res.data?.product_image)
-    })
-  },[selectedImage])
+
+  useEffect(() => {
+    axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`).then((res) => {
+      setProduct(res.data);
+      setSelectedImage(res.data?.product_image);
+    });
+  }, [id]);
 
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
@@ -125,29 +124,28 @@ const ProductInfo = () => {
     setInputValue(e.target.value);
   };
 
-  const handleAddImage =async () => {
+  const handleAddImage = async () => {
     const formData = new FormData();
-    formData.append("file", productImage);
-    formData.append("upload_preset", "ml_default");
-    if(productImage.name){
-   await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
-
-    .then((res)=>{
-        axios.post(`https://www.electrozayn.com/api/add_thumbnailes/images/${id}`,{      
-            product_image:res.data.url
-        }).then((res)=>{
-            console.log(res.data)
-        })
-    })
-  }
-    // Implement your logic to add the image using the inputValue
-    // Reset the input value after adding the image
+    formData.append('file', productImage);
+    formData.append('upload_preset', 'ml_default');
+    if (productImage.name) {
+      await axios
+        .post('https://api.cloudinary.com/v1_1/dycjej355/upload', formData)
+        .then((res) => {
+          axios
+            .post(`https://www.electrozayn.com/api/add_thumbnailes/images/${id}`, {
+              product_image: res.data.url,
+            })
+            .then((res) => {
+              console.log(res.data);
+            });
+        });
+    }
     setInputValue('');
   };
 
   return (
-    <div className={classes.root} id='productinfo'>
-        {console.log(oneProduct)}
+    <div className={classes.root} id="productinfo">
       <div className={classes.thumbnailContainer}>
         <img
           src="https://i.pinimg.com/564x/9f/36/88/9f3688e2d2c869751d39777d424025b9.jpg"
@@ -169,12 +167,11 @@ const ProductInfo = () => {
             )
           }
         />
-        {/* Add more thumbnail images as needed */}
       </div>
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
-          <div className={classes.imageContainer}>
             {console.log(selectedImage)}
+          <div className={classes.imageContainer}>
             <img
               src={selectedImage}
               alt="Product"
@@ -190,21 +187,31 @@ const ProductInfo = () => {
               {oneProduct?.product_name}
             </Typography>
             <Typography variant="body1" gutterBottom>
-                {oneProduct?.description}
+              {oneProduct?.description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct?.Promo_price <= 0 ? <span className={classes.promoPrice}> Price: {oneProduct?.Origin_price}{' '} TND</span>
-              :<span className={classes.originalPrice}> Original Price: {oneProduct?.Origin_price}{' '} TND</span>}
+              {oneProduct?.Promo_price <= 0 ? (
+                <span className={classes.promoPrice}>
+                  Price: {oneProduct?.Origin_price} TND
+                </span>
+              ) : (
+                <span className={classes.originalPrice}>
+                  Original Price: {oneProduct?.Origin_price} TND
+                </span>
+              )}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
               <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
-              <span style={{ color: 'green', fontSize: '16px' }}>{oneProduct?.quantity>3?"En Stock":"En Arrivage"}</span>
+              <span style={{ color: 'green', fontSize: '16px' }}>
+                {oneProduct?.quantity > 3 ? 'En Stock' : 'En Arrivage'}
+              </span>
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Category:</span>{oneProduct?.catigory}
+              <span style={{ fontWeight: 'bold' }}>Category:</span>
+              {oneProduct?.catigory}
             </Typography>
           </CardContent>
         </div>
@@ -215,7 +222,7 @@ const ProductInfo = () => {
             type="file"
             placeholder="Add image URL"
             value={inputValue}
-            onChange={(e)=>setProductImage(e.target.files[0])}
+            onChange={(e) => setProductImage(e.target.files[0])}
             disableUnderline
             fullWidth
           />
