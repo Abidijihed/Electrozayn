@@ -145,7 +145,7 @@ const ProductInfo = () => {
             .then((res) => {
                 if(res.data==="Image added"){
                     setInputValue('');
-                    setImages(images)
+                    window.location.reload()
                 }
             });
         });
