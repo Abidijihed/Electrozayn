@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS products (
   category VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
-DROP TABLE images;
-CREATE TABLE IF NOT EXISTS images (
+DROP TABLE product_images;
+CREATE TABLE IF NOT EXISTS product_images (
   id INT NOT NULL AUTO_INCREMENT,
   product_image VARCHAR(255) NOT NULL,
   products_id INT NOT NULL,

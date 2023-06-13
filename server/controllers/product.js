@@ -102,13 +102,13 @@ connection.query(query,(err,result)=>{
 })
 }),
 AddmoreImageProduct:((req,res)=>{
-  const query=`insert into images (product_image,product_id)values(product_image="${req.body.product_image}",product_id=${req.params.id})`
+  const query=`insert into product_images (product_image,product_id)values(product_image="${req.body.product_image}",product_id=${req.params.id})`
   connection.query(query,(err,result)=>{
     err ? res.status(500).send(err):res.status(201).send("image added")
   })
 }),
 getAllimages:((req,res)=>{
-  const query=`select * from images where product_id=${req.params.id}`
+  const query=`select * from product_images where product_id=${req.params.id}`
   connection.query(query,(err,result)=>{
     err ? res.status(500).send(err):res.status(201).send(result)
 
