@@ -109,9 +109,9 @@ const ProductInfo = () => {
     axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`)
     .then((res)=>{
         setProduct(res.data)
-        setSelectedImage(res.data.product_image)
+        setSelectedImage(res.data?.product_image)
     })
-  },[oneProduct])
+  },[selectedImage])
 
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
@@ -174,6 +174,7 @@ const ProductInfo = () => {
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
           <div className={classes.imageContainer}>
+            {console.log(selectedImage)}
             <img
               src={selectedImage}
               alt="Product"
