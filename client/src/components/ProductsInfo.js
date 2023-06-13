@@ -93,7 +93,7 @@ const ProductInfo = () => {
   const [role, setRole] = useState('');
   const [oneProduct, setProduct] = useState(null);
   const [productImage, setProductImage] = useState([]);
-
+   const [images,setImages]=useState([])
   const { id } = useParams();
 
   useEffect(() => {
@@ -110,8 +110,14 @@ const ProductInfo = () => {
       setProduct(res.data);
       setSelectedImage(res.data[0].product_image);
     });
-  }, [id]);
-
+  }, [oneProduct]);
+   useEffect(()=>{
+    axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`)
+    .then((res)=>{
+        console.log(res.data)
+        setImages(res.data)
+    })
+   },[images])
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
   };
@@ -137,36 +143,30 @@ const ProductInfo = () => {
               product_image: res.data.url,
             })
             .then((res) => {
-              console.log(res.data);
+              
             });
         });
     }
     setInputValue('');
   };
 
+
   return (
     <div className={classes.root} id="productinfo">
+        {console.log(oneProduct)}
       <div className={classes.thumbnailContainer}>
-        <img
-          src="https://i.pinimg.com/564x/9f/36/88/9f3688e2d2c869751d39777d424025b9.jpg"
+      { images.map((el)=><img
+      key={el.id}
+          src={el.product_image}
           alt="Thumbnail 1"
           className={classes.thumbnail}
           onClick={() =>
             handleThumbnailClick(
-              'https://i.pinimg.com/564x/9f/36/88/9f3688e2d2c869751d39777d424025b9.jpg'
+              el.product_image
             )
           }
-        />
-        <img
-          src="https://i.pinimg.com/564x/69/03/7e/69037e7647911adf5446c07ec4af44c9.jpg"
-          alt="Thumbnail 2"
-          className={classes.thumbnail}
-          onClick={() =>
-            handleThumbnailClick(
-              'https://i.pinimg.com/564x/69/03/7e/69037e7647911adf5446c07ec4af44c9.jpg'
-            )
-          }
-        />
+        />) }
+    
       </div>
       <Card className={classes.card}>
         <div className={classes.infoContainer}>

@@ -105,7 +105,7 @@ AddmoreImageProduct: ((req, res) => {
   const query = `INSERT INTO product_images (product_image, products_id) VALUES ("${req.body.product_image}", ${req.params.id})`;
   connection.query(query, (err, result) => {
     if (err) {
-      console.log(err);
+      res.status(500).send(err)
     } else {
       res.status(201).send("Image added");
     }
