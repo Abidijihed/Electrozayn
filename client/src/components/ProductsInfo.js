@@ -199,6 +199,11 @@ const ProductInfo = () => {
                   Original Price: {oneProduct?.Origin_price} TND
                 </span>
               )}
+               {oneProduct?.Promo_price>0 ?
+              <Typography variant="body2" color="textSecondary" component="p">
+                <span className={classes.promoPrice}>Promo Price: {oneProduct?.Promo_price} TND</span>
+              </Typography>
+            :null}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
               <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
