@@ -91,11 +91,16 @@ getCardalllshopcard: (req, res) => {
   });
 },
 DeleteAllShopCArd:((req,res)=>{
-  console.log(req.params.id)
   const query=`delete from shopcard where user_id=${req.params.id}`
   connection.query(query,(err,result)=>{
-    err ? console.log(err): res.status(200).send('deleted')
+    err ? res.status(500).send(err): res.status(200).send('deleted')
   })
+}),
+GetOnePRoduct:((req,res)=>{
+const query=`select * from products where id =${req.params.id}`
+connection.query(query,(err,result)=>{
+  err ? res.status(500).send(err):res.status(200).send(result)
+})
 })
 
 

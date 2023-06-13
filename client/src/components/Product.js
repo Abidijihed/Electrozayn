@@ -13,7 +13,7 @@ import UpdateModal from './UpdateModal';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-
+import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -51,7 +51,7 @@ function ProductCard({ data, getlengthShop }) {
   const [check, setChek] = useState();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
-
+const navigate=useNavigate()
   const getProductsCard = () => {
     axios
       .get('https://www.electrozayn.com/api/get_all_shopcard/card')
@@ -134,7 +134,9 @@ setChek(check)
   
   return (
     <>
-     <Card className={classes.root}>
+     <Card className={classes.root}
+     onClick={()=>navigate(`/productinfo/${data.id}`)}
+     >
         <CardActionArea>
           <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>

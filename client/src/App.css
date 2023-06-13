@@ -5,6 +5,11 @@
   #search{
     width: 200px !important;
   }
+  #productinfo{
+    margin-bottom: 300px;
+    margin-top: 50px;
+
+  }
 }
 @media (min-width: 900px) {
  
