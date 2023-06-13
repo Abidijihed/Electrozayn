@@ -14,5 +14,10 @@ router.get('/api/get_one_product/:id',productController.GetOnePRoduct)
  router.put('/api/update/shop_card/:id',productController.UpdateProductCard);
 router.put('/api/update_quantity/:id',productController.updatequantity)
 router.delete('/api/delete_shop_card/:id',productController.DeleteAllShopCArd)
+
+
+router.post("/api/add_thumbnailes/images/:id",productController.AddmoreImageProduct)
+router.get("/api/get_all_images/:id",productController.getAllimages)
+
 module.exports={PosteRouter:router};
 

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS product_images (
   id INT NOT NULL AUTO_INCREMENT,
   product_image VARCHAR(255) NOT NULL,
   product_id INT NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id,product_id),
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
 CREATE TABLE IF NOT EXISTS user (

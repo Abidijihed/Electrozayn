@@ -77,15 +77,24 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '24px',
     color: 'blue',
   },
+  promoPrice: {
+    color: 'green',
+  },
+  originalPrice: {
+    color: 'red',
+    textDecoration: 'line-through',
+  },
 }));
 
 const ProductInfo = () => {
   const classes = useStyles();
-  const [selectedImage, setSelectedImage] = useState('https://i.pinimg.com/564x/aa/e2/4c/aae24c73584e81df6e404bccc511ef49.jpg');
+  const [selectedImage, setSelectedImage] = useState('');
   const [zoomed, setZoomed] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [role, setRole] = useState('');
   const [oneProduct,setProduct]=useState(null)
+  const [productImage, setProductImage] = useState([]);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -98,7 +107,10 @@ const ProductInfo = () => {
   }, []);
   useEffect(()=>{
     axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`)
-    .then((res)=>setProduct(res.data))
+    .then((res)=>{
+        setProduct(res.data)
+        setSelectedImage(res.data.product_image)
+    })
   },[oneProduct])
 
   const handleThumbnailClick = (imagePath) => {
@@ -113,7 +125,21 @@ const ProductInfo = () => {
     setInputValue(e.target.value);
   };
 
-  const handleAddImage = () => {
+  const handleAddImage =async () => {
+    const formData = new FormData();
+    formData.append("file", productImage);
+    formData.append("upload_preset", "ml_default");
+    if(productImage.name){
+   await axios.post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
+
+    .then((res)=>{
+        axios.post(`https://www.electrozayn.com/api/add_thumbnailes/images/${id}`,{      
+            product_image:res.data.url
+        }).then((res)=>{
+            console.log(res.data)
+        })
+    })
+  }
     // Implement your logic to add the image using the inputValue
     // Reset the input value after adding the image
     setInputValue('');
@@ -160,26 +186,24 @@ const ProductInfo = () => {
               Product Info
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Kit 2 barres 6 LED 6V TV Maxwell Véga 32″ MAX-JP32T
+              {oneProduct.product_name}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              2 Barres rétro-éclairage LED 595mm 6 lampes pour TV Maxwell32″ CONDOR32″ et des autres TV.
+                {oneProduct.description}
             </Typography>
-            <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Original Price:</span> 40 TND
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Promo Price:</span> 30 TND
+            <Typography variant="body2" color="textSecondary" component="p">
+              {oneProduct.Promo_price <= 0 ? <span className={classes.promoPrice}> Price: {oneProduct.Origin_price} TND</span>
+              :<span className={classes.originalPrice}> Original Price: {oneProduct.Origin_price} TND</span>}
             </Typography>
             <Typography variant="body2" gutterBottom className={classes.reference}>
-              <span style={{ fontWeight: 'bold' }}>Reference:</span> JS-D-JP32DM MS-L2082
+              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct.reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
               <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
-              <span style={{ color: 'green', fontSize: '16px' }}>En Stock</span>
+              <span style={{ color: 'green', fontSize: '16px' }}>{oneProduct.quantity>3?"En Stock":"En Arrivage"}</span>
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Category:</span> led tv
+              <span style={{ fontWeight: 'bold' }}>Category:</span>{oneProduct.catigory}
             </Typography>
           </CardContent>
         </div>
@@ -190,7 +214,7 @@ const ProductInfo = () => {
             type="file"
             placeholder="Add image URL"
             value={inputValue}
-            onChange={handleInputChange}
+            onChange={(e)=>setProductImage(e.target.files[0])}
             disableUnderline
             fullWidth
           />

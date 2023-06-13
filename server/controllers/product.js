@@ -44,7 +44,6 @@ module.exports = {
   },
 
 AddToCart: (req, res) => {
-  console.log(req.body)
   const query = `INSERT INTO shopcard(check_add_or_not, user_id,products_id) VALUES (?, ?, ?)`;
   const values = [req.body.check_add_or_not, req.params.id,req.body.products_id];
   
@@ -101,6 +100,19 @@ const query=`select * from products where id =${req.params.id}`
 connection.query(query,(err,result)=>{
   err ? res.status(500).send(err):res.status(200).send(result)
 })
+}),
+AddmoreImageProduct:((req,res)=>{
+  const query=`insert into product_images (product_image,product_id)values(product_image="${req.body.product_image}",product_id=${req.params.id})`
+  connection.query(query,(err,result)=>{
+    err ? res.status(500).send(err):res.status(201).send("image added")
+  })
+}),
+getAllimages:((req,res)=>{
+  const query=`select * from product_images where product_id=${req.params.id}`
+  connection.query(query,(err,result)=>{
+    err ? res.status(500).send(err):res.status(201).send(result)
+
+  })
 })
 
 
