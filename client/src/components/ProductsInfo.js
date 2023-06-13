@@ -108,7 +108,7 @@ const ProductInfo = () => {
   useEffect(() => {
     axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`).then((res) => {
       setProduct(res.data);
-      setSelectedImage(res.data?.product_image);
+      setSelectedImage(res.data[0].product_image);
     });
   }, [id]);
 
