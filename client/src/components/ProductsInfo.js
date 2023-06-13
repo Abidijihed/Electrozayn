@@ -108,14 +108,13 @@ const ProductInfo = () => {
   useEffect(() => {
     axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`).then((res) => {
       setProduct(res.data[0]);
-
+ 
       setSelectedImage(res.data[0].product_image);
     });
   }, [oneProduct]);
    useEffect(()=>{
-    axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`)
+    axios.get(`https://www.electrozayn.com/api/get_all_images/${id}`)
     .then((res)=>{
-        console.log(res.data)
         setImages(res.data)
     })
    },[images])
@@ -144,11 +143,13 @@ const ProductInfo = () => {
               product_image: res.data.url,
             })
             .then((res) => {
-              
+                if(res.data==="Image added"){
+                    setInputValue('');
+                    setImages(images)
+                }
             });
         });
     }
-    setInputValue('');
   };
 
 
@@ -179,7 +180,6 @@ const ProductInfo = () => {
             />
           </div>
           <CardContent>
-            {console.log(oneProduct)}
             <Typography variant="h6" gutterBottom>
               Product Info
             </Typography>
