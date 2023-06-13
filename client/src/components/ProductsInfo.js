@@ -216,7 +216,7 @@ const ProductInfo = () => {
           </CardContent>
         </div>
       </Card>
-      {role === 'admin' && (
+      {role !== 'admin' && (
         <div className={classes.addImageContainer}>
           <Input
             type="file"

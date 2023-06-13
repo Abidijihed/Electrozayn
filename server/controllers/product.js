@@ -101,12 +101,17 @@ connection.query(query,(err,result)=>{
   err ? res.status(500).send(err):res.status(200).send(result)
 })
 }),
-AddmoreImageProduct:((req,res)=>{
-  const query=`insert into product_images (product_image,products_id)values(product_image="${req.body.product_image}",products_id=${req.params.id})`
-  connection.query(query,(err,result)=>{
-    err ? res.status(500).send(err):res.status(201).send("image added")
-  })
+AddmoreImageProduct: ((req, res) => {
+  const query = `INSERT INTO product_images (product_image, products_id) VALUES ("${req.body.product_image}", ${req.params.id})`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(201).send("Image added");
+    }
+  });
 }),
+
 getAllimages:((req,res)=>{
   const query=`select * from product_images where products_id=${req.params.id}`
   connection.query(query,(err,result)=>{
