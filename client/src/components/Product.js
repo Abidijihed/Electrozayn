@@ -135,10 +135,10 @@ setChek(check)
   return (
     <>
      <Card className={classes.root}
-     onClick={()=>navigate(`/productinfo/${data.id}`)}
+     
      >
         <CardActionArea>
-          <CardMedia className={classes.media} image={data.product_image} title={data.product_name} />
+          <CardMedia onClick={()=>navigate(`/productinfo/${data.id}`)} className={classes.media} image={data.product_image} title={data.product_name} />
           <CardContent style={{height: "260px", width: "100%"}}>
             <Typography gutterBottom variant="h6" component="h1">
               {data.product_name}
