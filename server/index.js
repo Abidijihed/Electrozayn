@@ -7,6 +7,7 @@ const cors = require("cors");
 const {userRoter}=require('./router/userRouter')
  const {PosteRouter}=require('./router/productRouter');
 const {orderRouter} = require("./router/orderRouter");
+const {workShopApiRouter}=require('./router/workShopApiRouter')
 app.use(
   cors({
     origin: "*",
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use('/',userRoter)
 app.use('/',orderRouter)
 app.use('/',PosteRouter)
+app.use('/',workShopApiRouter)
 module.exports = app;
 

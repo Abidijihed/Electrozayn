@@ -118,6 +118,12 @@ getAllimages:((req,res)=>{
     err ? res.status(500).send(err):res.status(201).send(result)
 
   })
+}),
+DeleteImages:((req,res)=>{
+  const query=`delete from product_images where id=${req.params.id}`
+  connection.query(query,(err,result)=>{
+    err ? res.status(500).send(err):res.status(202).send("image deleted")
+  })
 })
 
 
