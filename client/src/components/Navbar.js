@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import logo from './logo.png'
 import {
   AppBar,
   Toolbar,
@@ -13,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Avatar,
 } from '@mui/material';
 import {
   makeStyles,
@@ -37,7 +39,7 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: '#004aad',
+    backgroundColor: '#e8b623',
     zIndex: theme.zIndex.drawer + 1,
     display: 'flex',
     justifyContent: 'space-between',
@@ -156,9 +158,9 @@ const Navbar = ({ handleChange,shop})=> {
   
   return (
     <>
-      <AppBar position="sticky" className={classes.appBar}>
+      <AppBar position="sticky" className={classes.appBar} sx={{backgroundColor:'#e8b623'}}>
         <Toolbar>
-          
+            <Avatar alt="logo" src={logo} sx={{mr:'10px'}}/>
             <Typography className={classes.title} variant="h6" noWrap component={Link} to="/" style={{color:"white"}}>
               ElectroZayn
             </Typography>

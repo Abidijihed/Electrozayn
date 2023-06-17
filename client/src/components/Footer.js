@@ -96,7 +96,7 @@ function Footer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{backgroundColor:"#e8b623"}} >
       <Container maxWidth="lg" className={classes.container}>
         <div className={classes.column}>
           <Typography variant="body1" gutterBottom className={classes.contactInfo}>
