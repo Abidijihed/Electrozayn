@@ -28,3 +28,8 @@
   width: 1200px;
 
 }
+@media (min-width:600px) {
+  .mynavbar{
+    justify-content: space-between;
+  }
+}

@@ -159,11 +159,8 @@ const Navbar = ({ handleChange,shop})=> {
   return (
     <>
       <AppBar position="sticky" className={classes.appBar} sx={{backgroundColor:'#e8b623'}}>
-        <Toolbar>
-            <Avatar alt="logo" src={logo} sx={{mr:'10px'}}/>
-            <Typography className={classes.title} variant="h6" noWrap component={Link} to="/" style={{color:"white"}}>
-              ElectroZayn
-            </Typography>
+        <Toolbar className='mynavbar'>
+            <Avatar alt="logo" src={logo} sx={{mr:'10px'}} component={Link} to="/"/>
           
           {/* <Hidden mdDown>
             <Typography className={classes.title} variant="h6" noWrap>

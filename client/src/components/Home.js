@@ -218,31 +218,7 @@ useEffect(()=>{
               </Card.Text>
             </Card.Body>
     </Card>
-  </div>
-
-    <div className={classes.comingSoonWrapper}>
-      <div className={classes.comingSoonContent}>
-        <Typography variant="h2" gutterBottom>
-          Coming Soon...
-        </Typography>
-        <Typography variant="h5" paragraph>
-          Website under construction
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <BsFillTelephoneFill/> +216 22 181 411
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <BsFillTelephoneFill/> +216 55 181 417
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <AiOutlineMail/> aymensatellite@gmail.com
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <AiFillHome/> 1 Rue de Pirée rue d'Athènes Tunis 1000
-        </Typography>
-      </div>
-    </div>
-    
+  </div>  
   </div>
     
     }
