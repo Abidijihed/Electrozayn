@@ -6,12 +6,12 @@ const productController = require('../controllers/workshoAPI');
 router.post('/api/addProduct', productController.addProduct);
 
 // Get a product by ID
-router.get('/api/getProduct/:productId', productController.getProduct);
+router.get('/api/getProduct', productController.getProduct);
 
 // Delete a product by ID
-router.delete('/api/deleteProduct/:productId', productController.deleteProduct);
+router.delete('/api/deleteProduct/:id', productController.deleteProduct);
 
 // Update a product by ID
-router.put('/api/updateProduct/:productId', productController.updateProduct);
+router.put('/api/updateProduct/:id', productController.updateProduct);
 
 module.exports = {workShopApiRouter:router};
