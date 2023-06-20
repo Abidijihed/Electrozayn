@@ -224,7 +224,7 @@ const Navbar = ({ handleChange,shop})=> {
         <nav className={classes.drawer}>
           <Drawer
             variant="temporary"
-            anchor="right"
+            anchor="left"
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
