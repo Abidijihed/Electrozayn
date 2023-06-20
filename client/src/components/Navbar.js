@@ -197,19 +197,24 @@ const Navbar = ({ handleChange,shop})=> {
           <div className={classes.navIcons}>
             <Hidden smDown>
               <IconButton color="inherit" className={classes.navIcon} component={Link} to="/profile" >
-                <FaUser />
+                {/* <FaUser /> */}
+                Profile
               </IconButton>
             {!token&&  <IconButton color="inherit" className={classes.navIcon} component={Link} to="/login">
-                <FaSignInAlt />
+                {/* <FaSignInAlt /> */}
+                Login
               </IconButton>}
               <IconButton color="inherit" className={classes.navIcon} component={Link} to="/contact">
-                <FaPhoneAlt />
+                {/* <FaPhoneAlt /> */}
+                Contact Us
               </IconButton>
               <IconButton color="inherit" className={classes.navIcon} component={Link} to="/about">
-                <FaInfo />
+                {/* <FaInfo /> */}
+                About Us
               </IconButton>
               <IconButton color="inherit" className={classes.navIcon} component={Link} to="/products">
-                <MdOutlineAddShoppingCart />
+                {/* <MdOutlineAddShoppingCart /> */}
+                Products
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
