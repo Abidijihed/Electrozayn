@@ -54,24 +54,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProfilePage() {
+function ProfilePage({user,role}) {
   const classes = useStyles();
-  const [user, setUser] = useState([]);
   const [order, setOrder] = useState([]);
-  const [role, setRole] = useState("");
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const user_id = localStorage.getItem("id");
-    axios
-      .get("https://www.electrozayn.com/api/user/getone/" + user_id)
-      .then((res) => {
-        setUser(res.data);
-        res.data.map((el) => {
-          setRole(el.role);
-        });
-      });
-  }, []);
+  
 
   useEffect(() => {
     const user_id = localStorage.getItem("id");
@@ -98,7 +84,15 @@ function ProfilePage() {
         console.log(err)
       })
   };
+const logout=()=>{
+  axios.get("https://www.electrozayn.com/api/logout")
+  .then((res)=>{
+if(res.data==="user loged out"){
+  localStorage.clear()
 
+}
+  })
+}
   return (
     <>
       {/* First section */}
@@ -185,7 +179,7 @@ function ProfilePage() {
             <Divider />
           </CardContent>
 
-          <Button>LogOut</Button>
+          <Button style={{backgroundColor:"red"}} onClick={logout}>LogOut</Button>
         </Card>
       ))}
 

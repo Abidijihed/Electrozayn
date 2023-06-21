@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Card,
   CardContent,
   Checkbox,
@@ -11,14 +13,18 @@ import {
   Button,
   CircularProgress,
 } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
+
 import CheckoutValidation from "./CheckoutValidation";
 import axios from "axios";
 import { TiDelete } from "react-icons/ti";
+import "react-toastify/dist/ReactToastify.css";
+
 const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     padding: "1rem",
   },
   card: {
@@ -42,8 +48,13 @@ const useStyles = makeStyles({
     cursor: "pointer",
   },
 });
-
-export default function Checkout({ getlengthShop }) {
+export default function MyModal({
+  handleOpen,
+  handleClose,
+  open,
+  getlengthShop,
+  user
+}) {
   const classes = useStyles();
   const [openCheckoutValidation, setOpenCheckoutValidation] = useState(false);
   const [products, setProducts] = useState([]);
@@ -51,25 +62,39 @@ export default function Checkout({ getlengthShop }) {
   const [totalPrice, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get("https://www.electrozayn.com/api/get_product/card")
-      .then((res) => {
-        const productsWithQuantity = res.data.map((product) => ({
-          ...product,
-          quantity: 1, // Initialize quantity as 1 for each product
-        }));
-        setProducts(productsWithQuantity);
-        setIsLoading(false);
-      });
-    getlengthShop();
-  }, []);
+  const HandlesubmitOrder = () => {
+    setOpenCheckoutValidation(true);
+    handleClose();
+  };
 
+  
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("https://www.electrozayn.com/api/get_product/card");
+      const productsWithQuantity = response.data.map((product) => ({
+        ...product,
+        quantity: 1,
+      }));
+      setProducts(productsWithQuantity);
+      setIsLoading(false);
+      getlengthShop();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (open) {
+      fetchData();
+    }
+  }, [open]);
+    
+  
   const handleUpdate = (id) => {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
-        window.location.reload()
+        fetchData()
       })
       .catch((err) => {
         console.log(err);
@@ -148,90 +173,110 @@ export default function Checkout({ getlengthShop }) {
   };
 
   return (
-    <div className={classes.root}>
-      <ToastContainer />
-      <Typography variant="h6">Checkout</Typography>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        products.map((product) => (
-          <Card key={product.id} className={classes.card}>
-            <img
-              src={product.product_image}
-              alt={product.product_name}
-              className={classes.image}
-            />
-            <CardContent>
-              <Typography variant="subtitle1">
-                {product.product_name}
-              </Typography>
-              <Typography variant="caption">{product.reference}</Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Promo Price: {product.Promo_price} TND
-              </Typography>
+    <div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Checkout</DialogTitle>
+        <DialogContent>
+          <div className={classes.root}>
+            <ToastContainer />
+            <Typography variant="h6">Checkout</Typography>
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              products.map((product) => (
+                <Card key={product.id} className={classes.card}>
+                  <img
+                    src={product.product_image}
+                    alt={product.product_name}
+                    className={classes.image}
+                  />
+                  <CardContent>
+                    <Typography variant="subtitle1">
+                      {product.product_name}
+                    </Typography>
+                    <Typography variant="caption">
+                      {product.reference}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      Promo Price: {product.Promo_price} TND
+                    </Typography>
 
-              <div style={{ display: "flex" }}>
-                <Button onClick={() => incrementQuantity(product.id)}>+</Button>
-                <Typography>{product.quantity}</Typography>
-                <Button onClick={() => decrementQuantity(product.id)}>-</Button>
-              </div>
-              <Typography variant="body2" color="black" component="h3">
-                Total: {Number(product.Promo_price) * Number(product.quantity)}{" "}
-                TND
-              </Typography>
-            </CardContent>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                color: "red",
-              }}
-            >
-              <TiDelete
-                className={classes.deleteIcon}
-                onClick={() => handleUpdate(product.id)}
-              />
-            </div>
-          </Card>
-        ))
-      )}
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={paymentMethod === "pay_on_delivery"}
-            onChange={handlePaymentMethodChange}
-            value="pay_on_delivery"
-          />
-        }
-        label="Pay on Delivery"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={paymentMethod === "pay_with_card"}
-            onChange={handlePaymentMethodChange}
-            value="pay_with_card"
-          />
-        }
-        label="Pay with Card"
-      />
-      <Typography variant="h6" className={classes.total}>
-        {totalPrice}
-        Total Price: {handleTotal()} TND
-      </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setOpenCheckoutValidation(true)}
-      >
-        Validate Order
-      </Button>
+                    <div style={{ display: "flex" }}>
+                      <Button onClick={() => incrementQuantity(product.id)}>
+                        +
+                      </Button>
+                      <Typography>{product.quantity}</Typography>
+                      <Button onClick={() => decrementQuantity(product.id)}>
+                        -
+                      </Button>
+                    </div>
+                    <Typography variant="body2" color="black" component="h3">
+                      Total:{" "}
+                      {Number(product.Promo_price) * Number(product.quantity)}{" "}
+                      TND
+                    </Typography>
+                  </CardContent>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      color: "red",
+                    }}
+                  >
+                    <TiDelete
+                      className={classes.deleteIcon}
+                      onClick={() => handleUpdate(product.id)}
+                    />
+                  </div>
+                </Card>
+              ))
+            )}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={paymentMethod === "pay_on_delivery"}
+                  onChange={handlePaymentMethodChange}
+                  value="pay_on_delivery"
+                />
+              }
+              label="Pay on Delivery"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={paymentMethod === "pay_with_card"}
+                  onChange={handlePaymentMethodChange}
+                  value="pay_with_card"
+                />
+              }
+              label="Pay with Card"
+            />
+            <Typography variant="h6" className={classes.total}>
+              {totalPrice}
+              Total Price: {handleTotal()} TND
+            </Typography>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+          <Button onClick={() => HandlesubmitOrder(true)} color="primary">
+            Validate Order
+          </Button>
+        </DialogActions>
+      </Dialog>
       <CheckoutValidation
         open={openCheckoutValidation}
         handleClose={() => setOpenCheckoutValidation(false)}
         totalPrice={handleTotal()}
         products={products}
         handleValidation={handleValidation}
+        user={user}
       />
     </div>
   );

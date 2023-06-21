@@ -9,7 +9,6 @@ import Profile from './components/Profile';
 import Login from './components/Login'
 import ListProduct from './components/ListProduct'
 import About from './components/About';
-import Checkout from './components/Checkout';
 import "./App.css"
 import axios from 'axios';
 import PrivateRoute from './components/PrivateRoute'
@@ -20,6 +19,8 @@ import ProductInfo from './components/ProductsInfo';
 function App() {
   const [search,setSearch]=useState("")
   const [shop, setShop] = useState('');
+  const [user, setUser] = useState([]);
+  const [role, setRole] = useState("");
 
   const getlengthShop=() => {
     const shopValue = localStorage.getItem('shop');
@@ -34,12 +35,24 @@ function App() {
 
 setShop(shop)
   },[shop])
+
+  useEffect(() => {
+    const user_id = localStorage.getItem("id");
+    axios
+      .get("https://www.electrozayn.com/api/user/getone/" + user_id)
+      .then((res) => {
+        setUser(res.data);
+        res.data.map((el) => {
+          setRole(el.role);
+        });
+      });
+  }, []);
   return (
     
       <div>
         <BrowserRouter>
        
-        <NavBar handleChange={handleChange} shop={shop} getlengthShop={getlengthShop} />
+        <NavBar handleChange={handleChange} shop={shop} getlengthShop={getlengthShop} user={user[0]}/>
         <Routes>
           <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
           <Route path="/contact" element={<ContactPage/>} />
@@ -47,13 +60,12 @@ setShop(shop)
           
          <Route path="/profile"  element={
           <PrivateRoute>
-         <Profile />
+         <Profile user={user} role={role}/>
          </PrivateRoute>
          }/>
          <Route path='/productinfo/:id' element={<ProductInfo />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          {/* <Route path="/chekout" element={<Checkout />} /> */}
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
         

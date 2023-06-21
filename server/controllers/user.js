@@ -67,7 +67,7 @@ LoginUser :(req,res)=>{
 logout:(req,res)=>{
   session.delete(req.cookies.Electrozyne)
   .then((result)=>{
-res.status(200).send('user loget out')      
+res.status(200).send('user loged out')      
  })
   .catch((err)=>{
     res.status(500).send('server err')

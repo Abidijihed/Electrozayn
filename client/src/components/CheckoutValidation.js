@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {useNavigate} from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Modal, TextField, Typography } from "@material-ui/core";
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,products }) {
+function CheckoutValidation({user, open, handleClose, totalPrice,handleValidation,products }) {
   const classes = useStyles();
   const [FirstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -119,7 +119,16 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
         });
     }
   };
-
+useEffect(()=>{
+  if(open){
+    setFirstName(user?.FirstName)
+    setEmail(user?.Email)
+    setAddress(user?.Address)
+    setCountry(user?.country)
+    setZip(user?.Zip)
+    setPhone(user?.PhoneNumber)
+  }
+},[open])
   return (
     <Modal open={open} onClose={handleClose}>
       <div className={classes.paper}>
@@ -132,8 +141,10 @@ function CheckoutValidation({ open, handleClose, totalPrice,handleValidation,pro
           label="FirstName"
           error={firstNameError}
           value={FirstName}
+
           onChange={(e) => setFirstName(e.target.value)}
         />
+       
         <TextField
           className={classes.input}
           required

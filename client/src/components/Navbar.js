@@ -19,7 +19,7 @@ import {
 import {
   makeStyles,
 } from '@material-ui/core';
-import ChekoutNew from "./ChekoutNew"
+import ChekoutNew from "./Checkout"
 import {alpha } from '@mui/material/styles';
 import {
   FaShoppingCart,
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleChange,shop,getlengthShop})=> {
+const Navbar = ({ handleChange,shop,getlengthShop,user})=> {
   const token = localStorage.getItem("token");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -254,6 +254,7 @@ const Navbar = ({ handleChange,shop,getlengthShop})=> {
       open={open}
       handleOpen={handleOpen}
       handleClose={handleClose}
+      user={user}
       />
     </>
   );
