@@ -89,6 +89,7 @@ const logout=()=>{
   .then((res)=>{
 if(res.data==="user loged out"){
   localStorage.clear()
+  window.location.reload()
 
 }
   })

@@ -2,6 +2,12 @@
   .mycarousel {
    width: 500px;
   }
+  #mycard{
+    margin-bottom: 61px;
+     display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between
+  }
   #search{
     width: 200px !important;
   }
@@ -31,5 +37,15 @@
 @media (min-width:600px) {
   .mynavbar{
     justify-content: space-between;
+  }
+  .allcards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+  }
+  .showmore{
+    display: flex;
+    justify-content: center;
   }
 }

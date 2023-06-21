@@ -113,6 +113,7 @@ const Navbar = ({ handleChange,shop,getlengthShop,user})=> {
 
   const handleClose = () => {
     setOpen(false);
+    window.location.reload()
   };
    const classes = useStyles();
 

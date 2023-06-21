@@ -14,6 +14,8 @@ import Buttoon from 'react-bootstrap/Button';
 import ListProducts from "./Product"
 import axios from 'axios';
 import {MdOutlineAddShoppingCart} from "react-icons/md";
+import { differenceInDays, parse } from 'date-fns';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -57,13 +59,24 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(2),
     textAlign: 'center',
   },
+  promoPrice: {
+    color: "green",
+  },
+  originalPrice: {
+    color: "red",
+    textDecoration: "line-through",
+  },
 }));
 
 function HomePage({search,getlengthShop}) {
   const [data, setData] = useState([]);
   const classes = useStyles();
   const [index, setIndex] = useState(0);
+  const [displayCount, setDisplayCount] = useState(5);
 
+  const handleShowMore = () => {
+    setDisplayCount(displayCount + 5);
+  };
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
@@ -72,6 +85,18 @@ useEffect(()=>{
     setData(res.data);
   });
 },[])
+
+// ...
+
+
+const currentDate = new Date();
+
+// Filter data based on created_at date
+const filteredData = data.filter((el) => {
+  const createdAtDate = new Date(el.created_at);
+  const daysDifference = differenceInDays(currentDate, createdAtDate);
+  return daysDifference < 10;
+});
   return (
    <>
    {search.length > 0 ?<div> {data
@@ -145,11 +170,49 @@ useEffect(()=>{
       </Card.Header>
     </Card>
   </div>
+  <div id='mycard'>
 
 {/* div of Bienvenue */ }
   <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'3%'}}>
     <h1>Bienvenue à ElectroZayn</h1>
   </div>
+  {/* div of Dividers Promotions */ }
+  <div style={{ display: 'flex', alignItems: 'center',marginTop:'3%'}}>
+  <Divider sx={{ flex: '1', backgroundColor: "#e8b623", height: '4px' }} />
+  <span style={{ margin: '0 10px', fontWeight: 'bold', fontSize: '2rem' }}>Promotions</span>
+  <Divider sx={{ flex: '10', backgroundColor: "#e8b623", height: '4px' }} />
+</div>
+  {/* div of Cards promotions */}
+  <div className='allcards'>
+  {data.filter((el) => el.Promo_price > 0).slice(0, displayCount).map((el) => (
+    <div key={el.product_name} style={{ width: '100%', marginBottom: '3%', padding: '10px', maxWidth: '300px',display:"inline-flex",flexWrap:"wrap" }}>
+      <Card>
+        <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" style={{ height: '200px', objectFit: 'cover' }} />
+        <Card.Body style={{ textAlign: 'center' }}>
+          <Card.Title>{el.product_name}</Card.Title>
+          <Card.Text className={classes.originalPrice}>
+            Original Price: {el.Origin_price} TND
+          </Card.Text>
+          <Card.Text className={classes.promoPrice}>
+            Promo Price: {el.Promo_price} TND
+          </Card.Text>
+          <Button variant="outline-dark" style={{ borderRadius: '50%', padding: '10px', fontSize: '30px', marginTop: '10px' }}>
+            <MdOutlineAddShoppingCart />
+          </Button>
+        </Card.Body>
+      </Card>
+    </div>
+  ))}
+</div>
+<div className='showmore'>
+{displayCount < data.filter((el) => el.Promo_price > 0).length && (
+    <Button variant="primary" onClick={handleShowMore} style={{ margin: '0 auto', marginTop: '3%' }}>
+      Show More...
+    </Button>
+  )}
+</div>
+
+
 
 {/* div of Dividers Produits tendances */ }
 <div style={{ display: 'flex', alignItems: 'center',marginTop:'3%'}}>
@@ -159,20 +222,34 @@ useEffect(()=>{
 </div>
 
 {/* div of Cards Produits tendances */ }
-  <div style={{display:'flex', justifyContent: 'space-between', width: '100%', marginTop:'3%'}}>
-  <Card style={{ marginLeft: '30px', marginRight: '30px' }}>
-            <div style={{ position: 'relative' }}>
-            <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" />
-            <Buttoon variant="outline-dark" style={{position:'absolute', borderRadius: '50%', padding: '10px', fontSize: '20px',  border: 'none', background: 'none' , top: '90%', left: '90%', transform: 'translate(-50%, -50%)', textAlign: 'center'}}> <MdOutlineAddShoppingCart/> </Buttoon>
-            </div>
-            <Card.Body>
-              <Card.Title>Nom Article</Card.Title>
-              <Card.Text>
-                Prix dt
-              </Card.Text>
-            </Card.Body>
-    </Card>
-  </div>
+<div className='allcards'>
+  {data.filter((el) => el.Promo_price > 0).slice(0, displayCount).map((el) => (
+    <div key={el.product_name} style={{ width: '100%', marginBottom: '3%', padding: '10px', maxWidth: '300px',display:"inline-flex",flexWrap:"wrap" }}>
+      <Card>
+        <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" style={{ height: '200px', objectFit: 'cover' }} />
+        <Card.Body style={{ textAlign: 'center' }}>
+          <Card.Title>{el.product_name}</Card.Title>
+          <Card.Text className={classes.originalPrice}>
+            Original Price: {el.Origin_price} TND
+          </Card.Text>
+          <Card.Text className={classes.promoPrice}>
+            Promo Price: {el.Promo_price} TND
+          </Card.Text>
+          <Button variant="outline-dark" style={{ borderRadius: '50%', padding: '10px', fontSize: '30px', marginTop: '10px' }}>
+            <MdOutlineAddShoppingCart />
+          </Button>
+        </Card.Body>
+      </Card>
+    </div>
+  ))}
+</div>
+<div className='showmore'>
+{displayCount < data.filter((el) => el.Promo_price > 0).length && (
+    <Button variant="primary" onClick={handleShowMore} style={{ margin: '0 auto', marginTop: '3%' }}>
+      Show More...
+    </Button>
+  )}
+</div>
 
 {/* div of Dividers Nouveautés */ }
 <div style={{ display: 'flex', alignItems: 'center',marginTop:'3%'}}>
@@ -182,45 +259,47 @@ useEffect(()=>{
 </div>
 
 {/* div of Cards Nouveautés */ }
-  <div style={{display:'flex', justifyContent: 'space-between', width: '100%', marginTop:'3%'}}>
-  <Card style={{ marginLeft: '30px', marginRight: '30px' }}>
-            <div style={{ position: 'relative' }}>
-            <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" />
-            <Buttoon variant="outline-dark" style={{position:'absolute', borderRadius: '50%', padding: '10px', fontSize: '20px',  border: 'none', background: 'none' , top: '90%', left: '90%', transform: 'translate(-50%, -50%)', textAlign: 'center'}}> <MdOutlineAddShoppingCart/> </Buttoon>
-            </div>
-            <Card.Body>
-              <Card.Title>Nom Article</Card.Title>
-              <Card.Text>
-                Prix dt
-              </Card.Text>
-            </Card.Body>
-    </Card>
-  </div>
-
-  {/* div of Dividers Promotions */ }
-<div style={{ display: 'flex', alignItems: 'center',marginTop:'3%'}}>
-  <Divider sx={{ flex: '1', backgroundColor: "#e8b623", height: '4px' }} />
-  <span style={{ margin: '0 10px', fontWeight: 'bold', fontSize: '2rem' }}>Promotions</span>
-  <Divider sx={{ flex: '10', backgroundColor: "#e8b623", height: '4px' }} />
+<div className='allcards'>
+  {filteredData.slice(0, displayCount).map((el) => (
+    <div key={el.product_name} style={{ width: '100%', marginBottom: '3%', padding: '10px', maxWidth: '300px', display: 'inline-flex', flexWrap: 'wrap' }}>
+        <Card>
+        <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" style={{ height: '200px', objectFit: 'cover' }} />
+        <Card.Body style={{ textAlign: 'center' }}>
+          <Card.Title>{el.product_name}</Card.Title>
+        {el.Promo_price>0?
+          <>
+          <Card.Text className={classes.originalPrice}>
+            Original Price: {el.Origin_price} TND
+          </Card.Text>
+          <Card.Text className={classes.promoPrice}>
+            Promo Price: {el.Promo_price} TND
+          </Card.Text>
+          </>
+          :<>
+           <Card.Text className={classes.promoPrice}>
+             Price: {el.Origin_price} TND
+          </Card.Text>
+          </>
+          }
+          <Button variant="outline-dark" style={{ borderRadius: '50%', padding: '10px', fontSize: '30px', marginTop: '10px' }}>
+            <MdOutlineAddShoppingCart />
+          </Button>
+        </Card.Body>
+      </Card>
+    </div>
+  ))}
+</div>
+<div className='showmore'>
+  {displayCount < filteredData.length && (
+    <Button variant="primary" onClick={handleShowMore} style={{ margin: '0 auto', marginTop: '3%' }}>
+      Show More...
+    </Button>
+  )}
 </div>
 
-{/* div of Cards promotions */ }
-  <div style={{display:'flex', justifyContent: 'space-between', width: '100%', marginTop:'3%'}}>
-  <Card style={{ marginLeft: '30px', marginRight: '30px' }}>
-            <div style={{ position: 'relative' }}>
-            <Card.Img variant="top" src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg" />
-            <Buttoon variant="outline-dark" style={{position:'absolute', borderRadius: '50%', padding: '10px', fontSize: '20px',  border: 'none', background: 'none' , top: '90%', left: '90%', transform: 'translate(-50%, -50%)', textAlign: 'center'}}> <MdOutlineAddShoppingCart/> </Buttoon>
-            </div>
-            <Card.Body>
-              <Card.Title>Nom Article</Card.Title>
-              <Card.Text>
-                Prix dt
-              </Card.Text>
-            </Card.Body>
-    </Card>
-  </div>  
+
   </div>
-    
+  </div>
     }
     </>
   );
