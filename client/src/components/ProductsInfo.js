@@ -84,6 +84,11 @@ const useStyles = makeStyles((theme) => ({
       color: 'red',
       textDecoration: 'line-through',
     },
+     thumbnailWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: theme.spacing(2),
+    },
   }));
 const ProductInfo = () => {
   const classes = useStyles();
@@ -154,21 +159,8 @@ const ProductInfo = () => {
 
 
   return (
-    <div className={classes.root} id="productinfo">
-      <div className={classes.thumbnailContainer}>
-      { images.map((el)=><img
-      key={el.id}
-          src={el.product_image}
-          alt="Thumbnail 1"
-          className={classes.thumbnail}
-          onClick={() =>
-            handleThumbnailClick(
-              el.product_image
-            )
-          }
-        />) }
-    
-      </div>
+    <div className={classes.root} id="productinfo" >
+
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
           <div className={classes.imageContainer}>
@@ -221,6 +213,20 @@ const ProductInfo = () => {
           </CardContent>
         </div>
       </Card>
+      <div  className={classes.thumbnailWrapper}>
+      { images.map((el)=><img
+      key={el.id}
+          src={el.product_image}
+          alt="Thumbnail 1"
+          className={classes.thumbnail}
+          onClick={() =>
+            handleThumbnailClick(
+              el.product_image
+            )
+          }
+        />) }
+    
+      </div>
       {role === 'admin' && (
         <div className={classes.addImageContainer}>
           <Input

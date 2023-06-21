@@ -39,7 +39,7 @@ setShop(shop)
       <div>
         <BrowserRouter>
        
-        <NavBar handleChange={handleChange} shop={shop} />
+        <NavBar handleChange={handleChange} shop={shop} getlengthShop={getlengthShop} />
         <Routes>
           <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
           <Route path="/contact" element={<ContactPage/>} />
@@ -53,7 +53,7 @@ setShop(shop)
          <Route path='/productinfo/:id' element={<ProductInfo />}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          <Route path="/chekout" element={<Checkout getlengthShop={getlengthShop}/>} />
+          {/* <Route path="/chekout" element={<Checkout />} /> */}
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
         

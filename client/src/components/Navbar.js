@@ -19,6 +19,7 @@ import {
 import {
   makeStyles,
 } from '@material-ui/core';
+import ChekoutNew from "./ChekoutNew"
 import {alpha } from '@mui/material/styles';
 import {
   FaShoppingCart,
@@ -101,10 +102,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleChange,shop})=> {
+const Navbar = ({ handleChange,shop,getlengthShop})=> {
   const token = localStorage.getItem("token");
   const [mobileOpen, setMobileOpen] = useState(false);
- 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
    const classes = useStyles();
 
 
@@ -218,7 +227,7 @@ const Navbar = ({ handleChange,shop})=> {
               </IconButton>
             </Hidden>
             <IconButton color="inherit">
-              <Badge badgeContent={Number(shop)} color="secondary" component={Link} to="/chekout">
+              <Badge badgeContent={Number(shop)} color="secondary" onClick={handleOpen}>
                 <FaShoppingCart fontSize="xlarge" color='white'/>
               </Badge>
             </IconButton>
@@ -240,6 +249,12 @@ const Navbar = ({ handleChange,shop})=> {
           </Drawer>
         </nav>
       </Hidden>
+      <ChekoutNew
+      getlengthShop={getlengthShop}
+      open={open}
+      handleOpen={handleOpen}
+      handleClose={handleClose}
+      />
     </>
   );
 };
