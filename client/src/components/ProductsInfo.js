@@ -133,7 +133,13 @@ const ProductInfo = () => {
         });
       });
   }, []);
-
+  const getImages=() => {
+    axios
+      .get(`https://www.electrozayn.com/api/get_all_images/${id}`)
+      .then((res) => {
+        setImages(res.data);
+      });
+  }
   useEffect(() => {
     axios
       .get(`https://www.electrozayn.com/api/get_one_product/${id}`)
@@ -141,15 +147,10 @@ const ProductInfo = () => {
         setProduct(res.data[0]);
         setSelectedImage(res.data[0].product_image);
       });
+      getImages()
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`https://www.electrozayn.com/api/get_all_images/${id}`)
-      .then((res) => {
-        setImages(res.data);
-      });
-  }, []);
+
 
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
@@ -191,7 +192,9 @@ const ProductInfo = () => {
     axios
       .delete("https://www.electrozayn.com/api/delete_images/" + id)
       .then((res) => {
-        setImages(images);
+        if(res.data==="image deleted"){
+          getImages()
+        }
       });
   };
   return (
