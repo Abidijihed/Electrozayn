@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -7,141 +7,148 @@ import {
   IconButton,
   Input,
   makeStyles,
-} from '@material-ui/core';
-import { Add, ZoomIn } from '@material-ui/icons';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+  Button,
+} from "@material-ui/core";
+import { Add, ZoomIn } from "@material-ui/icons";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 'auto',
-    flexDirection: 'column', // Update to column layout
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "auto",
+    flexDirection: "column", // Update to column layout
   },
   card: {
-    width: '90%', // Update to a percentage value
+    width: "90%", // Update to a percentage value
     maxWidth: 800, // Set a max width
     padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'row',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "center",
     },
   },
   thumbnailContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
     marginRight: theme.spacing(4),
     marginTop: theme.spacing(2), // Add margin to separate from the card
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'row', // Change to row layout for mobile
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "row", // Change to row layout for mobile
       marginTop: 0,
     },
   },
   thumbnail: {
     width: 80,
     height: 80,
-    margin:"10px",
-    objectFit: 'cover',
+    margin: "10px",
+    objectFit: "cover",
     marginBottom: theme.spacing(1),
-    cursor: 'pointer',
-    transition: 'transform 0.3s',
-    '&:hover': {
-      transform: 'scale(1.1)',
+    cursor: "pointer",
+    transition: "transform 0.3s",
+    "&:hover": {
+      transform: "scale(1.1)",
     },
   },
   infoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     flex: 1,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(4),
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'column',
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
     },
   },
   imageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      flexBasis: '100%',
+    [theme.breakpoints.down("sm")]: {
+      flexBasis: "100%",
     },
   },
-  
+
   image: {
-    width: '100%', // Change to 100% to fill the container
-    height: 'auto', // Auto height for responsiveness
-    transition: 'transform 0.3s',
-    '&:hover': {
-      transform: 'scale(1.2)',
+    width: "100%", // Change to 100% to fill the container
+    height: "auto", // Auto height for responsiveness
+    transition: "transform 0.3s",
+    "&:hover": {
+      transform: "scale(1.2)",
     },
   },
   addImageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: theme.spacing(2),
   },
   addImageButton: {
     marginLeft: theme.spacing(1),
   },
   reference: {
-    fontSize: '24px',
-    color: 'blue',
+    fontSize: "24px",
+    color: "blue",
   },
   promoPrice: {
-    color: 'green',
+    color: "green",
   },
   originalPrice: {
-    color: 'red',
-    textDecoration: 'line-through',
+    color: "red",
+    textDecoration: "line-through",
   },
   thumbnailWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     marginTop: theme.spacing(2),
-    flexWrap: 'wrap', // Allow thumbnails to wrap to the next line
+    flexWrap: "wrap", // Allow thumbnails to wrap to the next line
   },
 }));
 
 const ProductInfo = () => {
   const classes = useStyles();
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState("");
   const [zoomed, setZoomed] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [role, setRole] = useState('');
+  const [inputValue, setInputValue] = useState("");
+  const [role, setRole] = useState("");
   const [oneProduct, setProduct] = useState(null);
   const [productImage, setProductImage] = useState([]);
   const [images, setImages] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    const user_id = localStorage.getItem('id');
-    axios.get('https://www.electrozayn.com/api/user/getone/' + user_id).then((res) => {
-      res.data.map((el) => {
-        setRole(el.role);
+    const user_id = localStorage.getItem("id");
+    axios
+      .get("https://www.electrozayn.com/api/user/getone/" + user_id)
+      .then((res) => {
+        res.data.map((el) => {
+          setRole(el.role);
+        });
       });
-    });
   }, []);
 
   useEffect(() => {
-    axios.get(`https://www.electrozayn.com/api/get_one_product/${id}`).then((res) => {
-      setProduct(res.data[0]);
-      setSelectedImage(res.data[0].product_image);
-    });
+    axios
+      .get(`https://www.electrozayn.com/api/get_one_product/${id}`)
+      .then((res) => {
+        setProduct(res.data[0]);
+        setSelectedImage(res.data[0].product_image);
+      });
   }, []);
 
   useEffect(() => {
-    axios.get(`https://www.electrozayn.com/api/get_all_images/${id}`).then((res) => {
-      setImages(res.data);
-    });
+    axios
+      .get(`https://www.electrozayn.com/api/get_all_images/${id}`)
+      .then((res) => {
+        setImages(res.data);
+      });
   }, []);
 
   const handleThumbnailClick = (imagePath) => {
@@ -158,22 +165,35 @@ const ProductInfo = () => {
 
   const handleAddImage = async () => {
     const formData = new FormData();
-    formData.append('file', productImage);
-    formData.append('upload_preset', 'ml_default');
+    formData.append("file", productImage);
+    formData.append("upload_preset", "ml_default");
     if (productImage.name) {
-      await axios.post('https://api.cloudinary.com/v1_1/dycjej355/upload', formData).then((res) => {
-        axios.post(`https://www.electrozayn.com/api/add_thumbnailes/images/${id}`, {
-          product_image: res.data.url,
-        }).then((res) => {
-          if (res.data === 'Image added') {
-            setInputValue('');
-            window.location.reload();
-          }
+      await axios
+        .post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
+        .then((res) => {
+          axios
+            .post(
+              `https://www.electrozayn.com/api/add_thumbnailes/images/${id}`,
+              {
+                product_image: res.data.url,
+              }
+            )
+            .then((res) => {
+              if (res.data === "Image added") {
+                setInputValue("");
+                window.location.reload();
+              }
+            });
         });
-      });
     }
   };
-
+  const deleteimages = (id) => {
+    axios
+      .delete("https://www.electrozayn.com/api/delete_images/" + id)
+      .then((res) => {
+        setImages(images);
+      });
+  };
   return (
     <div className={classes.root} id="productinfo">
       <Card className={classes.card}>
@@ -197,7 +217,7 @@ const ProductInfo = () => {
               {oneProduct?.description}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct?.Promo_price <= 0 ? ( 
+              {oneProduct?.Promo_price <= 0 ? (
                 <span className={classes.promoPrice}>
                   Price: {oneProduct?.Origin_price} TND
                 </span>
@@ -214,17 +234,22 @@ const ProductInfo = () => {
                 </Typography>
               ) : null}
             </Typography>
-            <Typography variant="body2" gutterBottom className={classes.reference}>
-              <span style={{ fontWeight: 'bold' }}>Reference:</span> {oneProduct?.reference}
+            <Typography
+              variant="body2"
+              gutterBottom
+              className={classes.reference}
+            >
+              <span style={{ fontWeight: "bold" }}>Reference:</span>{" "}
+              {oneProduct?.reference}
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Availability:</span>{' '}
-              <span style={{ color: 'green', fontSize: '16px' }}>
-                {oneProduct?.quantity > 3 ? 'En Stock' : 'En Arrivage'}
+              <span style={{ fontWeight: "bold" }}>Availability:</span>{" "}
+              <span style={{ color: "green", fontSize: "16px" }}>
+                {oneProduct?.quantity > 3 ? "En Stock" : "En Arrivage"}
               </span>
             </Typography>
             <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: 'bold' }}>Category:</span>
+              <span style={{ fontWeight: "bold" }}>Category:</span>
               {oneProduct?.catigory}
             </Typography>
           </CardContent>
@@ -232,16 +257,23 @@ const ProductInfo = () => {
       </Card>
       <div className={classes.thumbnailContainer}>
         {images.map((el) => (
-          <img
-            key={el.id}
-            src={el.product_image}
-            alt="Thumbnail"
-            className={classes.thumbnail}
-            onClick={() => handleThumbnailClick(el.product_image)}
-          />
+          <>
+            <img
+              key={el.id}
+              src={el.product_image}
+              alt="Thumbnail"
+              className={classes.thumbnail}
+              onClick={() => handleThumbnailClick(el.product_image)}
+            />
+            {role === "admin" && (
+              <Button  onClick={() => deleteimages(el.id)}>
+                delete
+              </Button>
+            ) }
+          </>
         ))}
       </div>
-      {role === 'admin' && (
+      {role === "admin" && (
         <div className={classes.addImageContainer}>
           <Input
             type="file"

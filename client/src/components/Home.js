@@ -239,7 +239,7 @@ function HomePage({ search, getlengthShop }) {
                     <Card>
                       <Card.Img
                         variant="top"
-                        src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                        src={el.product_image}
                         style={{ height: "200px", objectFit: "cover" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
                       />
@@ -321,7 +321,7 @@ function HomePage({ search, getlengthShop }) {
                     <Card>
                       <Card.Img
                         variant="top"
-                        src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                        src={el.product_image}
                         style={{ height: "200px", objectFit: "cover" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
                       />
@@ -401,7 +401,7 @@ function HomePage({ search, getlengthShop }) {
                   <Card>
                     <Card.Img
                       variant="top"
-                      src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                      src={el.product_image}
                       style={{ height: "200px", objectFit: "cover" }}
                       onClick={() => navigate(`/productinfo/${el.id}`)}
                     />
