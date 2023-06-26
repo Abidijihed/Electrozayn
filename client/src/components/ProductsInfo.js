@@ -123,7 +123,7 @@ const ProductInfo = () => {
   const [images, setImages] = useState([]);
   const { id } = useParams();
 
-  useEffect(() => {
+ const getRole=() => {
     const user_id = localStorage.getItem("id");
     axios
       .get("https://www.electrozayn.com/api/user/getone/" + user_id)
@@ -132,7 +132,10 @@ const ProductInfo = () => {
           setRole(el.role);
         });
       });
-  }, []);
+  }
+  setTimeout(() => {
+    getRole()
+  }, 1000);
   const getImages=() => {
     axios
       .get(`https://www.electrozayn.com/api/get_all_images/${id}`)
