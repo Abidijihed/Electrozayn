@@ -224,7 +224,7 @@ const deleteOrder=(id)=>{
       <p>Total Price: {el.total_price} TNDT</p>
      
       {role === "admin" && (
-        <div>
+        <div className="buttons">
           <Button
             className={classes.prettyButton}
             onClick={() => confirmOrder(el.id)}

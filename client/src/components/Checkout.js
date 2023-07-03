@@ -68,6 +68,7 @@ export default function MyModal({
       setOpenCheckoutValidation(true);
       handleClose();
     }else{
+      handleClose();
       Swal.fire('Please select a product')
 
     }
