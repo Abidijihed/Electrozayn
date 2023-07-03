@@ -150,13 +150,13 @@ function ProductCard({ data, getlengthShop }) {
             image={data.product_image}
             title={data.product_name}
           />
-          <CardContent style={{ height: "260px", width: "100%" }}>
-            <Typography gutterBottom variant="h6" component="h1">
+          <CardContent style={{ height: "auto", width: "100%" }}>
+            {/* <Typography gutterBottom variant="h6" component="h1">
               {data.product_name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            </Typography> */}
+            {/* <Typography variant="body2" color="textSecondary" component="p">
               {data.description}
-            </Typography>
+            </Typography> */}
             <Typography variant="body2" color="textSecondary" component="p">
               {data.Promo_price <= 0 ? (
                 <span className={classes.promoPrice}>
@@ -212,9 +212,9 @@ function ProductCard({ data, getlengthShop }) {
                 </span>
               )}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            {/* <Typography variant="body2" color="textSecondary" component="p">
               Category: {data.catigory}
-            </Typography>
+            </Typography> */}
           </CardContent>
 
           <div
@@ -244,7 +244,7 @@ function ProductCard({ data, getlengthShop }) {
               );
             })}
           </div>
-          <Button>
+          <Button style={{backgroundColor:"white",border:"none",marginLeft:"40px"}}>
           <div
             style={{
               display: "flex",
