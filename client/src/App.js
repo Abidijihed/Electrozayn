@@ -41,9 +41,9 @@ setTimeout(() => {
       .get("https://www.electrozayn.com/api/user/getone/" + user_id)
       .then((res) => {
         setUser(res.data);
-        res.data.map((el) => {
-          setRole(el.role);
-        });
+        res.data.map((el) => (
+          setRole(el.role)
+        ));
       });
 }, 1000);
  

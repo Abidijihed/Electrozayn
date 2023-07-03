@@ -53,6 +53,19 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.1)",
     },
   },
+  prettyButton1: {
+    background: "red",
+    border: 0,
+    borderRadius: 10,
+    color: "white",
+    padding: "10px 20px",
+    cursor: "pointer",
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
+    transition: "transform 0.3s",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  },
 }));
 
 function ProfilePage({user,role}) {
@@ -214,8 +227,8 @@ const deleteOrder=(id)=>{
       </h1>
       <h3>{el.product_name}</h3>
       <p>Email: {el.email}</p>
-      <p>FirstName: {el.firstName}</p>
-      <p>PhoneNumber: {el.phoneNumber}</p>
+      <p>FirstName: {el.FirstName}</p>
+      <p>PhoneNumber: {el.PhoneNumber}</p>
       <p>Zip: {el.Zip}</p>
       <p>Address: {el.address}</p>
       <p>Country: {el.country}</p>
@@ -224,7 +237,7 @@ const deleteOrder=(id)=>{
       <p>Total Price: {el.total_price} TNDT</p>
      
       {role === "admin" && (
-        <div className="buttons">
+        <div style={{display:"flex",justifyContent:"space-around"}}>
           <Button
             className={classes.prettyButton}
             onClick={() => confirmOrder(el.id)}
@@ -232,7 +245,7 @@ const deleteOrder=(id)=>{
           >
             Confirm
           </Button>
-          {role === "admin" ?<Button className={classes.prettyButton} onClick={() => deleteOrder(el.id)}>
+          {role === "admin" ?<Button className={classes.prettyButton1} onClick={() => deleteOrder(el.id)}>
             Delete
           </Button>:null}
         </div>

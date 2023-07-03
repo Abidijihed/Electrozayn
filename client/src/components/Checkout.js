@@ -69,7 +69,9 @@ export default function MyModal({
       handleClose();
     }else{
       handleClose();
-      Swal.fire('Please select a product')
+      setTimeout(() => {
+        Swal.fire('Please select a product')
+      }, 1000);
 
     }
    
