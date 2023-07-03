@@ -389,7 +389,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard():navigate("/login")}
+                        onClick={token?()=>AddTocard(el):navigate("/login")}
                           style={{
                             color: check === 1 ? "green" : "black",
                             borderRadius: "50%",
