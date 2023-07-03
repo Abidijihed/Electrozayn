@@ -92,8 +92,9 @@ function HomePage({ search, getlengthShop }) {
         console.log(err);
       });
   };
-  const AddTocard = (data) => {
+  const AddTocard = (id) => {
     const user_id = localStorage.getItem("id");
+    console.log(id,user_id)
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
       axios
@@ -101,7 +102,7 @@ function HomePage({ search, getlengthShop }) {
           `https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`,
           {
             check_add_or_not: updatedCheck, // Use the updated value of `check`
-            products_id: data.id,
+            products_id: id,
           }
         )
         .then((res) => {
@@ -389,7 +390,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard(el):navigate("/login")}
+                        onClick={token?()=>AddTocard(el.id):navigate("/login")}
                           style={{
                             color: check === 1 ? "green" : "black",
                             borderRadius: "50%",
