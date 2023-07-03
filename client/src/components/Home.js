@@ -94,7 +94,6 @@ function HomePage({ search, getlengthShop }) {
   };
   const AddTocard = (id) => {
     const user_id = localStorage.getItem("id");
-    console.log(id,user_id)
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
       axios
@@ -115,7 +114,7 @@ function HomePage({ search, getlengthShop }) {
         });
     } else {
       axios
-        .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
+        .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
         .then((res) => {
           setChek(updatedCheck); // Update the state with the updated value
           getProductsCard();
@@ -307,7 +306,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard():navigate("/login")}
+                        onClick={token?()=>AddTocard(el.id):navigate("/login")}
                           variant="outline-dark"
                           style={{
                             borderRadius: "50%",
@@ -481,7 +480,7 @@ function HomePage({ search, getlengthShop }) {
                         </>
                       )}
                       <Button
-                      onClick={token?()=>AddTocard():navigate("/login")}
+                      onClick={token?()=>AddTocard(el.id):navigate("/login")}
                         variant="outline-dark"
                         style={{
                           borderRadius: "50%",
