@@ -306,7 +306,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard(el.id):navigate("/login")}
+                        onClick={token?()=>AddTocard(el.id):()=>navigate("/login")}
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
