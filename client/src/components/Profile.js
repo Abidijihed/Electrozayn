@@ -226,7 +226,7 @@ const deleteOrder=(id)=>{
         {el.validate_add_or_not === 0 ? "Waiting for Confirmation" : "Confirmed"}
       </h1>
       <h3>{el.product_name}</h3>
-      <p>Email: {el.email}</p>
+      <p>Email: {el.Email}</p>
       <p>FirstName: {el.FirstName}</p>
       <p>PhoneNumber: {el.PhoneNumber}</p>
       <p>Zip: {el.Zip}</p>

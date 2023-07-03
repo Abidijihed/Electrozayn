@@ -74,6 +74,60 @@ function HomePage({ search, getlengthShop }) {
   const classes = useStyles();
   const [index, setIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState(5);
+  const [check, setChek] = useState();
+  const token=localStorage.getItem("token")
+  const getProductsCard = () => {
+    axios
+      .get("https://www.electrozayn.com/api/get_all_shopcard/card")
+      .then((res) => {
+        const product = res.data.find(
+          (product) => product.products_id === data.id
+        );
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
+        localStorage.setItem("shop", res.data.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const AddTocard = (data) => {
+    const user_id = localStorage.getItem("id");
+    const updatedCheck = !check; // Invert the value of `check`
+    if (updatedCheck === true) {
+      axios
+        .post(
+          `https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`,
+          {
+            check_add_or_not: updatedCheck, // Use the updated value of `check`
+            products_id: data.id,
+          }
+        )
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+  useEffect(() => {
+    getProductsCard(); // Call the function when navigating to the component
+  }, [check]);
 
   const handleShowMore = () => {
     setDisplayCount(displayCount + 5);
@@ -252,6 +306,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
+                        onClick={token?()=>AddTocard():navigate("/login")}
                           variant="outline-dark"
                           style={{
                             borderRadius: "50%",
@@ -334,8 +389,9 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                          variant="outline-dark"
+                        onClick={token?()=>AddTocard():navigate("/login")}
                           style={{
+                            color: check === 1 ? "green" : "black",
                             borderRadius: "50%",
                             padding: "10px",
                             fontSize: "30px",
@@ -424,6 +480,7 @@ function HomePage({ search, getlengthShop }) {
                         </>
                       )}
                       <Button
+                      onClick={token?()=>AddTocard():navigate("/login")}
                         variant="outline-dark"
                         style={{
                           borderRadius: "50%",
