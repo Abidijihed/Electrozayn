@@ -14,6 +14,7 @@ import axios from "axios";
 import { FaShoppingCart } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -243,6 +244,7 @@ function ProductCard({ data, getlengthShop }) {
               );
             })}
           </div>
+          <Button>
           <div
             style={{
               display: "flex",
@@ -250,11 +252,12 @@ function ProductCard({ data, getlengthShop }) {
               color: check === 1 ? "green" : "black",
             }}
           >
-            <FaShoppingCart
+            <MdOutlineAddShoppingCart
               className={classes.shopIcon}
               onClick={() => AddTocard(data)}
             />
           </div>
+          </Button>
         </CardActionArea>
       </Card>
       <UpdateModal

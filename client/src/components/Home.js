@@ -307,7 +307,6 @@ function HomePage({ search, getlengthShop }) {
                         </Card.Text>
                         <Button
                         onClick={token?()=>AddTocard(el.id):navigate("/login")}
-                          variant="outline-dark"
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
@@ -315,7 +314,7 @@ function HomePage({ search, getlengthShop }) {
                             marginTop: "10px",
                           }}
                         >
-                          <MdOutlineAddShoppingCart />
+                          <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
                         </Button>
                       </Card.Body>
                     </Card>
@@ -391,14 +390,14 @@ function HomePage({ search, getlengthShop }) {
                         <Button
                         onClick={token?()=>AddTocard(el.id):navigate("/login")}
                           style={{
-                            color: check === 1 ? "green" : "black",
+                            
                             borderRadius: "50%",
                             padding: "10px",
                             fontSize: "30px",
                             marginTop: "10px",
                           }}
                         >
-                          <MdOutlineAddShoppingCart />
+                          <MdOutlineAddShoppingCart style={{color: check === 1 ? "green" : "black"}} />
                         </Button>
                       </Card.Body>
                     </Card>
@@ -481,7 +480,6 @@ function HomePage({ search, getlengthShop }) {
                       )}
                       <Button
                       onClick={token?()=>AddTocard(el.id):navigate("/login")}
-                        variant="outline-dark"
                         style={{
                           borderRadius: "50%",
                           padding: "10px",
@@ -489,7 +487,7 @@ function HomePage({ search, getlengthShop }) {
                           marginTop: "10px",
                         }}
                       >
-                        <MdOutlineAddShoppingCart />
+                        <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
                       </Button>
                     </Card.Body>
                   </Card>
