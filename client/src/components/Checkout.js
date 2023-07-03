@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
-
+import Swal from 'sweetalert2'
 import CheckoutValidation from "./CheckoutValidation";
 import axios from "axios";
 import { TiDelete } from "react-icons/ti";
@@ -63,8 +63,15 @@ export default function MyModal({
   const [isLoading, setIsLoading] = useState(true);
 
   const HandlesubmitOrder = () => {
-    setOpenCheckoutValidation(true);
-    handleClose();
+    const shop=localStorage.getItem("shop")
+    if(shop>0){
+      setOpenCheckoutValidation(true);
+      handleClose();
+    }else{
+      Swal.fire('Please select a product')
+
+    }
+   
   };
 
   

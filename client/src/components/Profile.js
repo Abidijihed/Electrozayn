@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +60,7 @@ function ProfilePage({user,role}) {
   const [order, setOrder] = useState([]);
   
 
-  useEffect(() => {
+  setTimeout(() => {
     const user_id = localStorage.getItem("id");
     if (role === "admin") {
       axios.get(`https://www.electrozayn.com/api/get_all_order`).then((res) => {
@@ -72,7 +73,7 @@ function ProfilePage({user,role}) {
           setOrder(res.data);
         });
     }
-  }, [role]);
+  }, 500);
 
   const confirmOrder = (id) => {
     axios
@@ -80,6 +81,9 @@ function ProfilePage({user,role}) {
       .then((res) => {
         console.log(res.data);
         setOrder(order);
+        toast.success("Success Order Confirmed !", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
       }).catch((err)=>{
         console.log(err)
       })
@@ -94,15 +98,27 @@ if(res.data==="user loged out"){
 }
   })
 }
+const deleteOrder=(id)=>{
+     axios.delete(`https://www.electrozayn.com/api/delete/${id}`)
+     .then((res)=>{
+      if(res.data==="order deleted"){
+        toast.success("Success Order Deleted !", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+         
+      }
+     })
+}
   return (
     <>
+    <ToastContainer />
       {/* First section */}
       {user.map((el) => (
         <Card className={classes.root} key={el.id}>
           <CardHeader
             avatar={
               <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
+                {/* <LockOutlinedIcon /> */}
               </Avatar>
             }
             title={
@@ -186,30 +202,45 @@ if(res.data==="user loged out"){
 
       {/* Second section */}
       <div>
-        {order.map((el) => (
-          <Card className={classes.root} key={el.id}>
-            <CardContent>
-              <h1
-                style={{
-                  color: el.validate_add_or_not === 0 ? "red" : "green",
-                }}
-              >
-                {el.validate_add_or_not === 0
-                  ? "Waiting for Confirmation"
-                  : "Confirmed"}
-              </h1>
-              <h3>{el.product_name}</h3>
-              {role === "admin" && (
-                <Button
-                  className={classes.prettyButton}
-                  onClick={() => confirmOrder(el.id)}
-                >
-                  Confirm
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+      {order.map((el) => (
+  <Card className={classes.root} key={el.id}>
+    <CardContent>
+      <h1
+        style={{
+          color: el.validate_add_or_not === 0 ? "red" : "green",
+        }}
+      >
+        {el.validate_add_or_not === 0 ? "Waiting for Confirmation" : "Confirmed"}
+      </h1>
+      <h3>{el.product_name}</h3>
+      <p>Email: {el.email}</p>
+      <p>FirstName: {el.firstName}</p>
+      <p>PhoneNumber: {el.phoneNumber}</p>
+      <p>Zip: {el.Zip}</p>
+      <p>Address: {el.address}</p>
+      <p>Country: {el.country}</p>
+      <p>Date: {el.date}</p>
+      <p>Product Quantity: {el.product_quantity}</p>
+      <p>Total Price: {el.total_price} TNDT</p>
+     
+      {role === "admin" && (
+        <div>
+          <Button
+            className={classes.prettyButton}
+            onClick={() => confirmOrder(el.id)}
+            disabled={el.validate_add_or_not === 1}
+          >
+            Confirm
+          </Button>
+          {role === "admin" ?<Button className={classes.prettyButton} onClick={() => deleteOrder(el.id)}>
+            Delete
+          </Button>:null}
+        </div>
+      )}
+    </CardContent>
+  </Card>
+))}
+
       </div>
     </>
   );

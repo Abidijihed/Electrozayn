@@ -35,9 +35,8 @@ function App() {
 
 setShop(shop)
   },[shop])
-
-  useEffect(() => {
-    const user_id = localStorage.getItem("id");
+setTimeout(() => {
+  const user_id = localStorage.getItem("id");
     axios
       .get("https://www.electrozayn.com/api/user/getone/" + user_id)
       .then((res) => {
@@ -46,7 +45,8 @@ setShop(shop)
           setRole(el.role);
         });
       });
-  }, []);
+}, 1000);
+ 
   return (
     
       <div>

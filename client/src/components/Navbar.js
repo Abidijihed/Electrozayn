@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.png";
+import { useNavigate } from 'react-router-dom';
+
 import {
   AppBar,
   Toolbar,
@@ -98,10 +100,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const token = localStorage.getItem("token");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [category, setCategory] = useState('');
-
+   const navigate=useNavigate()
   const handleOpen = () => {
     setOpen(true);
   };
@@ -112,9 +112,7 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   };
   const classes = useStyles();
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => {
@@ -125,9 +123,7 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
     setAnchorEl(null);
   };
 
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
+
 
   const drawer = (
     <div>
@@ -314,7 +310,7 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
               <Badge
                 badgeContent={Number(shop)}
                 color="secondary"
-                onClick={handleOpen}
+                onClick={token?()=>handleOpen():()=>navigate("/login")}
               >
                 <FaShoppingCart fontSize="xlarge" color="white" />
               </Badge>

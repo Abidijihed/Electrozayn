@@ -56,15 +56,14 @@ module.exports={
       },
       deleteOrder: (req, res) => {
         const { id } = req.params;
-        const { user_id } = req.params;
       
         const query = `
           DELETE FROM userorder
-          WHERE id = ? AND user_id = ?
+          WHERE id = ?
         `;
       
         // Execute the query to delete the order
-        connection.query(query, [id, user_id], (err, result) => {
+        connection.query(query, [id], (err, result) => {
           if (err) {
             console.error(err);
             res.status(500).send(err)
