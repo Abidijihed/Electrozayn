@@ -15,6 +15,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { Search } from "@material-ui/icons";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -48,7 +49,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProductCard({ data, getlengthShop }) {
+function ProductCard({handelpassfunction, data, getlengthShop }) {
   const token =localStorage.getItem("token")
   const [check, setChek] = useState();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
@@ -140,13 +141,19 @@ function ProductCard({ data, getlengthShop }) {
   useEffect(() => {
     getProductsCard(); // Call the function when navigating to the component
   }, [check]);
-
+const handelNavigate=()=>{
+    navigate(`/productinfo/${data.id}`)
+setTimeout(() => {
+  window.location.reload()
+}, 500);
+}
   return (
     <>
+   
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
-            onClick={() => navigate(`/productinfo/${data.id}`)}
+            onClick={() =>handelNavigate()}
             className={classes.media}
             image={data.product_image}
             title={data.product_name}

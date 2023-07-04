@@ -31,6 +31,9 @@ function App() {
   const handleChange=(e)=>{
     setSearch(e.target.value)
   }
+  const handleChangesearch=(e)=>{
+    setSearch("")
+  }
   useEffect(()=>{
 
 setShop(shop)
@@ -66,7 +69,7 @@ setTimeout(() => {
          <Route path='/productinfo/:id' element={<ProductInfo search={search} getlengthShop={getlengthShop}/>}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
-          <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
+          <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop} handleChangesearch={handleChangesearch}/>} />
         </Routes>
         
         

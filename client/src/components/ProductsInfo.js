@@ -297,7 +297,7 @@ const ProductInfo = ({search,getlengthShop}) => {
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
           <div className={classes.imageContainer}>
-          <Carousel>
+          {images.length>0?<Carousel>
      
        {images.map((el) => ( 
        <Carousel.Item>
@@ -314,7 +314,14 @@ const ProductInfo = ({search,getlengthShop}) => {
         
       </Carousel.Item>
    ))}
-    </Carousel>
+    </Carousel>:
+     <img
+     src={selectedImage}
+     alt="Product"
+     className={`${classes.image} ${zoomed && classes.zoomed}`}
+     onClick={handleImageZoom}
+   />
+    }
            
           </div>
           <CardContent>
