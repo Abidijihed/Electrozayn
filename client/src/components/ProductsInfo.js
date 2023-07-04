@@ -12,7 +12,7 @@ import {
 import { Add, ZoomIn } from "@material-ui/icons";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ListProducts from "./ListProduct"
+import ListProducts from "./Product"
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -127,7 +127,7 @@ const ProductInfo = ({search,getlengthShop}) => {
     axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
       setData(res.data);
     });
-  }, [data]);
+  }, []);
  const getRole=() => {
     const user_id = localStorage.getItem("id");
     axios
@@ -213,9 +213,9 @@ const ProductInfo = ({search,getlengthShop}) => {
           {data
             .filter(
               (el) =>
-                el.catigory.toLowerCase().includes(search.toLowerCase()) ||
-                el.reference.toLowerCase().includes(search.toLowerCase()) ||
-                el.product_name.toLowerCase().includes(search.toLowerCase())
+                el.catigory?.toLowerCase().includes(search.toLowerCase()) ||
+                el.reference?.toLowerCase().includes(search.toLowerCase()) ||
+                el.product_name?.toLowerCase().includes(search.toLowerCase())
             )
             .map((el) => (
               <ListProducts
