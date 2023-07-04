@@ -206,7 +206,7 @@ export default class Contact extends Component {
                       </div>
                       <div className="text">
                         <p>
-                          <span>Email:</span> <a>aymensatellite@gmail.com</a>
+                          <span>Email:</span> <a>Electrozayne@gmail.com</a>
                         </p>
                       </div>
                     </div>

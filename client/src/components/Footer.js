@@ -105,7 +105,7 @@ function Footer() {
             <BsFillTelephoneFill /> +216 55 181 417
           </Typography>
           <Typography variant="body1" gutterBottom className={classes.contactInfo}>
-            <AiOutlineMail /> aymensatellite@gmail.com
+            <AiOutlineMail /> Electrozayne@gmail.com
           </Typography>
           <Typography variant="body1" gutterBottom className={classes.contactInfo}>
             <AiFillHome /> 1 Rue de Pirée rue d'Athènes Tunis 1000
