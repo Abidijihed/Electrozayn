@@ -5,6 +5,8 @@ import { Button, Modal, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-input-2";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -108,10 +110,14 @@ function CheckoutValidation({user, open, handleClose, totalPrice,handleValidatio
             axios.delete(`https://www.electrozayn.com/api/delete_shop_card/${id}`)
             .then((res)=>{
               if(res.data === "deleted"){
+                  localStorage.removeItem("shop")
+                  toast.success("Success Validation Order !", {
+                    position: toast.POSITION.TOP_RIGHT,
+                  })
                 setTimeout(() => {
                   navigate("/profile")
                   window.location.reload()
-                }, 1500);
+                }, 2000);
               }
             })
             }
@@ -130,6 +136,8 @@ useEffect(()=>{
   }
 },[open])
   return (
+    <>
+    <ToastContainer />
     <Modal open={open} onClose={handleClose}>
       <div className={classes.paper}>
         <Typography variant="h6" gutterBottom>
@@ -202,6 +210,7 @@ useEffect(()=>{
         </Button>
       </div>
     </Modal>
+    </>
   );
 }
 

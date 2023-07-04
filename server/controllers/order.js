@@ -1,7 +1,8 @@
 const { connection } = require("../databaseconfig/config");
+const {nodmail} =require('./email')
 module.exports={
     CreateOrder: (req, res) => {
-      console.log(req.body)
+     
         const { FirstName, Email,address, PhoneNumber, country, Zip,total_price,product_name,product_quantity } = req.body;
         const user_id = req.params.id
         const validate_add_or_not = false;
@@ -16,7 +17,11 @@ module.exports={
           } else {
             const query=`UPDATE user SET FirstName="${FirstName}",Address="${address}",country="${country}",Zip="${Zip}" WHERE id=${req.params.id}`
             connection.query(query, (err, result) => {
-                err ? res.status(500).send(err):res.status(201).send('user updated and order created')
+              if(err){
+                res.status(500).send(err)
+              }
+                res.status(201).send('user updated and order created')
+                nodmail(req.body)
             })
           }
         });

@@ -55,7 +55,7 @@ setTimeout(() => {
         <NavBar handleChange={handleChange} shop={shop} getlengthShop={getlengthShop} user={user[0]}/>
         <Routes>
           <Route exact path="/" element={<HomePage search={search} getlengthShop={getlengthShop}/>} />
-          <Route path="/contact" element={<ContactPage/>} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/signup"  element={<SignupPage/>}/>
           
          <Route path="/profile"  element={
@@ -63,7 +63,7 @@ setTimeout(() => {
          <Profile user={user} role={role}/>
          </PrivateRoute>
          }/>
-         <Route path='/productinfo/:id' element={<ProductInfo />}/>
+         <Route path='/productinfo/:id' element={<ProductInfo search={search} getlengthShop={getlengthShop}/>}/>
           <Route path="/login" element={<Login/>} />
           <Route path="/about" element={<About/>} />
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />

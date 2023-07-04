@@ -12,7 +12,7 @@ import {
 import { Add, ZoomIn } from "@material-ui/icons";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import ListProducts from "./ListProduct"
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfo = () => {
+const ProductInfo = ({search,getlengthShop}) => {
   const classes = useStyles();
   const [selectedImage, setSelectedImage] = useState("");
   const [zoomed, setZoomed] = useState(false);
@@ -122,7 +122,12 @@ const ProductInfo = () => {
   const [productImage, setProductImage] = useState([]);
   const [images, setImages] = useState([]);
   const { id } = useParams();
-
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+      setData(res.data);
+    });
+  }, [data]);
  const getRole=() => {
     const user_id = localStorage.getItem("id");
     axios
@@ -201,7 +206,26 @@ const ProductInfo = () => {
       });
   };
   return (
-    <div className={classes.root} id="productinfo">
+    <>
+         {search.length > 0 ? (
+        <div>
+          {" "}
+          {data
+            .filter(
+              (el) =>
+                el.catigory.toLowerCase().includes(search.toLowerCase()) ||
+                el.reference.toLowerCase().includes(search.toLowerCase()) ||
+                el.product_name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((el) => (
+              <ListProducts
+                data={el}
+                key={el.id}
+                getlengthShop={getlengthShop}
+              />
+            ))}
+        </div>
+      ) :(<div className={classes.root} id="productinfo">
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
           <div className={classes.imageContainer}>
@@ -299,7 +323,9 @@ const ProductInfo = () => {
           </IconButton>
         </div>
       )}
-    </div>
+    </div>)}
+    
+    </>
   );
 };
 
