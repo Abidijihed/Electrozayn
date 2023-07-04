@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Carousel from 'react-bootstrap/Carousel';
+
 import {
   Card,
   CardContent,
@@ -11,8 +13,9 @@ import {
 } from "@material-ui/core";
 import { Add, ZoomIn } from "@material-ui/icons";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ListProducts from "./Product"
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -114,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductInfo = ({search,getlengthShop}) => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState("");
   const [zoomed, setZoomed] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -123,34 +127,60 @@ const ProductInfo = ({search,getlengthShop}) => {
   const [images, setImages] = useState([]);
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [touchStartX, setTouchStartX] = useState(null);
-
-  const handleTouchStart = (e) => {
-    setTouchStartX(e.touches[0].clientX);
+  const [check, setChek] = useState();
+  const token=localStorage.getItem("token")
+  const getProductsCard = () => {
+    axios
+      .get("https://www.electrozayn.com/api/get_all_shopcard/card")
+      .then((res) => {
+        const product = res.data.find(
+          (product) => product.products_id === data.id
+        );
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
+        localStorage.setItem("shop", res.data.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-  const handleTouchMove = (e) => {
-    if (!touchStartX) return;
-    const touchCurrentX = e.touches[0].clientX;
-    const deltaX = touchCurrentX - touchStartX;
-
-    // Set a threshold value for the swipe gesture
-    const threshold = 100;
-    
-    if (deltaX > threshold) {
-      // Swipe right, show the previous image
-      const currentIndex = images.findIndex((img) => img.product_image === selectedImage);
-      const newIndex = (currentIndex - 1 + images.length) % images.length;
-      setSelectedImage(images[newIndex].product_image);
-    } else if (deltaX < -threshold) {
-      // Swipe left, show the next image
-      const currentIndex = images.findIndex((img) => img.product_image === selectedImage);
-      const newIndex = (currentIndex + 1) % images.length;
-      setSelectedImage(images[newIndex].product_image);
+  const AddTocard = () => {
+    const user_id = localStorage.getItem("id");
+    const updatedCheck = !check; // Invert the value of `check`
+    if (updatedCheck === true) {
+      axios
+        .post(
+          `https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`,
+          {
+            check_add_or_not: updatedCheck, // Use the updated value of `check`
+            products_id: id,
+          }
+        )
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
+        .then((res) => {
+          setChek(updatedCheck); // Update the state with the updated value
+          getProductsCard();
+          getlengthShop();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-
-    setTouchStartX(null);
-  };
+  }
+  useEffect(() => {
+    getProductsCard(); // Call the function when navigating to the component
+  }, [check]);
   useEffect(() => {
     axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
       setData(res.data);
@@ -266,17 +296,27 @@ const ProductInfo = ({search,getlengthShop}) => {
       ) :(<div className={classes.root} id="productinfo">
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
-        <div className={classes.imageContainer}
-           onTouchStart={handleTouchStart}
-           onTouchMove={handleTouchMove}
-           onTouchEnd={handleTouchMove}>
+          <div className={classes.imageContainer}>
+          <Carousel>
+     
+       {images.map((el) => ( 
+       <Carousel.Item>
+       <>
         <img
-          src={selectedImage}
+         key={el.id}
+         src={el.product_image}
           alt="Product"
+          // className="d-block w-100"
           className={`${classes.image} ${zoomed && classes.zoomed}`}
           onClick={handleImageZoom}
         />
-      </div>
+       </> 
+        
+      </Carousel.Item>
+   ))}
+    </Carousel>
+           
+          </div>
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Product Info
@@ -324,6 +364,17 @@ const ProductInfo = ({search,getlengthShop}) => {
               {oneProduct?.catigory}
             </Typography>
           </CardContent>
+          <Button
+                      onClick={token?()=>AddTocard():()=>navigate("/login")}
+                        style={{
+                          borderRadius: "50%",
+                          padding: "10px",
+                          fontSize: "30px",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
+                      </Button>
         </div>
       </Card>
       <div className={classes.thumbnailContainer}>
