@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import CheckoutValidation from "./CheckoutValidation";
 import axios from "axios";
 import { TiDelete } from "react-icons/ti";
@@ -48,12 +48,13 @@ const useStyles = makeStyles({
     cursor: "pointer",
   },
 });
+
 export default function MyModal({
   handleOpen,
   handleClose,
   open,
   getlengthShop,
-  user
+  user,
 }) {
   const classes = useStyles();
   const [openCheckoutValidation, setOpenCheckoutValidation] = useState(false);
@@ -63,24 +64,23 @@ export default function MyModal({
   const [isLoading, setIsLoading] = useState(true);
 
   const HandlesubmitOrder = () => {
-    const shop=localStorage.getItem("shop")
-    if(shop>0){
+    const shop = localStorage.getItem("shop");
+    if (shop > 0) {
       setOpenCheckoutValidation(true);
       handleClose();
-    }else{
+    } else {
       handleClose();
       setTimeout(() => {
-        Swal.fire('Please select a product')
+        Swal.fire("Please select a product");
       }, 1000);
-
     }
-   
   };
 
-  
   const fetchData = async () => {
     try {
-      const response = await axios.get("https://www.electrozayn.com/api/get_product/card");
+      const response = await axios.get(
+        "https://www.electrozayn.com/api/get_product/card"
+      );
       const productsWithQuantity = response.data.map((product) => ({
         ...product,
         quantity: 1,
@@ -98,13 +98,12 @@ export default function MyModal({
       fetchData();
     }
   }, [open]);
-    
-  
+
   const handleUpdate = (id) => {
     axios
       .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
       .then((res) => {
-        fetchData()
+        fetchData();
       })
       .catch((err) => {
         console.log(err);
@@ -112,16 +111,20 @@ export default function MyModal({
   };
 
   useEffect(() => {
-    const totalPrice = products.reduce(
-      (sum, product) => sum + Number(product.Promo_price) * product.quantity,
-      0
-    );
+    const totalPrice = products.reduce((sum, product) => {
+      if (product.Promo_price > 0) {
+        return sum + Number(product.Promo_price) * product.quantity;
+      } else {
+        return sum + Number(product.Origin_price) * product.quantity;
+      }
+    }, 0);
     setTotal(totalPrice);
-  }, []);
+  }, [products]);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
+
   const handleTotal = () => {
     if (isLoading || products.length === 0) {
       return 0;
@@ -130,14 +133,21 @@ export default function MyModal({
     let totalPrice = 0;
 
     products.forEach((product) => {
-      const productTotal =
-        Number(product.Promo_price) * Number(product.quantity);
-      totalPrice += productTotal;
+      if (product.Promo_price > 0) {
+        const productTotal =
+          Number(product.Promo_price) * Number(product.quantity);
+        totalPrice += productTotal;
+      } else {
+        const productTotal =
+          Number(product.Origin_price) * Number(product.quantity);
+        totalPrice += productTotal;
+      }
     });
 
     if (paymentMethod === "pay_on_delivery") {
       totalPrice += 7;
     }
+
     return totalPrice;
   };
 
@@ -167,9 +177,9 @@ export default function MyModal({
         quantity,
       })
       .then((res) => {
-        toast.success("Success Validation Order !", {
+        toast.success("Success Validation Order!", {
           position: toast.POSITION.TOP_RIGHT,
-        }); // Quantity Updated
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -207,14 +217,23 @@ export default function MyModal({
                     <Typography variant="caption">
                       {product.reference}
                     </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Promo Price: {product.Promo_price} TND
-                    </Typography>
-
+                    {product.Promo_price > 0 ? (
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        Promo Price: {product.Promo_price} TND
+                      </Typography>
+                    ) : (
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        Promo Price: {product.Origin_price} TND
+                      </Typography>
+                    )}
                     <div style={{ display: "flex" }}>
                       <Button onClick={() => incrementQuantity(product.id)}>
                         +
@@ -224,11 +243,20 @@ export default function MyModal({
                         -
                       </Button>
                     </div>
-                    <Typography variant="body2" color="black" component="h3">
-                      Total:{" "}
-                      {Number(product.Promo_price) * Number(product.quantity)}{" "}
-                      TND
-                    </Typography>
+                    {product.Promo_price > 0 ? (
+                      <Typography variant="body2" color="black" component="h3">
+                        Total:{" "}
+                        {Number(product.Promo_price) * Number(product.quantity)}{" "}
+                        TND
+                      </Typography>
+                    ) : (
+                      <Typography variant="body2" color="black" component="h3">
+                        Total:{" "}
+                        {Number(product.Origin_price) *
+                          Number(product.quantity)}{" "}
+                        TND
+                      </Typography>
+                    )}
                   </CardContent>
                   <div
                     style={{
@@ -266,7 +294,6 @@ export default function MyModal({
               label="Pay with Card"
             />
             <Typography variant="h6" className={classes.total}>
-              {totalPrice}
               Total Price: {handleTotal()} TND
             </Typography>
           </div>
@@ -291,3 +318,4 @@ export default function MyModal({
     </div>
   );
 }
+
