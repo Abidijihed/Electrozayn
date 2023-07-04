@@ -49,7 +49,7 @@ setTimeout(() => {
  
   return (
     
-      <div>
+      <div className='app-container'>
         <BrowserRouter>
        
         <NavBar handleChange={handleChange} shop={shop} getlengthShop={getlengthShop} user={user[0]}/>
@@ -69,8 +69,9 @@ setTimeout(() => {
           <Route path='/products' element={<ListProduct search={search} getlengthShop={getlengthShop}/>} />
         </Routes>
         
-        <Footer />
+        
         </BrowserRouter>
+        <Footer />
       </div>
   
   );

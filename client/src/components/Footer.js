@@ -2,7 +2,6 @@ import { Typography, makeStyles, Link, Grid, Container, TextField, Button } from
 import React from 'react';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiOutlineMail, AiFillHome } from "react-icons/ai";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#232F3E',
@@ -118,10 +117,10 @@ function Footer() {
             <Typography variant="subtitle1" gutterBottom className={classes.footerText} style={{ textDecoration: "underline" }}>
               Get to Know Us
             </Typography>
-            <Link href="#" className={classes.link}>About Us</Link>
-            <Link href="#" className={classes.link}>Careers</Link>
+            <Link href='/about' className={classes.link}>About Us</Link>
+            <Link href="Login" className={classes.link}>Login</Link>
             <Link href="#" className={classes.link}>Press Releases</Link>
-            <Link href="#" className={classes.link}>Electrozayn Contact</Link>
+            <Link href="/contact" className={classes.link}>Electrozayn Contact</Link>
           </Grid>
           <Grid item xs={12} sm={4} className={classes.gridItem}>
             <Typography variant="subtitle1" gutterBottom className={classes.footerText} style={{ textDecoration: "underline" }}>

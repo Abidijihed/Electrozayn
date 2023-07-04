@@ -50,3 +50,15 @@
   margin-top: 10px;
 
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+  background-color: lightgray;
+  padding: 20px;
+  text-align: center;
+}

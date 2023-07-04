@@ -123,6 +123,34 @@ const ProductInfo = ({search,getlengthShop}) => {
   const [images, setImages] = useState([]);
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [touchStartX, setTouchStartX] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!touchStartX) return;
+    const touchCurrentX = e.touches[0].clientX;
+    const deltaX = touchCurrentX - touchStartX;
+
+    // Set a threshold value for the swipe gesture
+    const threshold = 100;
+    
+    if (deltaX > threshold) {
+      // Swipe right, show the previous image
+      const currentIndex = images.findIndex((img) => img.product_image === selectedImage);
+      const newIndex = (currentIndex - 1 + images.length) % images.length;
+      setSelectedImage(images[newIndex].product_image);
+    } else if (deltaX < -threshold) {
+      // Swipe left, show the next image
+      const currentIndex = images.findIndex((img) => img.product_image === selectedImage);
+      const newIndex = (currentIndex + 1) % images.length;
+      setSelectedImage(images[newIndex].product_image);
+    }
+
+    setTouchStartX(null);
+  };
   useEffect(() => {
     axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
       setData(res.data);
@@ -159,6 +187,16 @@ const ProductInfo = ({search,getlengthShop}) => {
   }, []);
 
 
+  useEffect(() => {
+    const scrollToTop = () => {
+      const element = document.getElementById('productinfo');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    scrollToTop();
+  }, [id]);
 
   const handleThumbnailClick = (imagePath) => {
     setSelectedImage(imagePath);
@@ -206,7 +244,7 @@ const ProductInfo = ({search,getlengthShop}) => {
       });
   };
   return (
-    <>
+    <div >
          {search.length > 0 ? (
         <div>
           {" "}
@@ -228,14 +266,17 @@ const ProductInfo = ({search,getlengthShop}) => {
       ) :(<div className={classes.root} id="productinfo">
       <Card className={classes.card}>
         <div className={classes.infoContainer}>
-          <div className={classes.imageContainer}>
-            <img
-              src={selectedImage}
-              alt="Product"
-              className={`${classes.image} ${zoomed && classes.zoomed}`}
-              onClick={handleImageZoom}
-            />
-          </div>
+        <div className={classes.imageContainer}
+           onTouchStart={handleTouchStart}
+           onTouchMove={handleTouchMove}
+           onTouchEnd={handleTouchMove}>
+        <img
+          src={selectedImage}
+          alt="Product"
+          className={`${classes.image} ${zoomed && classes.zoomed}`}
+          onClick={handleImageZoom}
+        />
+      </div>
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Product Info
@@ -325,7 +366,7 @@ const ProductInfo = ({search,getlengthShop}) => {
       )}
     </div>)}
     
-    </>
+    </div>
   );
 };
 
