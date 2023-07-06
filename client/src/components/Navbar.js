@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import logo from "./logo.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import {
   AppBar,
@@ -10,7 +10,6 @@ import {
   Badge,
   InputBase,
   Hidden,
-  Drawer,
   List,
   ListItem,
   ListItemIcon,
@@ -18,13 +17,12 @@ import {
   Divider,
   Avatar,
 } from "@mui/material";
-import { Menu, MenuItem, makeStyles } from "@material-ui/core";
+import { Menu, makeStyles } from "@material-ui/core";
 import ChekoutNew from "./Checkout";
 import { alpha } from "@mui/material/styles";
 import {
   FaShoppingCart,
   FaUser,
-  FaPhoneAlt,
   FaInfo,
   FaSignInAlt,
   FaSearch,
@@ -101,17 +99,15 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
-   const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    
   };
   const classes = useStyles();
-
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -122,8 +118,6 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
-
 
   const drawer = (
     <div>
@@ -140,19 +134,13 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
       </div>
       <Divider />
       <List>
-        <ListItem
-          button
-          component={Link}
-          to="/products"
-          
-        >
+        <ListItem button component={Link} to="/products">
           <ListItemIcon>
             <MdOutlineAddShoppingCart />
           </ListItemIcon>
           <ListItemText primary="Product List" />
         </ListItem>
 
-    
         <ListItem button component={Link} to="/about">
           <ListItemIcon>
             <FaInfo />
@@ -310,7 +298,7 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
               <Badge
                 badgeContent={Number(shop)}
                 color="secondary"
-                onClick={token?()=>handleOpen():()=>navigate("/login")}
+                onClick={token ? () => handleOpen() : () => navigate("/login")}
               >
                 <FaShoppingCart fontSize="xlarge" color="white" />
               </Badge>

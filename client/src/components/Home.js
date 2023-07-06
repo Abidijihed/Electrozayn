@@ -204,18 +204,18 @@ function HomePage({ search, getlengthShop }) {
             <Card>
               <Card.Header>
                 <Nav variant="pills">
-                  <Nav.Item>
-                    <Nav.Link href="#link" style={{ color: "black" }}>
+                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("led tv")}`)}>
+                    <Nav.Link style={{ color: "black" }}>
                       Led TV
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link href="#link" style={{ color: "black" }}>
+                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("ADAPTATEUR ET ALIMETATION")}`)}>
+                    <Nav.Link style={{ color: "black" }}>
                       Adptateur
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link href="#link" style={{ color: "black" }}>
+                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("CHARGEURS")}`)}>
+                    <Nav.Link  style={{ color: "black" }}>
                       Chargeur
                     </Nav.Link>
                   </Nav.Item>
@@ -229,9 +229,9 @@ function HomePage({ search, getlengthShop }) {
                         Commande
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#action1">TV</Dropdown.Item>
-                        <Dropdown.Item href="#action2">Climatiseur</Dropdown.Item>
-                        <Dropdown.Item href="#action3">Récepteur</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMONDE TV")}`)}>TV</Dropdown.Item>
+                        <Dropdown.Item  onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMONDE CLIMATISEURS")}`)}>Climatiseur</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMANDE RECEPTEURS")}`)}>Récepteur</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </Nav.Item>

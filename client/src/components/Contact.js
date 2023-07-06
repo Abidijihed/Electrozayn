@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-// import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { Container } from "@material-ui/core";
-import "./contact.css"
+import "./contact.css";
 export default class Contact extends Component {
   constructor() {
     super();
@@ -25,9 +23,7 @@ export default class Contact extends Component {
 
   submitEmail(e) {
     // e.preventDefault();
-
     // const { name, email, subject, message } = this.state;
-
     // axios
     //   .post("http://localhost:3333/api/send", {
     //     name: name,
@@ -51,8 +47,11 @@ export default class Contact extends Component {
 
   render() {
     return (
-      <section className="ftco-section" style={{ marginTop: "30px",marginBottom:"30px" }}>
-      <Container className="container">
+      <section
+        className="ftco-section"
+        style={{ marginTop: "30px", marginBottom: "30px" }}
+      >
+        <Container className="container">
           <div className="row justify-content-center">
             <div className="col-8"></div>
           </div>
@@ -64,89 +63,91 @@ export default class Contact extends Component {
                     <div className="contact-wrap w-100 p-md-5 p-4">
                       <h3 className="mb-4">Contact Us</h3>
                       <div id="form-message-warning" className="mb-4"></div>
-                   
+
                       {/* <form
                         onSubmit={this.submitEmail.bind(this)}
                         id="contactForm"
                         name="contactForm"
                         className="contactForm"
                       > */}
-                        <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="label" htmlFor="name">
-                                Full Name
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                id="name"
-                                placeholder="Name"
-                                value={this.state.name}
-                                onChange={this.onInputChange.bind(this)}
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="label" htmlFor="email">
-                                Email Address
-                              </label>
-                              <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                id="email"
-                                placeholder="Email"
-                                value={this.state.email}
-                                onChange={this.onInputChange.bind(this)}
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label className="label" htmlFor="subject">
-                                Subject
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="subject"
-                                id="subject"
-                                placeholder="Subject"
-                                value={this.state.subject}
-                                onChange={this.onInputChange.bind(this)}
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-12">
-                            <div className="form-group">
-                              <label className="label" htmlFor="#">
-                                Message
-                              </label>
-                              <textarea
-                                name="message"
-                                className="form-control"
-                                id="message"
-                                cols="30"
-                                rows="4"
-                                placeholder="Message"
-                                value={this.state.message}
-                                onChange={this.onInputChange.bind(this)}
-                              ></textarea>
-                            </div>
-                          </div>
-                          <div className="col-md-12">
-                            <div className="form-group" style={{marginTop:"10px"}}>
-                              <button
-                                type="submit"
-                                className="btn btn-primary"
-                              >Send Message</button>
-                              <div className="submitting"></div>
-                            </div>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="label" htmlFor="name">
+                              Full Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="name"
+                              id="name"
+                              placeholder="Name"
+                              value={this.state.name}
+                              onChange={this.onInputChange.bind(this)}
+                            />
                           </div>
                         </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="label" htmlFor="email">
+                              Email Address
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              name="email"
+                              id="email"
+                              placeholder="Email"
+                              value={this.state.email}
+                              onChange={this.onInputChange.bind(this)}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label className="label" htmlFor="subject">
+                              Subject
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="subject"
+                              id="subject"
+                              placeholder="Subject"
+                              value={this.state.subject}
+                              onChange={this.onInputChange.bind(this)}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label className="label" htmlFor="#">
+                              Message
+                            </label>
+                            <textarea
+                              name="message"
+                              className="form-control"
+                              id="message"
+                              cols="30"
+                              rows="4"
+                              placeholder="Message"
+                              value={this.state.message}
+                              onChange={this.onInputChange.bind(this)}
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div
+                            className="form-group"
+                            style={{ marginTop: "10px" }}
+                          >
+                            <button type="submit" className="btn btn-primary">
+                              Send Message
+                            </button>
+                            <div className="submitting"></div>
+                          </div>
+                        </div>
+                      </div>
                       {/* </form> */}
                     </div>
                   </div>
@@ -170,7 +171,8 @@ export default class Contact extends Component {
                       </div>
                       <div className="text">
                         <p>
-                          <span>Address:</span>1 Rue de Pirée rue d'Athènes Tunis 1000
+                          <span>Address:</span>1 Rue de Pirée rue d'Athènes
+                          Tunis 1000
                         </p>
                       </div>
                     </div>
@@ -211,14 +213,17 @@ export default class Contact extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="col" style={{justifyContent:"center"}}>
-                    <div className="dbox w-100 text-center" >
+                  <div className="col" style={{ justifyContent: "center" }}>
+                    <div className="dbox w-100 text-center">
                       <div className="icon d-flex align-items-center justify-content-center">
                         <span className="fa fa-globe"></span>
                       </div>
                       <div className="text">
                         <p>
-                          <span>Website:</span> <a href="https://www.electrozayn.com/">www.electrozayn.com</a>
+                          <span>Website:</span>{" "}
+                          <a href="https://www.electrozayn.com/">
+                            www.electrozayn.com
+                          </a>
                         </p>
                       </div>
                     </div>

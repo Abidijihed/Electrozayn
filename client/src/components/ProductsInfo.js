@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from "react-bootstrap/Carousel";
 
 import {
   Card,
   CardContent,
   Typography,
-  Grid,
   IconButton,
   Input,
   makeStyles,
   Button,
 } from "@material-ui/core";
-import { Add, ZoomIn } from "@material-ui/icons";
+import { Add } from "@material-ui/icons";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import ListProducts from "./Product"
+import ListProducts from "./Product";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfo = ({search,getlengthShop}) => {
+const ProductInfo = ({ search, getlengthShop }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState("");
@@ -128,7 +127,7 @@ const ProductInfo = ({search,getlengthShop}) => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [check, setChek] = useState();
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -177,7 +176,7 @@ const ProductInfo = ({search,getlengthShop}) => {
           console.log(err);
         });
     }
-  }
+  };
   useEffect(() => {
     getProductsCard(); // Call the function when navigating to the component
   }, [check]);
@@ -186,7 +185,7 @@ const ProductInfo = ({search,getlengthShop}) => {
       setData(res.data);
     });
   }, []);
- const getRole=() => {
+  const getRole = () => {
     const user_id = localStorage.getItem("id");
     axios
       .get("https://www.electrozayn.com/api/user/getone/" + user_id)
@@ -195,17 +194,17 @@ const ProductInfo = ({search,getlengthShop}) => {
           setRole(el.role);
         });
       });
-  }
+  };
   setTimeout(() => {
-    getRole()
+    getRole();
   }, 1000);
-  const getImages=() => {
+  const getImages = () => {
     axios
       .get(`https://www.electrozayn.com/api/get_all_images/${id}`)
       .then((res) => {
         setImages(res.data);
       });
-  }
+  };
   useEffect(() => {
     axios
       .get(`https://www.electrozayn.com/api/get_one_product/${id}`)
@@ -213,15 +212,14 @@ const ProductInfo = ({search,getlengthShop}) => {
         setProduct(res.data[0]);
         setSelectedImage(res.data[0].product_image);
       });
-      getImages()
+    getImages();
   }, []);
-
 
   useEffect(() => {
     const scrollToTop = () => {
-      const element = document.getElementById('productinfo');
+      const element = document.getElementById("productinfo");
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     };
 
@@ -268,14 +266,14 @@ const ProductInfo = ({search,getlengthShop}) => {
     axios
       .delete("https://www.electrozayn.com/api/delete_images/" + id)
       .then((res) => {
-        if(res.data==="image deleted"){
-          getImages()
+        if (res.data === "image deleted") {
+          getImages();
         }
       });
   };
   return (
-    <div >
-         {search.length > 0 ? (
+    <div>
+      {search.length > 0 ? (
         <div>
           {" "}
           {data
@@ -293,137 +291,143 @@ const ProductInfo = ({search,getlengthShop}) => {
               />
             ))}
         </div>
-      ) :(<div className={classes.root} id="productinfo">
-      <Card className={classes.card}>
-        <div className={classes.infoContainer}>
-          <div className={classes.imageContainer}>
-          {images.length>0?<Carousel>
-     
-       {images.map((el) => ( 
-       <Carousel.Item>
-       <>
-        <img
-         key={el.id}
-         src={el.product_image}
-          alt="Product"
-          // className="d-block w-100"
-          className={`${classes.image} ${zoomed && classes.zoomed}`}
-          onClick={handleImageZoom}
-        />
-       </> 
-        
-      </Carousel.Item>
-   ))}
-    </Carousel>:
-     <img
-     src={selectedImage}
-     alt="Product"
-     className={`${classes.image} ${zoomed && classes.zoomed}`}
-     onClick={handleImageZoom}
-   />
-    }
-           
-          </div>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Product Info
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              {oneProduct?.product_name}
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              {oneProduct?.description}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {oneProduct?.Promo_price <= 0 ? (
-                <span className={classes.promoPrice}>
-                  Price: {oneProduct?.Origin_price} TND
-                </span>
-              ) : (
-                <span className={classes.originalPrice}>
-                  Original Price: {oneProduct?.Origin_price} TND
-                </span>
-              )}
-              {oneProduct?.Promo_price > 0 ? (
+      ) : (
+        <div className={classes.root} id="productinfo">
+          <Card className={classes.card}>
+            <div className={classes.infoContainer}>
+              <div className={classes.imageContainer}>
+                {images.length > 0 ? (
+                  <Carousel>
+                    {images.map((el) => (
+                      <Carousel.Item>
+                        <>
+                          <img
+                            key={el.id}
+                            src={el.product_image}
+                            alt="Product"
+                            // className="d-block w-100"
+                            className={`${classes.image} ${
+                              zoomed && classes.zoomed
+                            }`}
+                            onClick={handleImageZoom}
+                          />
+                        </>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                ) : (
+                  <img
+                    src={selectedImage}
+                    alt="Product"
+                    className={`${classes.image} ${zoomed && classes.zoomed}`}
+                    onClick={handleImageZoom}
+                  />
+                )}
+              </div>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Product Info
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  {oneProduct?.product_name}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  {oneProduct?.description}
+                </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  <span className={classes.promoPrice}>
-                    Promo Price: {oneProduct?.Promo_price} TND
+                  {oneProduct?.Promo_price <= 0 ? (
+                    <span className={classes.promoPrice}>
+                      Price: {oneProduct?.Origin_price} TND
+                    </span>
+                  ) : (
+                    <span className={classes.originalPrice}>
+                      Original Price: {oneProduct?.Origin_price} TND
+                    </span>
+                  )}
+                  {oneProduct?.Promo_price > 0 ? (
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      <span className={classes.promoPrice}>
+                        Promo Price: {oneProduct?.Promo_price} TND
+                      </span>
+                    </Typography>
+                  ) : null}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  className={classes.reference}
+                >
+                  <span style={{ fontWeight: "bold" }}>Reference:</span>{" "}
+                  {oneProduct?.reference}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>Availability:</span>{" "}
+                  <span style={{ color: "green", fontSize: "16px" }}>
+                    {oneProduct?.quantity > 3 ? "En Stock" : "En Arrivage"}
                   </span>
                 </Typography>
-              ) : null}
-            </Typography>
-            <Typography
-              variant="body2"
-              gutterBottom
-              className={classes.reference}
-            >
-              <span style={{ fontWeight: "bold" }}>Reference:</span>{" "}
-              {oneProduct?.reference}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: "bold" }}>Availability:</span>{" "}
-              <span style={{ color: "green", fontSize: "16px" }}>
-                {oneProduct?.quantity > 3 ? "En Stock" : "En Arrivage"}
-              </span>
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              <span style={{ fontWeight: "bold" }}>Category:</span>
-              {oneProduct?.catigory}
-            </Typography>
-          </CardContent>
-          <Button
-                      onClick={token?()=>AddTocard():()=>navigate("/login")}
-                        style={{
-                          borderRadius: "50%",
-                          padding: "10px",
-                          fontSize: "30px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
-                      </Button>
-        </div>
-      </Card>
-      <div className={classes.thumbnailContainer}>
-        {images.map((el) => (
-          <>
-            <img
-              key={el.id}
-              src={el.product_image}
-              alt="Thumbnail"
-              className={classes.thumbnail}
-              onClick={() => handleThumbnailClick(el.product_image)}
-            />
-            {role === "admin" && (
-              <Button  onClick={() => deleteimages(el.id)}>
-                delete
+                <Typography variant="body2" gutterBottom>
+                  <span style={{ fontWeight: "bold" }}>Category:</span>
+                  {oneProduct?.catigory}
+                </Typography>
+              </CardContent>
+              <Button
+                onClick={token ? () => AddTocard() : () => navigate("/login")}
+                style={{
+                  borderRadius: "50%",
+                  padding: "10px",
+                  fontSize: "30px",
+                  marginTop: "10px",
+                }}
+              >
+                <MdOutlineAddShoppingCart
+                  style={{ color: check === 1 ? "green" : "black" }}
+                />
               </Button>
-            ) }
-          </>
-        ))}
-      </div>
-      {role === "admin" && (
-        <div className={classes.addImageContainer}>
-          <Input
-            type="file"
-            placeholder="Add image URL"
-            value={inputValue}
-            onChange={(e) => setProductImage(e.target.files[0])}
-            disableUnderline
-            fullWidth
-          />
-          <IconButton
-            color="primary"
-            aria-label="Add Image"
-            className={classes.addImageButton}
-            onClick={handleAddImage}
-          >
-            <Add />
-          </IconButton>
+            </div>
+          </Card>
+          <div className={classes.thumbnailContainer}>
+            {images.map((el) => (
+              <>
+                <img
+                  key={el.id}
+                  src={el.product_image}
+                  alt="Thumbnail"
+                  className={classes.thumbnail}
+                  onClick={() => handleThumbnailClick(el.product_image)}
+                />
+                {role === "admin" && (
+                  <Button onClick={() => deleteimages(el.id)}>delete</Button>
+                )}
+              </>
+            ))}
+          </div>
+          {role === "admin" && (
+            <div className={classes.addImageContainer}>
+              <Input
+                type="file"
+                placeholder="Add image URL"
+                value={inputValue}
+                onChange={(e) => setProductImage(e.target.files[0])}
+                disableUnderline
+                fullWidth
+              />
+              <IconButton
+                color="primary"
+                aria-label="Add Image"
+                className={classes.addImageButton}
+                onClick={handleAddImage}
+              >
+                <Add />
+              </IconButton>
+            </div>
+          )}
         </div>
       )}
-    </div>)}
-    
     </div>
   );
 };

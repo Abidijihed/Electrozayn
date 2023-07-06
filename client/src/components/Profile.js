@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -10,8 +10,7 @@ import {
   Divider,
   Button,
 } from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { useDispatch } from "react-redux";
+
 import { ToastContainer, toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,10 +67,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProfilePage({user,role}) {
+function ProfilePage({ user, role }) {
   const classes = useStyles();
   const [order, setOrder] = useState([]);
-  
 
   setTimeout(() => {
     const user_id = localStorage.getItem("id");
@@ -96,35 +94,32 @@ function ProfilePage({user,role}) {
         setOrder(order);
         toast.success("Success Order Confirmed !", {
           position: toast.POSITION.TOP_RIGHT,
-        })
-      }).catch((err)=>{
-        console.log(err)
+        });
       })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-const logout=()=>{
-  axios.get("https://www.electrozayn.com/api/logout")
-  .then((res)=>{
-if(res.data==="user loged out"){
-  localStorage.clear()
-  window.location.reload()
-
-}
-  })
-}
-const deleteOrder=(id)=>{
-     axios.delete(`https://www.electrozayn.com/api/delete/${id}`)
-     .then((res)=>{
-      if(res.data==="order deleted"){
+  const logout = () => {
+    axios.get("https://www.electrozayn.com/api/logout").then((res) => {
+      if (res.data === "user loged out") {
+        localStorage.clear();
+        window.location.reload();
+      }
+    });
+  };
+  const deleteOrder = (id) => {
+    axios.delete(`https://www.electrozayn.com/api/delete/${id}`).then((res) => {
+      if (res.data === "order deleted") {
         toast.success("Success Order Deleted !", {
           position: toast.POSITION.TOP_RIGHT,
-        })
-         
+        });
       }
-     })
-}
+    });
+  };
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {/* First section */}
       {user.map((el) => (
         <Card className={classes.root} key={el.id}>
@@ -177,18 +172,14 @@ const deleteOrder=(id)=>{
               <Typography variant="h6" gutterBottom>
                 Last Name:
               </Typography>
-              <Typography variant="body1">
-                {el ? el.LastName : null}
-              </Typography>
+              <Typography variant="body1">{el ? el.LastName : null}</Typography>
             </div>
             <Divider />
             <div className={classes.section}>
               <Typography variant="h6" gutterBottom>
                 Address:
               </Typography>
-              <Typography variant="body1">
-                {el ? el.Address : null}
-              </Typography>
+              <Typography variant="body1">{el ? el.Address : null}</Typography>
             </div>
             <Divider />
             <div className={classes.section}>
@@ -202,58 +193,66 @@ const deleteOrder=(id)=>{
               <Typography variant="h6" gutterBottom>
                 Country:
               </Typography>
-              <Typography variant="body1">
-                {el ? el.country : null}
-              </Typography>
+              <Typography variant="body1">{el ? el.country : null}</Typography>
             </div>
             <Divider />
           </CardContent>
 
-          <Button style={{backgroundColor:"red"}} onClick={logout}>LogOut</Button>
+          <Button style={{ backgroundColor: "red" }} onClick={logout}>
+            LogOut
+          </Button>
         </Card>
       ))}
 
       {/* Second section */}
       <div>
-      {order.map((el) => (
-  <Card className={classes.root} key={el.id}>
-    <CardContent>
-      <h1
-        style={{
-          color: el.validate_add_or_not === 0 ? "red" : "green",
-        }}
-      >
-        {el.validate_add_or_not === 0 ? "Waiting for Confirmation" : "Confirmed"}
-      </h1>
-      <h3>{el.product_name}</h3>
-      <p>Email: {el.Email}</p>
-      <p>FirstName: {el.FirstName}</p>
-      <p>PhoneNumber: {el.PhoneNumber}</p>
-      <p>Zip: {el.Zip}</p>
-      <p>Address: {el.address}</p>
-      <p>Country: {el.country}</p>
-      <p>Date: {el.date}</p>
-      <p>Product Quantity: {el.product_quantity}</p>
-      <p>Total Price: {el.total_price} TNDT</p>
-     
-      {role === "admin" && (
-        <div style={{display:"flex",justifyContent:"space-around"}}>
-          <Button
-            className={classes.prettyButton}
-            onClick={() => confirmOrder(el.id)}
-            disabled={el.validate_add_or_not === 1}
-          >
-            Confirm
-          </Button>
-          {role === "admin" ?<Button className={classes.prettyButton1} onClick={() => deleteOrder(el.id)}>
-            Delete
-          </Button>:null}
-        </div>
-      )}
-    </CardContent>
-  </Card>
-))}
+        {order.map((el) => (
+          <Card className={classes.root} key={el.id}>
+            <CardContent>
+              <h1
+                style={{
+                  color: el.validate_add_or_not === 0 ? "red" : "green",
+                }}
+              >
+                {el.validate_add_or_not === 0
+                  ? "Waiting for Confirmation"
+                  : "Confirmed"}
+              </h1>
+              <h3>{el.product_name}</h3>
+              <p>Email: {el.Email}</p>
+              <p>FirstName: {el.FirstName}</p>
+              <p>PhoneNumber: {el.PhoneNumber}</p>
+              <p>Zip: {el.Zip}</p>
+              <p>Address: {el.address}</p>
+              <p>Country: {el.country}</p>
+              <p>Date: {el.date}</p>
+              <p>Product Quantity: {el.product_quantity}</p>
+              <p>Total Price: {el.total_price} TNDT</p>
 
+              {role === "admin" && (
+                <div
+                  style={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <Button
+                    className={classes.prettyButton}
+                    onClick={() => confirmOrder(el.id)}
+                    disabled={el.validate_add_or_not === 1}
+                  >
+                    Confirm
+                  </Button>
+                  {role === "admin" ? (
+                    <Button
+                      className={classes.prettyButton1}
+                      onClick={() => deleteOrder(el.id)}
+                    >
+                      Delete
+                    </Button>
+                  ) : null}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </>
   );

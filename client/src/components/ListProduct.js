@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddProductModal from "./AddModal";
 import axios from "axios";
 import ListProducts from "./Product";
-function MyPage({ handleChangesearch,search ,getlengthShop}) {
+function MyPage({ handleChangesearch, search, getlengthShop }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [user, setUser] = useState([]);
   const [data, setData] = useState([]);
@@ -24,12 +24,11 @@ function MyPage({ handleChangesearch,search ,getlengthShop}) {
       });
     getProducts();
   }, []);
-  const handelpassfunction=()=>{
-    handleChangesearch()
-  }
+  const handelpassfunction = () => {
+    handleChangesearch();
+  };
   return (
     <div>
-      
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         {user.map((el) => {
           return (
@@ -57,7 +56,12 @@ function MyPage({ handleChangesearch,search ,getlengthShop}) {
             el.product_name.toLowerCase().includes(search.toLowerCase())
         )
         .map((el) => (
-          <ListProducts data={el} key={el.id} getlengthShop={getlengthShop} handelpassfunction={handelpassfunction}/>
+          <ListProducts
+            data={el}
+            key={el.id}
+            getlengthShop={getlengthShop}
+            handelpassfunction={handelpassfunction}
+          />
         ))}
     </div>
   );

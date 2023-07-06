@@ -6,16 +6,13 @@ import {
   CardContent,
   Typography,
   makeStyles,
-  CircularProgress,
 } from "@material-ui/core";
 import { Button } from "react-bootstrap";
 import UpdateModal from "./UpdateModal";
 import axios from "axios";
-import { FaShoppingCart } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-import { Search } from "@material-ui/icons";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -49,8 +46,8 @@ const useStyles = makeStyles({
   },
 });
 
-function ProductCard({handelpassfunction, data, getlengthShop }) {
-  const token =localStorage.getItem("token")
+function ProductCard({ handelpassfunction, data, getlengthShop }) {
+  const token = localStorage.getItem("token");
   const [check, setChek] = useState();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
@@ -141,27 +138,26 @@ function ProductCard({handelpassfunction, data, getlengthShop }) {
   useEffect(() => {
     getProductsCard(); // Call the function when navigating to the component
   }, [check]);
-const handelNavigate=()=>{
-    navigate(`/productinfo/${data.id}`)
-setTimeout(() => {
-  window.location.reload()
-}, 500);
-}
+  const handelNavigate = () => {
+    navigate(`/productinfo/${data.id}`);
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
   return (
     <>
-   
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
-            onClick={() =>handelNavigate()}
+            onClick={() => handelNavigate()}
             className={classes.media}
             image={data.product_image}
             title={data.product_name}
           />
           <CardContent style={{ height: "auto", width: "100%" }}>
-            {/* <Typography gutterBottom variant="h6" component="h1">
+            <Typography gutterBottom variant="h6" component="h1">
               {data.product_name}
-            </Typography> */}
+            </Typography>
             {/* <Typography variant="body2" color="textSecondary" component="p">
               {data.description}
             </Typography> */}
@@ -252,19 +248,27 @@ setTimeout(() => {
               );
             })}
           </div>
-          <Button style={{backgroundColor:"white",border:"none",marginLeft:"40px"}}>
-          <div
+          <Button
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              color: check === 1 ? "green" : "black",
+              backgroundColor: "white",
+              border: "none",
+              marginLeft: "40px",
             }}
           >
-            <MdOutlineAddShoppingCart
-              className={classes.shopIcon}
-              onClick={token?() => AddTocard(data):()=>navigate('/login')}
-            />
-          </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                color: check === 1 ? "green" : "black",
+              }}
+            >
+              <MdOutlineAddShoppingCart
+                className={classes.shopIcon}
+                onClick={
+                  token ? () => AddTocard(data) : () => navigate("/login")
+                }
+              />
+            </div>
           </Button>
         </CardActionArea>
       </Card>
