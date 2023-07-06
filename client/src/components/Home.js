@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@mui/material/Divider";
-import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
-import { BsFillTelephoneFill } from "react-icons/bs";
-import { AiOutlineMail, AiFillHome } from "react-icons/ai";
-import backgroundImage from "./bg.jpg";
-import { Carousel, Card, Nav } from "react-bootstrap";
-import Buttoon from "react-bootstrap/Button";
+import { Carousel, Card, Nav, Dropdown } from "react-bootstrap";
 import ListProducts from "./Product";
 import axios from "axios";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -75,7 +67,7 @@ function HomePage({ search, getlengthShop }) {
   const [index, setIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState(5);
   const [check, setChek] = useState();
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -124,7 +116,7 @@ function HomePage({ search, getlengthShop }) {
           console.log(err);
         });
     }
-  }
+  };
   useEffect(() => {
     getProductsCard(); // Call the function when navigating to the component
   }, [check]);
@@ -214,23 +206,34 @@ function HomePage({ search, getlengthShop }) {
                 <Nav variant="pills">
                   <Nav.Item>
                     <Nav.Link href="#link" style={{ color: "black" }}>
-                      Categorie 1
+                      Led TV
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link href="#link" style={{ color: "black" }}>
-                      Categorie 2
+                      Adptateur
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link href="#link" style={{ color: "black" }}>
-                      Categorie 3
+                      Chargeur
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link href="#link" style={{ color: "black" }}>
-                      Categorie 4
-                    </Nav.Link>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="link"
+                        id="dropdown-basic"
+                        style={{ color: "black" }}
+                      >
+                        Commande
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#action1">TV</Dropdown.Item>
+                        <Dropdown.Item href="#action2">Climatiseur</Dropdown.Item>
+                        <Dropdown.Item href="#action3">Récepteur</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link href="#link" style={{ color: "black" }}>
@@ -306,7 +309,11 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard(el.id):()=>navigate("/login")}
+                          onClick={
+                            token
+                              ? () => AddTocard(el.id)
+                              : () => navigate("/login")
+                          }
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
@@ -314,7 +321,9 @@ function HomePage({ search, getlengthShop }) {
                             marginTop: "10px",
                           }}
                         >
-                          <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
+                          <MdOutlineAddShoppingCart
+                            style={{ color: check === 1 ? "green" : "black" }}
+                          />
                         </Button>
                       </Card.Body>
                     </Card>
@@ -388,16 +397,21 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                        onClick={token?()=>AddTocard(el.id):()=>navigate("/login")}
+                          onClick={
+                            token
+                              ? () => AddTocard(el.id)
+                              : () => navigate("/login")
+                          }
                           style={{
-                            
                             borderRadius: "50%",
                             padding: "10px",
                             fontSize: "30px",
                             marginTop: "10px",
                           }}
                         >
-                          <MdOutlineAddShoppingCart style={{color: check === 1 ? "green" : "black"}} />
+                          <MdOutlineAddShoppingCart
+                            style={{ color: check === 1 ? "green" : "black" }}
+                          />
                         </Button>
                       </Card.Body>
                     </Card>
@@ -479,7 +493,11 @@ function HomePage({ search, getlengthShop }) {
                         </>
                       )}
                       <Button
-                      onClick={token?()=>AddTocard(el.id):()=>navigate("/login")}
+                        onClick={
+                          token
+                            ? () => AddTocard(el.id)
+                            : () => navigate("/login")
+                        }
                         style={{
                           borderRadius: "50%",
                           padding: "10px",
@@ -487,7 +505,9 @@ function HomePage({ search, getlengthShop }) {
                           marginTop: "10px",
                         }}
                       >
-                        <MdOutlineAddShoppingCart  style={{color: check === 1 ? "green" : "black"}}/>
+                        <MdOutlineAddShoppingCart
+                          style={{ color: check === 1 ? "green" : "black" }}
+                        />
                       </Button>
                     </Card.Body>
                   </Card>
