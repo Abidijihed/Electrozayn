@@ -367,7 +367,7 @@ function HomePage({ search, getlengthShop }) {
             {/* div of Cards Produits tendances */}
             <div className="allcards">
               {data
-                .filter((el) => el.Promo_price > 0)
+                .filter((el) => el.catigory==='TELECOMONDE CLIMATISEURS'||el.catigory==='accessoires trottinette & velo électrique')
                 .slice(0, displayCount)
                 .map((el) => (
                   <div
