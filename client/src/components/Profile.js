@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -72,9 +72,7 @@ function ProfilePage({ user, role }) {
   const [order, setOrder] = useState([]);
       const [orderItems,setOrderItems]=useState([])
   setTimeout(() => {
-    axios.get('https://www.electrozayn.com/api/order_items').then((res)=>{
-      setOrderItems(res.data)
-    })
+   
     const user_id = localStorage.getItem("id");
     if (role === "admin") {
       axios.get(`https://www.electrozayn.com/api/get_all_order`).then((res) => {
@@ -88,7 +86,11 @@ function ProfilePage({ user, role }) {
         });
     }
   }, 500);
-
+useEffect(()=>{
+  axios.get('https://www.electrozayn.com/api/order_items').then((res)=>{
+    setOrderItems(res.data)
+  })
+},[orderItems])
   const confirmOrder = (id) => {
     axios
       .put(`https://www.electrozayn.com/api/confirm/order/${id}`)
@@ -235,20 +237,18 @@ function ProfilePage({ user, role }) {
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>TVA</th>
                     <th>Total Price</th>
                   </tr>
                   {orderItems.filter((item)=>item.order_id===el.id).map((items)=> <tr>
-                    <td>Kit de 3 barres LED TV Maxwell 40″ Plat</td>
-                    <td>3</td>
-                    <td>180.00</td>
-                    <td>15%</td>
-                    <td>207.00</td>
+                    <td>{items.product_name}</td>
+                    <td>{items.product_quantity}</td>
+                    <td>{items.product_price}</td>
+                    {/* <td>15%</td> */}
+                    <td>{el.total_price}</td>
                   </tr>)}
                 </table>
               </div>
-              <p>Product Quantity: {el.product_quantity}</p>
-              <p>Total Price: {el.total_price} TNDT</p>
+            
 
               {role === "admin" && (
                 <div
