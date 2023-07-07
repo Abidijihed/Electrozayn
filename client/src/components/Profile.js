@@ -71,7 +71,7 @@ function ProfilePage({ user, role }) {
   const classes = useStyles();
   const [order, setOrder] = useState([]);
       const [orderItems,setOrderItems]=useState([])
-  setTimeout(() => {
+  useEffect(() => {
    
     const user_id = localStorage.getItem("id");
     if (role === "admin") {
@@ -85,7 +85,7 @@ function ProfilePage({ user, role }) {
           setOrder(res.data);
         });
     }
-  }, 500);
+  }, [order]);
 useEffect(()=>{
   axios.get('https://www.electrozayn.com/api/order_items').then((res)=>{
     setOrderItems(res.data)
@@ -232,21 +232,34 @@ useEffect(()=>{
               <p>Country: {el.country}</p>
               <p>Date: {el.date}</p>
               <div>
-                <table>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Price</th>
-                  </tr>
-                  {orderItems.filter((item)=>item.order_id===el.id).map((items)=> <tr>
-                    <td>{items.product_name}</td>
-                    <td>{items.product_quantity}</td>
-                    <td>{items.product_price}</td>
-                    {/* <td>15%</td> */}
-                    <td>{el.total_price}</td>
-                  </tr>)}
-                </table>
+              <table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {orderItems
+      .filter((item) => item.order_id === el.id)
+      .map((items) => (
+        <tr key={items.id}>
+          <td>{items.product_name}</td>
+          <td>{items.product_quantity}</td>
+          <td>{items.product_price}</td>
+        </tr>
+      ))}
+  </tbody>
+  <tfoot>
+    <tr className="total-row">
+      <td colSpan="3" style={{ textAlign: "right" }}>
+        Total Price:
+      </td>
+      <td>{el.total_price>100.00?el.total_price-7:el.total_price}{" "}TND</td>
+    </tr>
+  </tfoot>
+</table>
               </div>
             
 
