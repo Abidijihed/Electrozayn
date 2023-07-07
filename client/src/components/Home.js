@@ -390,12 +390,22 @@ function HomePage({ search, getlengthShop }) {
                       />
                       <Card.Body style={{ textAlign: "center" }}>
                         <Card.Title>{el.product_name}</Card.Title>
-                        <Card.Text className={classes.originalPrice}>
-                          Original Price: {el.Origin_price} TND
-                        </Card.Text>
-                        <Card.Text className={classes.promoPrice}>
-                          Promo Price: {el.Promo_price} TND
-                        </Card.Text>
+                        {el.Promo_price > 0 ? (
+                        <>
+                          <Card.Text className={classes.originalPrice}>
+                            Original Price: {el.Origin_price} TND
+                          </Card.Text>
+                          <Card.Text className={classes.promoPrice}>
+                            Promo Price: {el.Promo_price} TND
+                          </Card.Text>
+                        </>
+                      ) : (
+                        <>
+                          <Card.Text className={classes.promoPrice}>
+                            Price: {el.Origin_price} TND
+                          </Card.Text>
+                        </>
+                      )}
                         <Button
                           onClick={
                             token
