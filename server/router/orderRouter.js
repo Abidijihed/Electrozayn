@@ -19,5 +19,5 @@ router.delete('/api/delete/:id', orderController.deleteOrder);
 // Route for getting all orders for a specific user
 router.get('/api/get_user_order/:id', orderController.getAllOrderUser);
 
-
+router.get('/api/order_items',orderController.getOrderItems)
 module.exports = { orderRouter: router };

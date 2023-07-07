@@ -70,8 +70,11 @@ const useStyles = makeStyles((theme) => ({
 function ProfilePage({ user, role }) {
   const classes = useStyles();
   const [order, setOrder] = useState([]);
-
+      const [orderItems,setOrderItems]=useState([])
   setTimeout(() => {
+    axios.get('https://www.electrozayn.com/api/order_items').then((res)=>{
+      setOrderItems(res.data)
+    })
     const user_id = localStorage.getItem("id");
     if (role === "admin") {
       axios.get(`https://www.electrozayn.com/api/get_all_order`).then((res) => {
@@ -226,6 +229,24 @@ function ProfilePage({ user, role }) {
               <p>Address: {el.address}</p>
               <p>Country: {el.country}</p>
               <p>Date: {el.date}</p>
+              <div>
+                <table>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>TVA</th>
+                    <th>Total Price</th>
+                  </tr>
+                  {orderItems.filter((item)=>item.order_id===el.id).map((items)=> <tr>
+                    <td>Kit de 3 barres LED TV Maxwell 40″ Plat</td>
+                    <td>3</td>
+                    <td>180.00</td>
+                    <td>15%</td>
+                    <td>207.00</td>
+                  </tr>)}
+                </table>
+              </div>
               <p>Product Quantity: {el.product_quantity}</p>
               <p>Total Price: {el.total_price} TNDT</p>
 
