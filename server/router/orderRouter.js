@@ -1,5 +1,5 @@
-const router=require('express').Router();
-const orderController=require('../controllers/order')
+const router = require('express').Router();
+const orderController = require('../controllers/order');
 
 // Route for creating an order
 router.post('/api/create/order/:id', orderController.CreateOrder);
@@ -16,5 +16,8 @@ router.put('/api/confirm/order/:id', orderController.confirmOrder);
 // Route for deleting an order
 router.delete('/api/delete/:id', orderController.deleteOrder);
 
-router.get('/api/get_user_order/:id',orderController.getAllOrderUser)
-module.exports={orderRouter:router}
+// Route for getting all orders for a specific user
+router.get('/api/get_user_order/:id', orderController.getAllOrderUser);
+
+
+module.exports = { orderRouter: router };

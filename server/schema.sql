@@ -88,11 +88,19 @@ CREATE TABLE IF NOT EXISTS userorder (
   Zip VARCHAR(250) NOT NULL,
   user_id INT NOT NULL,
   total_price DECIMAL(10, 2) NOT NULL,
+  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT NOT NULL AUTO_INCREMENT,
+  order_id INT NOT NULL,
   product_name VARCHAR(200) NOT NULL,
   product_quantity INT NOT NULL,
-  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id, validate_add_or_not, user_id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  product_price DECIMAL(10, 2) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (order_id) REFERENCES userorder(id)
 );
 
 CREATE TABLE IF NOT EXISTS bijoux (

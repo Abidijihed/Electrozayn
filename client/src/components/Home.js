@@ -204,20 +204,34 @@ function HomePage({ search, getlengthShop }) {
             <Card>
               <Card.Header>
                 <Nav variant="pills">
-                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("led tv")}`)}>
-                    <Nav.Link style={{ color: "black" }}>
-                      Led TV
-                    </Nav.Link>
+                  <Nav.Item
+                    onClick={() =>
+                      navigate(
+                        `/productCategory/${encodeURIComponent("led tv")}`
+                      )
+                    }
+                  >
+                    <Nav.Link style={{ color: "black" }}>Led TV</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("ADAPTATEUR ET ALIMETATION")}`)}>
-                    <Nav.Link style={{ color: "black" }}>
-                      Adptateur
-                    </Nav.Link>
+                  <Nav.Item
+                    onClick={() =>
+                      navigate(
+                        `/productCategory/${encodeURIComponent(
+                          "ADAPTATEUR ET ALIMETATION"
+                        )}`
+                      )
+                    }
+                  >
+                    <Nav.Link style={{ color: "black" }}>Adptateur</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("CHARGEURS")}`)}>
-                    <Nav.Link  style={{ color: "black" }}>
-                      Chargeur
-                    </Nav.Link>
+                  <Nav.Item
+                    onClick={() =>
+                      navigate(
+                        `/productCategory/${encodeURIComponent("CHARGEURS")}`
+                      )
+                    }
+                  >
+                    <Nav.Link style={{ color: "black" }}>Chargeur</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Dropdown>
@@ -229,11 +243,60 @@ function HomePage({ search, getlengthShop }) {
                         Commande
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMONDE TV")}`)}>TV</Dropdown.Item>
-                        <Dropdown.Item  onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMONDE CLIMATISEURS")}`)}>Climatiseur</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>navigate(`/productCategory/${encodeURIComponent("TELECOMANDE RECEPTEURS")}`)}>Récepteur</Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            navigate(
+                              `/productCategory/${encodeURIComponent(
+                                "TELECOMONDE TV"
+                              )}`
+                            )
+                          }
+                        >
+                          TV
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            navigate(
+                              `/productCategory/${encodeURIComponent(
+                                "TELECOMONDE CLIMATISEURS"
+                              )}`
+                            )
+                          }
+                        >
+                          Climatiseur
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            navigate(
+                              `/productCategory/${encodeURIComponent(
+                                "TELECOMANDE RECEPTEURS"
+                              )}`
+                            )
+                          }
+                        >
+                          Récepteur
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <div class="dropdown" id="tropdown">
+                      <button class="dropdown-btn">
+                       <span id="texttt">Cabbage</span>  <span class="dropdown-arrow">&#9662;</span>
+                      </button>
+                      <div class="dropdown-content">
+                        <a href="#">C.Secteur</a>
+                        <div class="nested-dropdown">
+                          <button class="dropdown-btn">
+                            C.HDMI <span class="dropdown-arrow">&#9662;</span>
+                          </button>
+                          <div class="dropdown-content">
+                            <a href="#">4k</a>
+                            <a href="#">1.4</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link href="#link" style={{ color: "black" }}>
@@ -367,7 +430,11 @@ function HomePage({ search, getlengthShop }) {
             {/* div of Cards Produits tendances */}
             <div className="allcards">
               {data
-                .filter((el) => el.catigory==='TELECOMONDE CLIMATISEURS'||el.catigory==='accessoires trottinette & velo électrique')
+                .filter(
+                  (el) =>
+                    el.catigory === "TELECOMONDE CLIMATISEURS" ||
+                    el.catigory === "accessoires trottinette & velo électrique"
+                )
                 .slice(0, displayCount)
                 .map((el) => (
                   <div
@@ -391,21 +458,21 @@ function HomePage({ search, getlengthShop }) {
                       <Card.Body style={{ textAlign: "center" }}>
                         <Card.Title>{el.product_name}</Card.Title>
                         {el.Promo_price > 0 ? (
-                        <>
-                          <Card.Text className={classes.originalPrice}>
-                            Original Price: {el.Origin_price} TND
-                          </Card.Text>
-                          <Card.Text className={classes.promoPrice}>
-                            Promo Price: {el.Promo_price} TND
-                          </Card.Text>
-                        </>
-                      ) : (
-                        <>
-                          <Card.Text className={classes.promoPrice}>
-                            Price: {el.Origin_price} TND
-                          </Card.Text>
-                        </>
-                      )}
+                          <>
+                            <Card.Text className={classes.originalPrice}>
+                              Original Price: {el.Origin_price} TND
+                            </Card.Text>
+                            <Card.Text className={classes.promoPrice}>
+                              Promo Price: {el.Promo_price} TND
+                            </Card.Text>
+                          </>
+                        ) : (
+                          <>
+                            <Card.Text className={classes.promoPrice}>
+                              Price: {el.Origin_price} TND
+                            </Card.Text>
+                          </>
+                        )}
                         <Button
                           onClick={
                             token

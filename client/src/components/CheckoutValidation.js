@@ -93,10 +93,10 @@ function CheckoutValidation({
       country &&
       Zip
     ) {
-      products.map((el) => {
-        quantity += el.quantity;
-        productname += el.product_name + " ";
-      });
+      // products.map((el) => {
+      //   quantity += el.quantity;
+      //   productname += el.product_name + " ";
+      // });
       axios
         .post(`https://www.electrozayn.com/api/create/order/${id}`, {
           FirstName: FirstName,
@@ -106,8 +106,7 @@ function CheckoutValidation({
           country: country,
           Zip: Zip,
           total_price: totalPrice,
-          product_name: productname,
-          product_quantity: quantity,
+          products:products
         })
         .then((res) => {
           if (res.data === "user updated and order created") {

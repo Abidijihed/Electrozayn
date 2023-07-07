@@ -77,3 +77,58 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background:none;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size:17px
+  
+}
+
+.dropdown-arrow {
+  margin-left: -6px;
+    font-size: 25px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.nested-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nested-dropdown .dropdown-content {
+  left: 100%;
+  top: 0;
+  min-width: 160px;
+}
+#texttt{
+  text-decoration: underline;
+}
+#tropdown {
+  margin-top: -4px;
+}
