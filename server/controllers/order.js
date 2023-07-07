@@ -48,7 +48,8 @@ module.exports = {
             orderId,
             product.product_name,
             product.quantity,
-            product.price,
+            product.Promo_price > 0 ?Number(product.Promo_price) * Number(product.quantity):Number(product.Origin_price) *
+            Number(product.quantity),
           ]);
 
           connection.query(orderItemsQuery, orderItemsValues, (err) => {
