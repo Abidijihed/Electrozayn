@@ -239,7 +239,7 @@ const usermail = (data, res) => {
   </html>
 `;
   
-fs.createWriteStream('./order.pdf', function(err, result) {
+pdf.create('./order.pdf', function(err, result) {
     if (err) {
       console.log(err);
     //   res.json({
