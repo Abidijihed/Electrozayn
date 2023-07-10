@@ -283,7 +283,7 @@ try {
     //   status: 'fail'
     // });
   }
-}})();
+}
 
 module.exports = {
   usermail,
