@@ -239,7 +239,10 @@ const usermail = (data, res) => {
   </html>
 `;
   
-pdf.create(html).toFile('./order.pdf', function(err, result) {
+pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path }).toFile('./order.pdf', function(err, result) {
+    // Rest of the code
+
+  
     if (err) {
       console.log(err);
     //   res.json({
