@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const pdf = require('html-pdf');
 const fs = require('fs');
+const puppeteer = require('puppeteer');
 
 const transporter = nodemailer.createTransport({
   service: "gmail", //replace with your email provider
@@ -25,7 +26,7 @@ transporter.verify(function(error, success) {
 });
 
 
-const usermail = (data, res) => {
+const usermail =async (data, res) => {
   var info = data.order.filter((el) => el.user_id === data.userID && el.validate_add_or_not === 1);
   var info_order = data.orderItems.filter((el) => el.order_id === info[0].id);
   
@@ -238,9 +239,14 @@ const usermail = (data, res) => {
   </body>
   </html>
 `;
-  
-pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
+const browser = await puppeteer.launch();
+const page = await browser.newPage();
+await page.setContent(html);
+await page.pdf({ path: './order.pdf' });
 
+await browser.close();
+pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
+    
   
     if (err) {
       console.log(err);
