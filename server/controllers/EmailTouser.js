@@ -241,9 +241,9 @@ const usermail = (data, res) => {
 pdf.create(html).toFile('./order.pdf', function(err, result) {
     if (err) {
       console.log(err);
-      res.json({
-        status: 'fail'
-      });
+    //   res.json({
+    //     status: 'fail'
+    //   });
     } else {
       console.log(result);
       // Read the generated PDF file
@@ -265,6 +265,7 @@ pdf.create(html).toFile('./order.pdf', function(err, result) {
 
       transporter.sendMail(mail, (err, data) => {
         if (err) {
+            console.log(err)
           res.json({
             status: 'fail'
           });

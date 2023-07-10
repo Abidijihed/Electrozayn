@@ -134,8 +134,8 @@ useEffect(()=>{
     <>
       <ToastContainer/>
       {/* First section */}
-      <div style={{marginBottom:"25px"}}>
-      <Container style={{marginTop:"15px"}}>
+    
+      <Container style={{marginTop:"15px",marginBottom:"20px",height: "100%"}}>
       <Row>
         <Col>
         {user.map((el) => (
@@ -227,7 +227,6 @@ useEffect(()=>{
         </Col>:null}
       </Row>
       </Container>
-      </div>
 
       {/* Second section */}
       <div>
@@ -290,7 +289,7 @@ useEffect(()=>{
                   <Button
                     className={classes.prettyButton}
                     onClick={() => confirmOrder(el.id,el.user_id)}
-                    disabled={el.validate_add_or_not === 1}
+                    // disabled={el.validate_add_or_not === 1}
                   >
                     Confirm
                   </Button>

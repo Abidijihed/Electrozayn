@@ -141,7 +141,6 @@ module.exports = {
     });
   },
   confirmOrder: (req, res) => {
-    console.log(req.body)
     const { id } = req.params;
 
     const query = `
