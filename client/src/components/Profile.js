@@ -1,4 +1,7 @@
 import axios from "axios";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -12,6 +15,7 @@ import {
 } from "@material-ui/core";
 
 import { ToastContainer, toast } from "react-toastify";
+import InfoAdmin from "./InfoAdmin";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +75,12 @@ function ProfilePage({ user, role }) {
   const classes = useStyles();
   const [order, setOrder] = useState([]);
       const [orderItems,setOrderItems]=useState([])
+      const [data,setData]=useState([])
+      useEffect(() => {
+        axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+          setData(res.data);
+        });
+      }, [data]);
   useEffect(() => {
    
     const user_id = localStorage.getItem("id");
@@ -91,11 +101,10 @@ useEffect(()=>{
     setOrderItems(res.data)
   })
 },[orderItems])
-  const confirmOrder = (id) => {
+  const confirmOrder = (id,userID) => {
     axios
-      .put(`https://www.electrozayn.com/api/confirm/order/${id}`)
+      .put(`https://www.electrozayn.com/api/confirm/order/${id}`,{userID,orderItems,order})
       .then((res) => {
-        console.log(res.data);
         setOrder(order);
         toast.success("Success Order Confirmed !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -126,7 +135,10 @@ useEffect(()=>{
     <>
       <ToastContainer />
       {/* First section */}
-      {user.map((el) => (
+      <Container>
+      <Row>
+        <Col>
+        {user.map((el) => (
         <Card className={classes.root} key={el.id}>
           <CardHeader
             avatar={
@@ -208,6 +220,14 @@ useEffect(()=>{
           </Button>
         </Card>
       ))}
+        
+        </Col>
+       {role==="admin"? <Col>
+       {data.filter((el)=>el.quantity<0).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
+        </Col>:null}
+      </Row>
+      </Container>
+      
 
       {/* Second section */}
       <div>
@@ -256,7 +276,7 @@ useEffect(()=>{
       <td colSpan="3" style={{ textAlign: "right" }}>
         Total Price:
       </td>
-      <td>{el.total_price>100.00?el.total_price-7:el.total_price}{" "}TND</td>
+      <td>{el.total_price>100.00?el.total_price-7.00:el.total_price}{" "}TND</td>
     </tr>
   </tfoot>
 </table>
@@ -269,7 +289,7 @@ useEffect(()=>{
                 >
                   <Button
                     className={classes.prettyButton}
-                    onClick={() => confirmOrder(el.id)}
+                    onClick={() => confirmOrder(el.id,el.user_id)}
                     disabled={el.validate_add_or_not === 1}
                   >
                     Confirm

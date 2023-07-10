@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     setShop(shop);
   }, [shop]);
-  setTimeout(() => {
+  useEffect(() => {
     const user_id = localStorage.getItem("id");
     axios
       .get("https://www.electrozayn.com/api/user/getone/" + user_id)
@@ -45,7 +45,7 @@ function App() {
         setUser(res.data);
         res.data.map((el) => setRole(el.role));
       });
-  }, 1000);
+  }, [user]);
 
   return (
     <div className="app-container">

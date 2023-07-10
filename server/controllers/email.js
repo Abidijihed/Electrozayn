@@ -86,8 +86,8 @@ const nodmail = async (data, next) => {
   `;
 
   var mail = {
-    from: Email,
-    to: "aymenaymoun86@gmail.com",
+    from: "aymenaymoun86@gmail.com",
+    to: Email,
     subject: "New Order",
     html: html,
     attachments: [
