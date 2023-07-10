@@ -239,7 +239,7 @@ const usermail = (data, res) => {
   </html>
 `;
   
-pdf.create(html).toFile('./order.pdf', function(err, result) {
+pdf.create(html).toFile(__dirname,'./order.pdf', function(err, result) {
     if (err) {
       console.log(err);
     //   res.json({
@@ -248,7 +248,7 @@ pdf.create(html).toFile('./order.pdf', function(err, result) {
     } else {
       console.log(result);
       // Read the generated PDF file
-      const pdfData = fs.readFileSync('./order.pdf');
+      const pdfData = fs.readFileSync(__dirname,'./order.pdf');
 
       var mail = {
         from: "aymenaymoun86@gmail.com",
