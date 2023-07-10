@@ -239,8 +239,7 @@ const usermail = (data, res) => {
   </html>
 `;
   
-pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path }).toFile('./order.pdf', function(err, result) {
-    // Rest of the code
+pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
 
   
     if (err) {
