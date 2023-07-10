@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 const pdf = require('html-pdf');
 const fs = require('fs');
+const puppeteer = require('puppeteer');
+
 const transporter = nodemailer.createTransport({
   service: "gmail", //replace with your email provider
   port: 587,
@@ -24,7 +26,7 @@ transporter.verify(function(error, success) {
 });
 
 
-const usermail = (data, res) => {
+const usermail = async (data, res) => {
   var info = data.order.filter((el) => el.user_id === data.userID && el.validate_add_or_not === 1);
   var info_order = data.orderItems.filter((el) => el.order_id === info[0].id);
   
@@ -238,45 +240,46 @@ const usermail = (data, res) => {
   </html>
 `;
   
-pdf.create(html).toFile('./order.pdf', function(err, result) {
-    if (err) {
-      console.log(err);
-    //   res.json({
-    //     status: 'fail'
-    //   });
-    } else {
-      console.log(result);
-      // Read the generated PDF file
-      const pdfData = fs.readFileSync('./order.pdf');
+try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle0' });
 
-      var mail = {
-        from: "aymenaymoun86@gmail.com",
-        to: Email,
-        subject: "Order Confirmed",
-        html: html,
-        attachments: [
-          {
-            filename: "order.pdf",
-            content: pdfData,
-            contentType: 'application/pdf'
-          }
-        ]
-      };
+    const pdfBuffer = await page.pdf({ format: 'A4' });
 
-      transporter.sendMail(mail, (err, data) => {
-        if (err) {
-            console.log(err)
-          res.json({
-            status: 'fail'
-          });
-        } else {
-          res.json({
-            status: 'success'
-          });
+    await browser.close();
+
+    var mail = {
+      from: "aymenaymoun86@gmail.com",
+      to: Email,
+      subject: "Order Confirmed",
+      html: html,
+      attachments: [
+        {
+          filename: "order.pdf",
+          content: pdfBuffer,
+          contentType: 'application/pdf'
         }
-      });
-    }
-  });
+      ]
+    };
+
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          status: 'fail'
+        });
+      } else {
+        res.json({
+          status: 'success'
+        });
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      status: 'fail'
+    });
+  }
 };
 
 module.exports = {
