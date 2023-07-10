@@ -244,50 +244,40 @@ const browser = await puppeteer.launch({
   });
   const page = await browser.newPage();
   await page.setContent(html);
-  await page.pdf('./order.pdf');
+  await page.pdf({ path: './order.pdf' });
 
   await browser.close();
-// pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
-    
-  
+
+  // Read the generated PDF file
+  const pdfData = fs.readFileSync('./order.pdf');
+
+  var mail = {
+    from: "aymenaymoun86@gmail.com",
+    to: Email,
+    subject: "Order Confirmed",
+    html: html,
+    attachments: [
+      {
+        filename: "order.pdf",
+        content: pdfData,
+        contentType: 'application/pdf'
+      }
+    ]
+  };
+
+  transporter.sendMail(mail, (err, data) => {
     if (err) {
       console.log(err);
-    //   res.json({
-    //     status: 'fail'
-    //   });
+      res.json({
+        status: 'fail'
+      });
     } else {
-      console.log(result);
-      // Read the generated PDF file
-      const pdfData = fs.readFileSync('./order.pdf');
-
-      var mail = {
-        from: "aymenaymoun86@gmail.com",
-        to: Email,
-        subject: "Order Confirmed",
-        html: html,
-        attachments: [
-          {
-            filename: "order.pdf",
-            content: pdfData,
-            contentType: 'application/pdf'
-          }
-        ]
-      };
-
-      transporter.sendMail(mail, (err, data) => {
-        if (err) {
-            console.log(err)
-          res.json({
-            status: 'fail'
-          });
-        } else {
-          res.json({
-            status: 'success'
-          });
-        }
+      console.log(data);
+      res.json({
+        status: 'success'
       });
     }
-//   });
+  });
 };
 
 module.exports = {
