@@ -244,10 +244,10 @@ const browser = await puppeteer.launch({
   });
   const page = await browser.newPage();
   await page.setContent(html);
-  await page.pdf({ path: './order.pdf' });
+  await page.pdf('./order.pdf');
 
   await browser.close();
-pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
+// pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs: ['--ignore-ssl-errors=true', '--ssl-protocol=tlsv1'] }).toFile('./order.pdf', function(err, result) {    // Rest of the code
     
   
     if (err) {
@@ -287,7 +287,7 @@ pdf.create(html, { phantomPath: require('phantomjs-prebuilt').path, phantomArgs:
         }
       });
     }
-  });
+//   });
 };
 
 module.exports = {
