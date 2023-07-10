@@ -267,12 +267,12 @@ const browser = await puppeteer.launch({
 
   transporter.sendMail(mail, (err, data) => {
     if (err) {
-      console.log(err);
+
       res.json({
         status: 'fail'
       });
     } else {
-      console.log(data);
+
       res.json({
         status: 'success'
       });
