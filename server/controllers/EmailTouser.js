@@ -265,20 +265,22 @@ try {
 
     transporter.sendMail(mail, (err, data) => {
       if (err) {
-        res.json({
-          status: 'fail'
-        });
+        console.log(err)
+        // res.json({
+        //   status: 'fail'
+        // });
       } else {
-        res.json({
-          status: 'success'
-        });
+        console.log("status")
+        // res.json({
+        //   status: 'success'
+        // });
       }
     });
   } catch (err) {
     console.log(err);
-    res.json({
-      status: 'fail'
-    });
+    // res.json({
+    //   status: 'fail'
+    // });
   }
 };
 
