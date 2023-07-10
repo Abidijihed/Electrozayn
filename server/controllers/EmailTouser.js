@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+const pdf = require('html-pdf');
+const fs = require('fs');
 const transporter = nodemailer.createTransport({
   service: "gmail", //replace with your email provider
   port: 587,
@@ -34,7 +36,7 @@ const usermail = (data, res) => {
   var Total_price = info[0].total_price;
   var date = info[0].date;
   var data_order = info_order;
-  
+  var number_facture=info[0].id.toString().padStart(5, '0')
   let dynamicTableRows = '';
 
   data_order.forEach((item) => {
@@ -97,7 +99,8 @@ const usermail = (data, res) => {
   <body>
   
     <figure class="text-center">
-
+     <h3 style="float: right;">BL# ${number_facture}</h3>
+     <div>
     <blockquote class="blockquote">
       <h2>BONJOUR ${FirstName} ,</h2>
     </blockquote>
@@ -106,6 +109,7 @@ const usermail = (data, res) => {
 
     MERCI D'AVOIR EFFECTUÉ VOS ACHATS SUR Electrozayn!
     </figcaption>
+    <div>
     </figure>
   
     <table class="table">
@@ -234,28 +238,41 @@ const usermail = (data, res) => {
   </html>
 `;
   
-  var mail = {
-    from: "aymenaymoun86@gmail.com",
-    to: Email,
-    subject: "Order Confirmed",
-    html: html,
-    attachments: [
-      {
-        filename: "order.json",
-        content: JSON.stringify(data),
-        contentType: 'application/json'
-      }
-    ]
-  };
-  
-  transporter.sendMail(mail, (err, data) => {
+pdf.create(html).toFile('./order.pdf', function(err, result) {
     if (err) {
+      console.log(err);
       res.json({
         status: 'fail'
       });
     } else {
-      res.json({
-        status: 'success'
+      console.log(result);
+      // Read the generated PDF file
+      const pdfData = fs.readFileSync('./order.pdf');
+
+      var mail = {
+        from: "aymenaymoun86@gmail.com",
+        to: Email,
+        subject: "Order Confirmed",
+        html: html,
+        attachments: [
+          {
+            filename: "order.pdf",
+            content: pdfData,
+            contentType: 'application/pdf'
+          }
+        ]
+      };
+
+      transporter.sendMail(mail, (err, data) => {
+        if (err) {
+          res.json({
+            status: 'fail'
+          });
+        } else {
+          res.json({
+            status: 'success'
+          });
+        }
       });
     }
   });

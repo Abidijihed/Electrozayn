@@ -133,7 +133,7 @@ useEffect(()=>{
   };
   return (
     <>
-      <ToastContainer />
+      <ToastContainer className={classes.root}/>
       {/* First section */}
       <Container>
       <Row>
@@ -290,7 +290,7 @@ useEffect(()=>{
                   <Button
                     className={classes.prettyButton}
                     onClick={() => confirmOrder(el.id,el.user_id)}
-                    // disabled={el.validate_add_or_not === 1}
+                    disabled={el.validate_add_or_not === 1}
                   >
                     Confirm
                   </Button>
