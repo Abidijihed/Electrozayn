@@ -102,7 +102,7 @@ useEffect(()=>{
 },[orderItems])
   const confirmOrder = (id,userID) => {
     axios
-      .put(`https://www.electrozayn.com/api/confirm/order/${id}`,{userID,orderItems,order})
+      .put(`http://localhost:5500/api/confirm/order/${id}`,{userID,orderItems,order})
       .then((res) => {
         setOrder(order);
         toast.success("Success Order Confirmed !", {
