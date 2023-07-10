@@ -241,7 +241,8 @@ const usermail = async (data, res) => {
 `;
   
 try {
-    const browser = await puppeteer.launch({ headless: true, executablePath: '/path/to/chromium' });
+    
+    const browser = await puppeteer.launch({ headless: true, executablePath: '/usr/bin/chromium-browser' });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'networkidle0' });
 
@@ -282,7 +283,7 @@ try {
     //   status: 'fail'
     // });
   }
-};
+}})();
 
 module.exports = {
   usermail,
