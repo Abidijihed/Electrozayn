@@ -5,7 +5,7 @@ const fs = require('fs');
 const transporter = nodemailer.createTransport({
   service: "gmail", //replace with your email provider
   port: 587,
-  host: 'smtp.gmail.com',
+  host: 'www.electrozayn.com',
   secure: false,
   auth: {
     user: "aymenaymoun86@gmail.com",
@@ -239,7 +239,7 @@ const usermail = (data, res) => {
   </html>
 `;
   
-pdf.create('./order.pdf', function(err, result) {
+pdf.create(html).toFile('./order.pdf', function(err, result) {
     if (err) {
       console.log(err);
     //   res.json({
