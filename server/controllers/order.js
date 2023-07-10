@@ -141,28 +141,27 @@ module.exports = {
     });
   },
   confirmOrder: (req, res) => {
+    console.log(req.body)
     const { id } = req.params;
-  
+
     const query = `
-      UPDATE userorder
-      SET validate_add_or_not = true
-      WHERE id = ?
-    `;
-  
+          UPDATE userorder
+          SET validate_add_or_not = true
+          WHERE id = ?
+        `;
+
     // Execute the query to confirm the order
     connection.query(query, [id], (err, result) => {
       if (err) {
         console.error(err);
         res.status(500).send(err);
       } else {
-        // req.body.order
-        //   .filter((el) => el.user_id === req.body.userId && el.validate_add_or_not === 1)
-        //   .map((el) => {
-        //     req.body.orderItems.filter((order) => order.order_id === el.id);
-            usermail(req.body); // Pass req and res along with order and el to usermail function
-          // });
+        res.status(200).send("order confirmed");
+        usermail(req.body)
       }
     });
+
+  
   },
   getAllOrderUser: (req, res) => {
     const query = `SELECT * FROM userorder WHERE user_id = ${req.params.id}`;

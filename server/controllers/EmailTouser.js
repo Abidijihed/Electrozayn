@@ -192,7 +192,7 @@ const usermail = (data, res) => {
         <td></td>
         <td></td>
         <td>Total payé (including TVA)</td>
-        <td>${(Number(Total_price)+Number(Total_price*0.19))} TND	 </td>
+        <td>${Total_price} TND	 </td>
       </tr>
     </tbody>
     </table>

@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 800,
     margin: "0 auto",
-    marginTop: theme.spacing(10),
   },
   avatar: {
     backgroundColor: theme.palette.secondary.main,
@@ -133,9 +132,10 @@ useEffect(()=>{
   };
   return (
     <>
-      <ToastContainer className={classes.root}/>
+      <ToastContainer/>
       {/* First section */}
-      <Container>
+      <div style={{marginBottom:"25px"}}>
+      <Container style={{marginTop:"15px"}}>
       <Row>
         <Col>
         {user.map((el) => (
@@ -227,7 +227,7 @@ useEffect(()=>{
         </Col>:null}
       </Row>
       </Container>
-      
+      </div>
 
       {/* Second section */}
       <div>
