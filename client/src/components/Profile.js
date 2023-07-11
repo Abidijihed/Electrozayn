@@ -79,7 +79,6 @@ function ProfilePage({ user, role }) {
 
       useEffect(() => {
         axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
-          console.log(res.data)
           setData(res.data);
         });
       }, [data]);
