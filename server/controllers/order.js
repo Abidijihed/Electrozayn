@@ -1,4 +1,3 @@
-const { trimCache } = require("puppeteer/lib/types");
 const { connection } = require("../databaseconfig/config");
 const { usermail } = require("./EmailTouser");
 const { nodmail } = require("./email");
@@ -142,6 +141,7 @@ module.exports = {
   },
   confirmOrder: async (req, res) => {
     const { id } = req.params;
+
     const query = `
           UPDATE userorder
           SET validate_add_or_not = true
@@ -155,9 +155,10 @@ module.exports = {
         res.status(500).send(err);
       } else {
         if(req.body){
-           usermail(req.body)
-           nodmail(req.body)
+          usermail(req.body)
+          nodmail(req.body)
           res.status(200).send("order confirmed");
+
         }
         
         
