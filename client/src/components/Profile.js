@@ -223,7 +223,7 @@ useEffect(()=>{
         
         </Col>
        {role==="admin"? <Col>
-       {data.filter((el)=>el.quantity<0).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
+       {data.filter((el)=>Number(el.quantity)<0).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
         </Col>:null}
       </Row>
       </Container>

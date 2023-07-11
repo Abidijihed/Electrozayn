@@ -79,7 +79,6 @@ module.exports = {
                     res.status(500).send(err);
                   } else {
                     res.status(201).send("user updated and order created");
-                    nodmail(req.body);
                   }
                 }
               );
@@ -157,6 +156,7 @@ module.exports = {
       } else {
         res.status(200).send("order confirmed");
         usermail(req.body)
+        nodmail(req.body)
       }
     });
 
