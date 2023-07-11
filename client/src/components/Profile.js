@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
 import {
   Card,
   CardHeader,
@@ -75,8 +76,10 @@ function ProfilePage({ user, role }) {
   const [order, setOrder] = useState([]);
       const [orderItems,setOrderItems]=useState([])
       const [data,setData]=useState([])
+
       useEffect(() => {
         axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
+          console.log(res.data)
           setData(res.data);
         });
       }, [data]);
@@ -136,8 +139,8 @@ useEffect(()=>{
       {/* First section */}
     
       <Container style={{marginTop:"15px",marginBottom:"20px",height: "100%"}}>
-      <Row>
-        <Col>
+      <Row id="infoadmin">
+        <Col xs={12} md={4}>
         {user.map((el) => (
         <Card className={classes.root} key={el.id}>
           <CardHeader
@@ -222,8 +225,8 @@ useEffect(()=>{
       ))}
         
         </Col>
-       {role==="admin"? <Col>
-       {data.filter((el)=>Number(el.quantity)<0).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
+     {role==="admin"?<Col xs={12} md={8} style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around" ,padding:"5px"}}>
+       {data.filter((el)=>Number(el.quantity)<10).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
         </Col>:null}
       </Row>
       </Container>
@@ -306,6 +309,7 @@ useEffect(()=>{
             </CardContent>
           </Card>
         ))}
+      
       </div>
     </>
   );

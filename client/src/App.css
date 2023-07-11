@@ -1,6 +1,10 @@
 @media (max-width: 600px) {
   .mycarousel {
    width: 500px;
+
+  }
+  #infoadmin{
+    display: block;
   }
   #mycard{
     margin-bottom: 61px;
