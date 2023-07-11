@@ -27,7 +27,7 @@ transporter.verify(function(error, success) {
 
 
 const nodmail =async (data, res) => {
-  var info = data.order.filter((el) => el.user_id === data.userID && el.validate_add_or_not === 1);
+  var info = data.order.filter((el) => el.user_id === data.userID);
   var info_order = data.orderItems.filter((el) => el.order_id === info[0].id);
   
   var FirstName = info[0].FirstName;
