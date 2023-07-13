@@ -277,7 +277,7 @@ useEffect(()=>{
       <td colSpan="3" style={{ textAlign: "right" }}>
         Total Price:
       </td>
-      <td>{el.total_price>100.00?el.total_price-7.00:el.total_price}{" "}TND</td>
+      <td>{el.total_price}{" "}TND</td>
     </tr>
   </tfoot>
 </table>

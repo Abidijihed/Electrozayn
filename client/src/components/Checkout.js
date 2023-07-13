@@ -195,11 +195,11 @@ export default function MyModal({
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Checkout</DialogTitle>
+        <DialogTitle style={{display:"flex",justifyContent:"center",fontFamily: 'Arial, sans-serif'}}>Verification pour votre achat</DialogTitle>
         <DialogContent>
           <div className={classes.root}>
             <ToastContainer />
-            <Typography variant="h6">Checkout</Typography>
+            {/* <Typography variant="h6">Checkout</Typography> */}
             {isLoading ? (
               <CircularProgress />
             ) : (

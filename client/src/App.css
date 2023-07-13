@@ -6,6 +6,17 @@
   #infoadmin{
     display: block;
   }
+  .showmore{
+    display: flex;
+    justify-content: center;
+    margin-left:34% ;
+  }
+  .showmore1{
+    display: flex;
+    justify-content: center;
+    margin-left:3% ;
+  }
+
   #mycard{
     margin-bottom: 61px;
      display: flex;
@@ -44,10 +55,7 @@
     flex-wrap: wrap;
 
   }
-  .showmore{
-    display: flex;
-    justify-content: center;
-  }
+  
 }
 #productinfo{
   margin-bottom: 80px;

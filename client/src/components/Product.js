@@ -153,6 +153,7 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
             className={classes.media}
             image={data.product_image}
             title={data.product_name}
+            alt={data.product_name}
           />
           <CardContent style={{ height: "auto", width: "100%" }}>
             <Typography gutterBottom variant="h6" component="h1">

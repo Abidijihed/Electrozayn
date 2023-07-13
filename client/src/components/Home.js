@@ -175,7 +175,7 @@ function HomePage({ search, getlengthShop }) {
                 <img
                   style={{ height: "300px" }}
                   className="d-block w-100"
-                  src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                  src="http://res.cloudinary.com/dycjej355/image/upload/v1687544230/IMG_0129_claxix.jpg"
                   alt="First slide"
                 />
               </Carousel.Item>
@@ -183,7 +183,7 @@ function HomePage({ search, getlengthShop }) {
                 <img
                   style={{ height: "300px" }}
                   className="d-block w-100"
-                  src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                  src="http://res.cloudinary.com/dycjej355/image/upload/v1688657476/IMG_0653_vyxyhc.jpg"
                   alt="Second slide"
                 />
               </Carousel.Item>
@@ -191,7 +191,7 @@ function HomePage({ search, getlengthShop }) {
                 <img
                   style={{ height: "300px" }}
                   className="d-block w-100"
-                  src="http://res.cloudinary.com/dycjej355/image/upload/v1685707087/WhatsApp_Image_2023-05-31_at_22.43.42_qjeslt.jpg"
+                  src="http://res.cloudinary.com/dycjej355/image/upload/v1688150978/IMG_0351_jtvtgi.jpg"
                   alt="Third slide"
                 />
               </Carousel.Item>
@@ -282,7 +282,8 @@ function HomePage({ search, getlengthShop }) {
                   <Nav.Item>
                     <div class="dropdown" id="tropdown">
                       <button class="dropdown-btn">
-                       <span id="texttt">Cabbage</span>  <span class="dropdown-arrow">&#9662;</span>
+                        <span id="texttt">Cablage</span>{" "}
+                        <span class="dropdown-arrow">&#9662;</span>
                       </button>
                       <div class="dropdown-content">
                         <a href="#">C.Secteur</a>
@@ -317,7 +318,7 @@ function HomePage({ search, getlengthShop }) {
                 marginTop: "3%",
               }}
             >
-              <h1>Bienvenue à ElectroZayn</h1>
+              <h1 style={{fontFamily:"sans-serif", display:"flex",justifyContent:"center"}}>Bienvenue à ElectroZayn</h1>
             </div>
             {/* div of Dividers Promotions */}
             <div
@@ -356,15 +357,22 @@ function HomePage({ search, getlengthShop }) {
                       flexWrap: "wrap",
                     }}
                   >
-                    <Card>
+                    <Card
+                      style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}
+                    >
                       <Card.Img
                         variant="top"
                         src={el.product_image}
-                        style={{ height: "200px", objectFit: "cover" }}
+                        style={{ height: "200px" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
+                        alt={el.product_name}
                       />
-                      <Card.Body style={{ textAlign: "center" }}>
-                        <Card.Title>{el.product_name}</Card.Title>
+                      <Card.Body
+                        style={{ textAlign: "center", width: "276px" }}
+                      >
+                        <Card.Title style={{ fontFamily: "Arial, sans-serif" }}>
+                          {el.product_name.slice(0, 27)}
+                        </Card.Title>
                         <Card.Text className={classes.originalPrice}>
                           Original Price: {el.Origin_price} TND
                         </Card.Text>
@@ -393,18 +401,17 @@ function HomePage({ search, getlengthShop }) {
                   </div>
                 ))}
             </div>
-            <div className="showmore">
+            <div className="showmore1">
               {displayCount <
                 data.filter((el) => el.Promo_price > 0).length && (
                 <Button
                   variant="primary"
                   onClick={handleShowMore}
                   style={{ margin: "0 auto", marginTop: "3%" }}
-                >
-                  Show More...
-                </Button>
+                >Show More...</Button>
               )}
             </div>
+           
 
             {/* div of Dividers Produits tendances */}
             <div
@@ -448,14 +455,15 @@ function HomePage({ search, getlengthShop }) {
                       flexWrap: "wrap",
                     }}
                   >
-                    <Card>
+                    <Card  style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}>
                       <Card.Img
                         variant="top"
                         src={el.product_image}
-                        style={{ height: "200px", objectFit: "cover" }}
+                        style={{ height: "200px" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
+                        alt={el.product_name}
                       />
-                      <Card.Body style={{ textAlign: "center" }}>
+                      <Card.Body style={{ textAlign: "center",width:"276px" }}>
                         <Card.Title>{el.product_name}</Card.Title>
                         {el.Promo_price > 0 ? (
                           <>
@@ -544,14 +552,15 @@ function HomePage({ search, getlengthShop }) {
                     flexWrap: "wrap",
                   }}
                 >
-                  <Card>
+                  <Card  style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}>
                     <Card.Img
                       variant="top"
                       src={el.product_image}
-                      style={{ height: "200px", objectFit: "cover" }}
+                      style={{ height: "200px"}}
                       onClick={() => navigate(`/productinfo/${el.id}`)}
+                      alt={el.product_name}
                     />
-                    <Card.Body style={{ textAlign: "center" }}>
+                    <Card.Body style={{ textAlign: "center",width:"276px" }}>
                       <Card.Title>{el.product_name}</Card.Title>
                       {el.Promo_price > 0 ? (
                         <>
