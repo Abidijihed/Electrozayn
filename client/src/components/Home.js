@@ -401,7 +401,7 @@ function HomePage({ search, getlengthShop }) {
                   </div>
                 ))}
             </div>
-            <div className="showmore1">
+            <div className="showmore">
               {displayCount <
                 data.filter((el) => el.Promo_price > 0).length && (
                 <Button
