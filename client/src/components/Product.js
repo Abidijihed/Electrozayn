@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     width: "450px",
   },
   media: {
-    height: 200,
-    width: "385px",
+    height: 385,
+    width: "100%",
     backgroundImage: "none",
   },
   shopIcon: {
