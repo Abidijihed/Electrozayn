@@ -8,7 +8,7 @@ import axios from "axios";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { differenceInDays, parse } from "date-fns";
 import { useNavigate } from "react-router-dom";
-
+import imagegif from "./Promotion.gif"
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -145,6 +145,11 @@ function HomePage({ search, getlengthShop }) {
   });
   return (
     <>
+ <a href="https://www.electrozayn.com/productCategory/TELECOMONDE%20CLIMATISEURS">
+  <img id="imagegif" src="https://media.mytek.tn/media/wysiwyg/banner/header-top-generic-1366-65px-climatiseur-pourcentage-20.gif" />
+</a>
+
+
       {search.length > 0 ? (
         <div>
           {" "}
@@ -164,6 +169,7 @@ function HomePage({ search, getlengthShop }) {
             ))}
         </div>
       ) : (
+        
         <div className={classes.root}>
           <div style={{ justifyContent: "center", display: "flex" }}>
             <Carousel
@@ -318,7 +324,7 @@ function HomePage({ search, getlengthShop }) {
                 marginTop: "3%",
               }}
             >
-              <h1 style={{fontFamily:"sans-serif", display:"flex",justifyContent:"center"}}>Bienvenue à ElectroZayn</h1>
+              <h1 id="Bienvenue">Bienvenue à ElectroZayn</h1>
             </div>
             {/* div of Dividers Promotions */}
             <div

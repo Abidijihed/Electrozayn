@@ -28,8 +28,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 200,
-    width: "100%",
-    objectFit: "cover",
+    width: "385px",
     backgroundImage: "none",
   },
   shopIcon: {

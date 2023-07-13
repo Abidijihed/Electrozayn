@@ -184,7 +184,7 @@ export default class Contact extends Component {
                       </div>
                       <div className="text">
                         <p>
-                          <span>Phone:</span> <a>+216 22 181 411</a>
+                          <span>Phone:</span> <a>+216 51 511 966</a>
                         </p>
                       </div>
                     </div>

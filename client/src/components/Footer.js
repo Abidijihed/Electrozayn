@@ -109,7 +109,7 @@ function Footer() {
             gutterBottom
             className={classes.contactInfo}
           >
-            <BsFillTelephoneFill /> +216 22 181 411
+            <BsFillTelephoneFill /> +216 51 511 966
           </Typography>
           <Typography
             variant="body1"
