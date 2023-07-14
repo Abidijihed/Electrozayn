@@ -3,6 +3,9 @@
    width: 500px;
 
   }
+  #promotion{
+    margin-right: 49%;
+  }
   #infoadmin{
     display: block;
   }
@@ -41,6 +44,11 @@
   #productinfo{
     margin-bottom: 300px;
 
+  }
+  #imagegif{
+    width: 100%;
+      height: 36px;
+      margin-top: 8px;
   }
 }
 .mycarousel{
@@ -170,69 +178,98 @@ tr:nth-child(even) {
 }
 
 
-#txt{
-  align-items: center;
-  display: flex;
-  flex: 1 1;
+
+
+.container1 {
+  height: 100%;
+  width: 100%;
+}
+
+.p {
+  position: absolute;
+  font-size: 2rem;
   font-family: sans-serif;
-  font-size: 22px;
-  justify-content: center;
-  letter-spacing: 3.5px;
-  perspective: 100px;
-  -webkit-perspective: 11px;
-  margin-left: 49%;
-  position: relative;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
+  font-weight: bold;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
-#txt>b{
-  height:45px;
-  box-shadow:0 .4rem .3rem -.3rem #aaa;
-  color:#979c9f;
-  background:linear-gradient(#6f7375,#717577,#84898b,#979c9f,#aab0b3,#bbc0c3);
-  background-clip:text;
-  text-fill-color:transparent;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  transform-origin:bottom;
-  transform:rotateX(-85deg);
-  -webkit-transform-origin:bottom;
-  -webkit-transform:rotateX(-85deg);
-  animation:getUp 7s infinite;
-}
-#txt>b:nth-child(2){
-  animation-delay:.25s;
-}
-#txt>b:nth-child(3){
-  animation-delay:.5s;
-}
-#txt>b:nth-child(4){
-  animation-delay:.75s;
-}
-#txt>b:nth-child(5){
-  animation-delay:1s;
-}
-#txt>b:nth-child(6){
-  animation-delay:1.25s;
-}
-#txt>b:nth-child(7){
-  animation-delay:1.5s;
-}
-#txt>b:nth-child(8){
-  animation-delay:1.75s;
-}
-@keyframes getUp{
-  10%,50%{
-     transform:rotateX(0);
-  }
-  0%,60%,100%{
-     transform:rotateX(-85deg);
+
+@media only screen and (min-width: 500px) {
+  .p {
+    font-size: 3rem;
   }
 }
 
+@media only screen and (min-width: 700px) {
+  .p {
+    font-size: 5rem;
+  }
+}
 
+.p1 {
+  text-shadow: 1px 1px 1px black, -1px -1px 1px black;
+  color: rgb(2, 12, 26);
+}
 
+.p2 {
+  color: rgba(255, 217, 0, 0.825);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  animation: text-animation 3s ease-in-out forwards alternate infinite;
+  text-shadow: 1px 1px 1px black, -1px -1px 1px black;
+}
 
+.p3 {
+  height: 20%;
+  color: transparent;
+}
 
+@keyframes text-animation {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 0% 1%, 0% 100%, 0% 100%);
+  }
+}
+div#BrushCursor {
+  margin-top: 17px;
+  margin-bottom: 52px;
+}
+.cursor {
+  position: absolute;
+  
+  /* top: 50%; */
+  height: 100%;
+  width: 100%;
+  transform: translate(0, -50%);
+  border-right: none;
+  animation: cursor-animation 3s ease-in-out forwards alternate infinite;
+}
 
-
+@keyframes cursor-animation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+#mypromotion{
+  margin: 0px 10px;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: yellow;
+  color: red;
+  border-radius: 5px;
+  width: 237px;
+  padding: 6px;
+  box-shadow: 10px 5px 5px;
+}
+#Tendences{
+  margin: 0px 10px;
+  font-weight: bold;
+  font-size: 2rem;
+  color: blue;
+  box-shadow: 10px 5px 5px;
+}

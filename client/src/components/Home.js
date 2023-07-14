@@ -8,7 +8,7 @@ import axios from "axios";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { differenceInDays, parse } from "date-fns";
 import { useNavigate } from "react-router-dom";
-import imagegif from "./Promotion.gif"
+import Typical from "react-typical";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -145,10 +145,12 @@ function HomePage({ search, getlengthShop }) {
   });
   return (
     <>
- <a href="https://www.electrozayn.com/productCategory/TELECOMONDE%20CLIMATISEURS">
-  <img id="imagegif" src="https://media.mytek.tn/media/wysiwyg/banner/header-top-generic-1366-65px-climatiseur-pourcentage-20.gif" />
-</a>
-
+      <a href="https://www.electrozayn.com/productCategory/TELECOMONDE%20CLIMATISEURS">
+        <img
+          id="imagegif"
+          src="https://media.mytek.tn/media/wysiwyg/banner/header-top-generic-1366-65px-climatiseur-pourcentage-20.gif"
+        />
+      </a>
 
       {search.length > 0 ? (
         <div>
@@ -169,7 +171,6 @@ function HomePage({ search, getlengthShop }) {
             ))}
         </div>
       ) : (
-        
         <div className={classes.root}>
           <div style={{ justifyContent: "center", display: "flex" }}>
             <Carousel
@@ -179,7 +180,7 @@ function HomePage({ search, getlengthShop }) {
             >
               <Carousel.Item>
                 <img
-                  style={{ height: "300px" }}
+                  style={{ height: "387px" }}
                   className="d-block w-100"
                   src="http://res.cloudinary.com/dycjej355/image/upload/v1687544230/IMG_0129_claxix.jpg"
                   alt="First slide"
@@ -187,7 +188,7 @@ function HomePage({ search, getlengthShop }) {
               </Carousel.Item>
               <Carousel.Item>
                 <img
-                  style={{ height: "300px" }}
+                  style={{ height: "387px" }}
                   className="d-block w-100"
                   src="http://res.cloudinary.com/dycjej355/image/upload/v1688657476/IMG_0653_vyxyhc.jpg"
                   alt="Second slide"
@@ -195,7 +196,7 @@ function HomePage({ search, getlengthShop }) {
               </Carousel.Item>
               <Carousel.Item>
                 <img
-                  style={{ height: "300px" }}
+                  style={{ height: "387px" }}
                   className="d-block w-100"
                   src="http://res.cloudinary.com/dycjej355/image/upload/v1688150978/IMG_0351_jtvtgi.jpg"
                   alt="Third slide"
@@ -324,21 +325,30 @@ function HomePage({ search, getlengthShop }) {
                 marginTop: "3%",
               }}
             >
-              <h1 id="Bienvenue">Bienvenue à ElectroZayn</h1>
+      
+      <div id="BrushCursor">
+  <div className="container1">
+    <div className="p p1">Bienvenue à ElectroZayn</div>
+    <div className="p p2">Bienvenue à ElectroZayn</div>
+    <div className="p p3">
+      Bienvenue à ElectroZayn
+      <div className="cursor"></div>
+    </div>
+  </div>
+</div>
+               
+      
             </div>
             {/* div of Dividers Promotions */}
             <div
-              style={{ display: "flex", alignItems: "center", marginTop: "3%" }}
+                id="promotion"
+              style={{ display: "flex", alignItems: "center" }}
             >
               <Divider
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
               <span
-                style={{
-                  margin: "0 10px",
-                  fontWeight: "bold",
-                  fontSize: "2rem",
-                }}
+               id="mypromotion"
               >
                 Promotions
               </span>
@@ -414,10 +424,11 @@ function HomePage({ search, getlengthShop }) {
                   variant="primary"
                   onClick={handleShowMore}
                   style={{ margin: "0 auto", marginTop: "3%" }}
-                >Show More...</Button>
+                >
+                  Show More...
+                </Button>
               )}
             </div>
-           
 
             {/* div of Dividers Produits tendances */}
             <div
@@ -427,11 +438,7 @@ function HomePage({ search, getlengthShop }) {
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
               <span
-                style={{
-                  margin: "0 10px",
-                  fontWeight: "bold",
-                  fontSize: "2rem",
-                }}
+                id="Tendences"
               >
                 Produits Tendances
               </span>
@@ -461,7 +468,9 @@ function HomePage({ search, getlengthShop }) {
                       flexWrap: "wrap",
                     }}
                   >
-                    <Card  style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}>
+                    <Card
+                      style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}
+                    >
                       <Card.Img
                         variant="top"
                         src={el.product_image}
@@ -469,7 +478,9 @@ function HomePage({ search, getlengthShop }) {
                         onClick={() => navigate(`/productinfo/${el.id}`)}
                         alt={el.product_name}
                       />
-                      <Card.Body style={{ textAlign: "center",width:"276px" }}>
+                      <Card.Body
+                        style={{ textAlign: "center", width: "276px" }}
+                      >
                         <Card.Title>{el.product_name}</Card.Title>
                         {el.Promo_price > 0 ? (
                           <>
@@ -531,11 +542,7 @@ function HomePage({ search, getlengthShop }) {
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
               <span
-                style={{
-                  marginRight: "66px",
-                  fontWeight: "bold",
-                  fontSize: "2rem",
-                }}
+                id="Tendences"
               >
                 Nouveautés
               </span>
@@ -558,15 +565,15 @@ function HomePage({ search, getlengthShop }) {
                     flexWrap: "wrap",
                   }}
                 >
-                  <Card  style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}>
+                  <Card style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)" }}>
                     <Card.Img
                       variant="top"
                       src={el.product_image}
-                      style={{ height: "300px"}}
+                      style={{ height: "300px" }}
                       onClick={() => navigate(`/productinfo/${el.id}`)}
                       alt={el.product_name}
                     />
-                    <Card.Body style={{ textAlign: "center",width:"276px" }}>
+                    <Card.Body style={{ textAlign: "center", width: "276px" }}>
                       <Card.Title>{el.product_name}</Card.Title>
                       {el.Promo_price > 0 ? (
                         <>
