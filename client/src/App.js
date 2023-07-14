@@ -97,7 +97,9 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-      <Footer />
+      <div style={{marginTop:"15px"}}>
+      <Footer  />
+      </div>
     </div>
   );
 }

@@ -353,7 +353,7 @@ function HomePage({ search, getlengthShop }) {
                 .slice(0, displayCount)
                 .map((el) => (
                   <div
-                    key={el.product_name}
+                    key={el.id}
                     style={{
                       width: "100%",
                       marginBottom: "3%",
@@ -369,7 +369,7 @@ function HomePage({ search, getlengthShop }) {
                       <Card.Img
                         variant="top"
                         src={el.product_image}
-                        style={{ height: "200px" }}
+                        style={{ height: "300px" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
                         alt={el.product_name}
                       />
@@ -465,7 +465,7 @@ function HomePage({ search, getlengthShop }) {
                       <Card.Img
                         variant="top"
                         src={el.product_image}
-                        style={{ height: "200px" }}
+                        style={{ height: "300px" }}
                         onClick={() => navigate(`/productinfo/${el.id}`)}
                         alt={el.product_name}
                       />
@@ -562,7 +562,7 @@ function HomePage({ search, getlengthShop }) {
                     <Card.Img
                       variant="top"
                       src={el.product_image}
-                      style={{ height: "200px"}}
+                      style={{ height: "300px"}}
                       onClick={() => navigate(`/productinfo/${el.id}`)}
                       alt={el.product_name}
                     />
