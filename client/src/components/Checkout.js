@@ -283,16 +283,7 @@ export default function MyModal({
               }
               label="Pay on Delivery"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={paymentMethod === "pay_with_card"}
-                  onChange={handlePaymentMethodChange}
-                  value="pay_with_card"
-                />
-              }
-              label="Pay with Card"
-            />
+          
             <Typography variant="h6" className={classes.total}>
               Total Price: {handleTotal()} TND
             </Typography>
