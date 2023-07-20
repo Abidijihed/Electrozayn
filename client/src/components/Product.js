@@ -93,6 +93,7 @@ useEffect(()=>{
   setChek(data.validate_add_or_not)
 })
   const AddTocard = (id) => {
+    console.log(check)
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
       dispatch(add_tocard(id,{validate_add_or_not: updatedCheck}))

@@ -47,7 +47,7 @@ module.exports = {
         const orderItemsValues = products.map((product) => [
           orderId,
           product.product_name,
-          product.quantity,
+          product.stockquantity,
           product.Promo_price > 0
             ? Number(product.Promo_price) * Number(product.quantity)
             : Number(product.Origin_price) * Number(product.quantity),

@@ -44,9 +44,8 @@ module.exports = {
   },
 
 AddToCart: (req, res) => {
-  const query = `INSERT INTO shopcard(check_add_or_not, user_id,products_id) VALUES (?, ?, ?)`;
-  const values = [req.body.check_add_or_not, req.params.id,req.body.products_id];
-  
+  console.log(req.body)
+  const query = `UPDATE products SET validate_add_or_not=${req.body.validate_add_or_not} WHERE id=${req.params.id}`;
   connection.query(query, values, (err, result) => {
     if (err) {
       console.error(err);
@@ -56,6 +55,17 @@ AddToCart: (req, res) => {
     res.status(201).send("Product added to cart");
   });
 },
+removefromcard: ((req, res) => {
+  console.log(req.params)
+  const query = `UPDATE products SET validate_add_or_not = ${false} WHERE id = ${req.params.id}`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send("Product updated successfully");
+    }
+  });
+}),
 
 getCard: (req, res) => {
   const query = `SELECT * FROM products WHERE id IN (SELECT products_id FROM shopcard WHERE check_add_or_not = ${true} )`;
@@ -68,17 +78,7 @@ getCard: (req, res) => {
     }
   });
 },
-UpdateProductCard: ((req, res) => {
-  console.log(req.params)
-  const query = `UPDATE shopcard SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
-  connection.query(query, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send("Product updated successfully");
-    }
-  });
-}),
+
 getCardalllshopcard: (req, res) => {
   const query = `SELECT * FROM shopcard WHERE check_add_or_not = ${true}`;
   connection.query(query, (err, result) => {
