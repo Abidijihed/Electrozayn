@@ -96,7 +96,7 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
     const id=localStorage.getItem('id')
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
-      dispatch(add_tocard(id,{check_add_or_not: updatedCheck,product_id:data.id}))
+      dispatch(add_tocard(id,{check_add_or_not: updatedCheck,products_id:data.id}))
     } else {
       dispatch(remove_fromcard(data.id))
     }
