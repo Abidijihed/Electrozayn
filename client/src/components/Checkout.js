@@ -78,17 +78,15 @@ const dispatch=useDispatch()
       const response = await axios.get(
         "https://www.electrozayn.com/api/get_product/card/"+id
       );
-      const productsWithQuantity = response.data.map((product) => ({
-        ...product,
-        quantity: 1,
-      }));
-      setProducts(productsWithQuantity);
+      setProducts(response);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
-
+setTimeout(() => {
+  fetchData()
+}, 500);
   useEffect(() => {
     if (open) {
       fetchData();
