@@ -32,7 +32,7 @@ import { MdOutlineMailOutline, MdOutlineAddShoppingCart } from "react-icons/md";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { get_product } from "../redux/action/Action";
+import {  get_shopcard } from "../redux/action/Action";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -123,9 +123,9 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const dispatch=useDispatch()
 
 useEffect(()=>{
- dispatch(get_product())
+ dispatch(get_shopcard())
 },[dispatch])
-  const data=useSelector((state)=>state.product)
+  const data=useSelector((state)=>state.shopcard)
 
   const drawer = (
     <div>
@@ -304,7 +304,7 @@ useEffect(()=>{
             </Hidden>
             <IconButton color="inherit">
               <Badge
-                badgeContent={data.filter((el)=>el.validate_add_or_not!==0).length}
+                badgeContent={data.length}
                 color="secondary"
                 onClick={() => handleOpen()}
               >
@@ -320,6 +320,7 @@ useEffect(()=>{
         handleOpen={handleOpen}
         handleClose={handleClose}
         user={user}
+        data={data}
       />
     </>
   );

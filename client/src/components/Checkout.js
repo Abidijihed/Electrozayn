@@ -50,9 +50,10 @@ const useStyles = makeStyles({
 });
 
 export default function MyModal({
-  handleOpen,
+  data,
   handleClose,
   open,
+  getlengthShop,
   user,
 }) {
   const classes = useStyles();
@@ -86,6 +87,7 @@ export default function MyModal({
       }));
       setProducts(productsWithQuantity);
       setIsLoading(false);
+      getlengthShop();
     } catch (error) {
       console.log(error);
     }

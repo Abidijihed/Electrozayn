@@ -60,7 +60,9 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
         const product = res.data.find(
           (product) => product.products_id === data.id
         );
-       
+        if (product) {
+          setChek(product.check_add_or_not);
+        }
         localStorage.setItem("shop", res.data.length);
       })
       .catch((err) => {
@@ -89,16 +91,14 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
     }))
     
   };
-useEffect(()=>{
-  setChek(data.validate_add_or_not)
-})
-  const AddTocard = (id) => {
-    console.log(check)
+
+  const AddTocard = (data) => {
+    const id=localStorage.getItem('id')
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
-      dispatch(add_tocard(id,{validate_add_or_not: updatedCheck}))
+      dispatch(add_tocard(id,{validate_add_or_not: updatedCheck,product_id:data.id}))
     } else {
-      dispatch(remove_fromcard(id))
+      dispatch(remove_fromcard(data.id))
     }
   };
 
@@ -222,13 +222,12 @@ useEffect(()=>{
             style={{
               backgroundColor: "#e8b623",
               border: "none",
-              marginLeft: "40px",
               display: "flex",
               alignItems: "center",
              marginBottom: "11px",
-              marginLeft: "20%",
+              marginLeft: "20%"
             }}
-            onClick={()=>AddTocard(data.id)}
+            onClick={()=>AddTocard(data.id,data)}
           >
             <div
               style={{
@@ -242,6 +241,7 @@ useEffect(()=>{
               
               />
             </div>
+            {console.log(data.validate_add_or_not)}
             {data.validate_add_or_not === 0 ? "Ajouter au panier":"Produit Ajouter"}
           </Button>
         </CardActionArea>

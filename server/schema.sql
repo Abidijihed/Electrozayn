@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS products (
   product_image VARCHAR(255) NOT NULL,
   availability VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
-  validate_add_or_not BOOLEAN NOT NULL,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS product_images (

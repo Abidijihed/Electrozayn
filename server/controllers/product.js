@@ -1,7 +1,7 @@
 const { connection } = require("../databaseconfig/config");
 module.exports = {
   createPost: (req, res) => {
-    const query = `INSERT INTO products(product_name,description,Origin_price,quantity,stockquantity,Promo_price,reference, product_image,availibility,catigory,validate_add_or_not) VALUES("${req.body.product_name}","${req.body.description}","${req.body.Origin_price}",${0}"${req.body.stockquantity}","${req.body.Promo_price}","${req.body.reference}","${req.body.product_image}","${req.body.availibility}","${req.body.catigory}",${false})`;
+    const query = `INSERT INTO products(product_name,description,Origin_price,quantity,stockquantity,Promo_price,reference, product_image,availibility,catigory) VALUES("${req.body.product_name}","${req.body.description}","${req.body.Origin_price}",${1}"${req.body.stockquantity}","${req.body.Promo_price}","${req.body.reference}","${req.body.product_image}","${req.body.availibility}","${req.body.catigory}")`;
     connection.query(query, (err, result) =>
       err ? res.status(500).send(err) : res.status(201).send("poste done")
     );
@@ -44,8 +44,7 @@ module.exports = {
   },
 
 AddToCart: (req, res) => {
-  console.log(req.body)
-  const query = `UPDATE products SET validate_add_or_not=${req.body.validate_add_or_not} WHERE id=${req.params.id}`;
+  const query = `insert into shopcard (check_add_or_not,products_id,user_id) values(${req.body.check_add_or_not},${req.body.products_id},${req.params.id})`;
   connection.query(query, (err, result) => {
     if (err) {
       console.error(err);
@@ -57,7 +56,7 @@ AddToCart: (req, res) => {
 },
 removefromcard: ((req, res) => {
   console.log(req.params)
-  const query = `UPDATE products SET validate_add_or_not = ${false} WHERE id = ${req.params.id}`;
+  const query = `UPDATE shopcard SET validate_add_or_not = ${false} WHERE product_id = ${req.params.id}`;
   connection.query(query, (err, result) => {
     if (err) {
       res.status(500).send(err);
@@ -66,6 +65,17 @@ removefromcard: ((req, res) => {
     }
   });
 }),
+UpdateStockquantity:((req, res) => {
+  const query = `UPDATE products SET stockquantity = ${req.body.stockQuantity} WHERE id =${req.params.id}`;
+
+  connection.query(query,(error, results) => {
+    if (error) {
+      console.error('Error updating stock quantity:', error);
+      return res.status(500).json({ error: 'Failed to update stock quantity' });
+    }
+    return res.json({ message: 'Stock quantity updated successfully' });
+  });
+  }),
 
 getCard: (req, res) => {
   const query = `SELECT * FROM products WHERE id IN (SELECT products_id FROM shopcard WHERE check_add_or_not = ${true} )`;
@@ -90,7 +100,7 @@ getCardalllshopcard: (req, res) => {
   });
 },
 DeleteAllShopCArd:((req,res)=>{
-  const query=`delete from shopcard where user_id=${req.params.id}`
+  const query=`delete from shopcard where product_id=${req.params.id}`
   connection.query(query,(err,result)=>{
     err ? res.status(500).send(err): res.status(200).send('deleted')
   })

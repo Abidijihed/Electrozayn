@@ -1,5 +1,5 @@
 import axios from "axios"
-import {CREATE_USER,Login,GET_PRODUCT} from "../actionType/ActionType"
+import {CREATE_USER,Login,GET_PRODUCT,GET_SHOPCARD} from "../actionType/ActionType"
 
 export const register = (data)=>async(dispatch)=>{
     try {
@@ -62,7 +62,6 @@ export const update_product=(id,data)=>async(dispatch)=>{
 
 }
 export const add_tocard=(id,data)=>async(dispatch)=>{
-    console.log(id,data)
     try {
       axios.put(`https://www.electrozayn.com/api/add_to_card/products/${id}`,data)
        dispatch(get_product())
@@ -71,11 +70,20 @@ export const add_tocard=(id,data)=>async(dispatch)=>{
     }
 
 }
-export const remove_fromcard=(id)=>async(dispatch)=>{
-    console.log(id)
+export const get_shopcard=()=>async(dispatch)=>{
     try {
-      axios.put(`https://www.electrozayn.com/api/remove_from_card/products/${id}`)
-       dispatch(get_product())
+      axios.get("https://www.electrozayn.com/api/get_product/card").then((res)=>{
+       dispatch({type:GET_SHOPCARD,payload:res.data})
+})
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+export const remove_fromcard=(id)=>async(dispatch)=>{
+    try {
+      axios.post(`https://www.electrozayn.com/api/remove_from_card/products/${id}`)
+       dispatch(get_shopcard())
     } catch (error) {
         
     }
@@ -84,7 +92,7 @@ export const remove_fromcard=(id)=>async(dispatch)=>{
 export const delete_produit=(id)=>async(dispatch)=>{
     try {
       axios.put(`https://www.electrozayn.com/api/delete/product/${id}`)
-       dispatch(get_product())
+       dispatch(get_shopcard())
     } catch (error) {
         
     }
