@@ -61,15 +61,7 @@ export const update_product=(id,data)=>async(dispatch)=>{
     }
 
 }
-export const add_tocard=(id,data)=>async(dispatch)=>{
-    try {
-      axios.put(`https://www.electrozayn.com/api/add_to_card/products/${id}`,data)
-       dispatch(get_product())
-    } catch (error) {
-        
-    }
 
-}
 export const get_shopcard=()=>async(dispatch)=>{
     try {
       axios.get("https://www.electrozayn.com/api/get_product/card").then((res)=>{
@@ -80,9 +72,18 @@ export const get_shopcard=()=>async(dispatch)=>{
     }
 
 }
+export const add_tocard=(id,data)=>async(dispatch)=>{
+    try {
+      axios.post(`https://www.electrozayn.com/api/add_to_card/products/${id}`,data)
+       dispatch(get_shopcard())
+    } catch (error) {
+        
+    }
+
+}
 export const remove_fromcard=(id)=>async(dispatch)=>{
     try {
-      axios.post(`https://www.electrozayn.com/api/remove_from_card/products/${id}`)
+      axios.put(`https://www.electrozayn.com/api/remove_from_card/products/${id}`)
        dispatch(get_shopcard())
     } catch (error) {
         
