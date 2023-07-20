@@ -84,7 +84,6 @@ const dispatch=useDispatch()
       }));
       setProducts(productsWithQuantity);
       setIsLoading(false);
-      getlengthShop();
     } catch (error) {
       console.log(error);
     }
@@ -95,17 +94,11 @@ const dispatch=useDispatch()
       fetchData();
     }
   }, [open]);
+const handelremove=(id)=>{
+ const userId=localStorage.getItem("id")
+ dispatch(remove_fromcard(id,userId))
 
-  const handleUpdate = (id) => {
-    axios
-      .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
-      .then((res) => {
-        fetchData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+}
 
   useEffect(() => {
     const totalPrice = products.reduce((sum, product) => {
@@ -264,7 +257,7 @@ const dispatch=useDispatch()
                   >
                     <TiDelete
                       className={classes.deleteIcon}
-                      onClick={() => dispatch(remove_fromcard(product.id))}
+                      onClick={() => handelremove(product.id)}
                     />
                   </div>
                 </Card>

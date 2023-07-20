@@ -79,7 +79,6 @@ UpdateStockquantity:((req, res) => {
   }),
 
 getCard: (req, res) => {
-  console.log(req.params)
   const query = `SELECT * FROM products WHERE id IN (SELECT products_id FROM shopcard WHERE check_add_or_not = ${true} and user_id=${req.params.id} )`;
   connection.query(query, (err, result) => {
     if (err) {

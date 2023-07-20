@@ -77,6 +77,7 @@ function ProductCard({ data}) {
         setUser(res.data);
       });
     setChek(check);
+    getProductsCard()
   }, [check]);
 
   const deleteProduct = (id) => {
