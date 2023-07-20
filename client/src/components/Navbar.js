@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import logo from "./logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +31,8 @@ import {
 import { MdOutlineMailOutline, MdOutlineAddShoppingCart } from "react-icons/md";
 
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { get_product } from "../redux/action/Action";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -118,6 +120,12 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  const dispatch=useDispatch()
+
+useEffect(()=>{
+ dispatch(get_product())
+},[dispatch])
+  const data=useSelector((state)=>state.product)
 
   const drawer = (
     <div>
@@ -296,9 +304,9 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
             </Hidden>
             <IconButton color="inherit">
               <Badge
-                badgeContent={Number(shop)}
+                badgeContent={data.filter((el)=>el.validate_add_or_not!==0).length}
                 color="secondary"
-                onClick={token ? () => handleOpen() : () => navigate("/login")}
+                onClick={() => handleOpen()}
               >
                 <FaShoppingCart fontSize="xlarge" color="white" />
               </Badge>
@@ -308,7 +316,6 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
       </AppBar>
 
       <ChekoutNew
-        getlengthShop={getlengthShop}
         open={open}
         handleOpen={handleOpen}
         handleClose={handleClose}

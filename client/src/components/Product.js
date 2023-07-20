@@ -13,6 +13,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { add_tocard, delete_produit, remove_fromcard } from "../redux/action/Action";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -33,8 +35,7 @@ const useStyles = makeStyles({
   },
   shopIcon: {
     marginRight: "13px",
-    marginBottom: "6px",
-    fontSize: "40px",
+    fontSize: "33px",
   },
   promoPrice: {
     color: "green",
@@ -51,6 +52,7 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -58,9 +60,7 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
         const product = res.data.find(
           (product) => product.products_id === data.id
         );
-        if (product) {
-          setChek(product.check_add_or_not);
-        }
+       
         localStorage.setItem("shop", res.data.length);
       })
       .catch((err) => {
@@ -80,55 +80,24 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
   }, [check]);
 
   const deleteProduct = (id) => {
-    axios
-      .delete("https://www.electrozayn.com/api/delete/product/" + id)
-      .then((res) => {
-        if (res.data === "product deleted") {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your product deleted !",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        }
-      });
+    dispatch(delete_produit(id),Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your product deleted !",
+      showConfirmButton: false,
+      timer: 1500,
+    }))
+    
   };
-
-  const AddTocard = (data) => {
-    const user_id = localStorage.getItem("id");
+useEffect(()=>{
+  setChek(data.validate_add_or_not)
+})
+  const AddTocard = (id) => {
     const updatedCheck = !check; // Invert the value of `check`
     if (updatedCheck === true) {
-      axios
-        .post(
-          `https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`,
-          {
-            check_add_or_not: updatedCheck, // Use the updated value of `check`
-            products_id: data.id,
-          }
-        )
-        .then((res) => {
-          setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
-          getlengthShop();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      dispatch(add_tocard(id,{validate_add_or_not: updatedCheck}))
     } else {
-      axios
-        .put(`https://www.electrozayn.com/api/update/shop_card/${data.id}`)
-        .then((res) => {
-          setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
-          getlengthShop();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      dispatch(remove_fromcard(id))
     }
   };
 
@@ -250,25 +219,29 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
           </div>
           <Button
             style={{
-              backgroundColor: "white",
+              backgroundColor: "#e8b623",
               border: "none",
               marginLeft: "40px",
+              display: "flex",
+              alignItems: "center",
+             marginBottom: "11px",
+              marginLeft: "20%",
             }}
+            onClick={()=>AddTocard(data.id)}
           >
             <div
               style={{
                 display: "flex",
                 justifyContent: "flex-end",
-                color: check === 1 ? "green" : "black",
+                color: check === 1 ? "green" : "white",
               }}
             >
               <MdOutlineAddShoppingCart
                 className={classes.shopIcon}
-                onClick={
-                  token ? () => AddTocard(data) : () => navigate("/login")
-                }
+              
               />
             </div>
+            {data.validate_add_or_not === 0 ? "Ajouter au panier":"Produit Ajouter"}
           </Button>
         </CardActionArea>
       </Card>
