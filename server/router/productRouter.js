@@ -8,7 +8,7 @@ router.delete("/api/delete/product/:id",productController.DeleteProduct);
  router.put('/api/update/quantity/:id',productController.updatequantity);
 router.get('/api/get_one_product/:id',productController.GetOnePRoduct)
 router.put('/api/remove_from_card/products/:id',productController.removefromcard);
- router.put('/api/add_to_card/products/:id',productController.AddToCart);
+ router.post('/api/add_to_card/products/:id',productController.AddToCart);
  router.put('/api/update/Stockquantity/:id',productController.UpdateStockquantity)
 
  router.get('/api/get_product/card',productController.getCard);

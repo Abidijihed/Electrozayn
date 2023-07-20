@@ -44,6 +44,7 @@ module.exports = {
   },
 
 AddToCart: (req, res) => {
+  console.log(req.body)
   const query = `insert into shopcard (check_add_or_not,products_id,user_id) values(${req.body.check_add_or_not},${req.body.products_id},${req.params.id})`;
   connection.query(query, (err, result) => {
     if (err) {
