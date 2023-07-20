@@ -16,7 +16,7 @@ const dispatch=useDispatch()
 
   const cardsPerPage = 10;
 useEffect(()=>{
-  get_product()
+ dispatch(get_product())
 },[dispatch])
  const mydata=useSelector((state)=>console.log(state))
 
