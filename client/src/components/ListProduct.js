@@ -49,6 +49,7 @@ useEffect(()=>{
 
   return (
     <div>
+      {console.log(mydata)}
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         {user.map((el) => {
           return (
