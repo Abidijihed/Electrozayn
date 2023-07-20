@@ -72,30 +72,33 @@ const dispatch=useDispatch()
 
   };
 
-  const fetchData = async () => {
-    const id = localStorage.getItem('id')
+  const fetchData = async (id) => {
     try {
       const response = await axios.get(
         "https://www.electrozayn.com/api/get_product/card/"+id
       );
-      setProducts(response);
+      const productsWithQuantity = response.data.map((product) => ({
+        ...product,
+        quantity: 1,
+      }));
+      setProducts(productsWithQuantity);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
-setTimeout(() => {
-  fetchData()
-}, 500);
+
   useEffect(() => {
+    const id = localStorage.getItem('id')
+
     if (open) {
-      fetchData();
+      fetchData(id);
     }
   }, [open]);
 const handelremove=(id)=>{
  const userId=localStorage.getItem("id")
  dispatch(remove_fromcard(id,userId))
-
+fetchData(userId)
 }
 
   useEffect(() => {
