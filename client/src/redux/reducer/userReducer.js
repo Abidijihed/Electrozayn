@@ -1,14 +1,16 @@
-import { CREATE_USER } from "../actionType/userType";
+import { CREATE_USER, GET_PRODUCT } from "../actionType/ActionType";
 
 const initialState = {
-    user:[]
+    user:[],
+    product:[]
 }
 
 const userReducer= (state = initialState,{ type, payload }) => {
   switch (type) {
     case CREATE_USER:
        return{...state,user:payload}
-      
+      case GET_PRODUCT:
+        return {...state,product:payload}
     default:
        return state
   }

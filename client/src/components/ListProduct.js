@@ -3,6 +3,7 @@ import AddProductModal from "./AddModal";
 import axios from "axios";
 import ListProducts from "./Product";
 import { Pagination } from "@mui/material";
+import { useDispatch, useSelector } from 'react-redux';
 
 function MyPage({ handleChangesearch, search, getlengthShop }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
@@ -10,13 +11,10 @@ function MyPage({ handleChangesearch, search, getlengthShop }) {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayData, setDisplayData] = useState([]);
-
+// const dispatch=useDispatch()
   const cardsPerPage = 10;
 
-  const handleAddProduct = (product) => {
-    // Handle adding the product here
-    console.log(product);
-  };
+ const mydata=useSelector((state)=>console.log(state))
 
   const getProducts = () => {
     axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {
@@ -63,7 +61,7 @@ function MyPage({ handleChangesearch, search, getlengthShop }) {
         <AddProductModal
           open={openAddProductModal}
           handleClose={() => setOpenAddProductModal(false)}
-          handleAddProduct={handleAddProduct}
+          // handleAddProduct={handleAddProduct}
         />
       </div>
       <>

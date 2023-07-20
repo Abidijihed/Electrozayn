@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#e8b623",
     zIndex: theme.zIndex.drawer + 1,
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     [theme.breakpoints.up("md")]: {
-      justifyContent: "flex-start",
+      justifyContent: "space-around",
     },
   },
   title: {

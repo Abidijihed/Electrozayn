@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS products (
   description TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   Origin_price VARCHAR(150) NOT NULL,
-  quantity VARCHAR(150) NOT NULL,
+  quantity INT NOT NULL,
   stockquantity INT NOT NULL,
   Promo_price VARCHAR(255) NOT NULL,
   reference VARCHAR(255) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS userorder (
   PhoneNumber VARCHAR(255) NOT NULL,
   country VARCHAR(200) NOT NULL,
   Zip VARCHAR(250) NOT NULL,
-  user_id INT NOT NULL,
+  user_id INT,
   total_price DECIMAL(10, 2) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (id),
@@ -104,15 +104,4 @@ CREATE TABLE IF NOT EXISTS order_items (
   FOREIGN KEY (order_id) REFERENCES userorder(id)
 );
 
-CREATE TABLE IF NOT EXISTS bijoux (
-  id INT NOT NULL AUTO_INCREMENT,
-  product_Name VARCHAR(200) NOT NULL,
-  product_Material VARCHAR(200) NOT NULL,
-  product_Image VARCHAR(255) NOT NULL,
-  category VARCHAR(255) NOT NULL,
-  quantity VARCHAR(200) NOT NULL,
-  Promo_price VARCHAR(250) NOT NULL,
-  Orginal_price VARCHAR(250) NOT NULL,
-  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id)
-);
+

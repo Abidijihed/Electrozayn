@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Modal, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useDispatch } from 'react-redux';
+import { create_product } from "../redux/action/Action";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,17 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddProductModal({ open, handleClose, handleAddProduct }) {
+function AddProductModal({ open, handleClose }) {
   const classes = useStyles();
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [stockquantity, setQuantity] = useState(0);
   const [oldPrice, setOldPrice] = useState("");
   const [reference, setReference] = useState("");
   const [productImage, setProductImage] = useState([]);
   const [availability, setAvailability] = useState("");
   const [catigory, setCatigory] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     // event.preventDefault();
@@ -45,35 +48,29 @@ function AddProductModal({ open, handleClose, handleAddProduct }) {
     await axios
       .post("https://api.cloudinary.com/v1_1/dycjej355/upload", formData)
       .then((res) => {
-        axios
-          .post("https://www.electrozayn.com/api/Create/Nenw/product", {
-            product_name: productName,
-            description: description,
-            Origin_price: price,
-            quantity: quantity,
-            Promo_price: oldPrice,
-            reference: reference,
-            product_image: res.data.url,
-            availibility: availability,
-            catigory: catigory,
-          })
-          .then((res) => {
-            if (res.data === "poste done") {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              setTimeout(() => {
-                window.location.reload();
-              }, 1500);
-            }
-          });
+
+        dispatch(create_product({ 
+          product_name: productName,
+          description: description,
+          Origin_price: price,
+          stockquantity: stockquantity,
+          Promo_price: oldPrice,
+          reference: reference,
+          product_image: res.data.url,
+          availibility: availability,
+          catigory: catigory
+        }),
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+        }),handleClose()
+        )
       });
 
-    handleClose();
+    
   };
 
   return (
@@ -108,9 +105,9 @@ function AddProductModal({ open, handleClose, handleAddProduct }) {
         <TextField
           className={classes.input}
           required
-          label="Quantity"
+          label="stockquantity"
           type="number"
-          value={quantity}
+          value={stockquantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
         <TextField
