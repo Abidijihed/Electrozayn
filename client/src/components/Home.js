@@ -396,15 +396,16 @@ function HomePage({ search, getlengthShop }) {
                         <Button
                           onClick={() => AddTocard(el)}
                           style={{
-                            borderRadius: "50%",
+                            borderRadius: "5%",
                             padding: "10px",
-                            fontSize: "30px",
+                            fontSize: "14px",
                             marginTop: "10px",
                             backgroundColor: "#e8b623",
+                            color:"white"
                           }}
                         >
                           <MdOutlineAddShoppingCart
-                            style={{ color: check === 1 ? "green" : "whit" }}
+                            style={{ color: check === 1 ? "green" : "whit",fontSize:"33px" }}
                           />
                           {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                         </Button>
@@ -493,15 +494,16 @@ function HomePage({ search, getlengthShop }) {
                         <Button
                           onClick={() => AddTocard(el)}
                           style={{
-                            borderRadius: "50%",
+                            borderRadius: "5%",
                             padding: "10px",
-                            fontSize: "30px",
+                            fontSize: "14px",
                             marginTop: "10px",
                             backgroundColor: "#e8b623",
+                            color:"white"
                           }}
                         >
                           <MdOutlineAddShoppingCart
-                            style={{ color: check === 1 ? "green" : "white" }}
+                            style={{ color: check === 1 ? "green" : "white",fontSize:"33px" }}
                           />
                           {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                         </Button>
@@ -580,15 +582,16 @@ function HomePage({ search, getlengthShop }) {
                       <Button
                         onClick={() => AddTocard(el)}
                         style={{
-                          borderRadius: "50%",
+                          borderRadius: "5%",
                           padding: "10px",
-                          fontSize: "30px",
+                          fontSize: "14px",
                           marginTop: "10px",
                           backgroundColor: "#e8b623",
+                          color:"white"
                         }}
                       >
                         <MdOutlineAddShoppingCart
-                          style={{ color: check === 1 ? "green" : "white" }}
+                          style={{ color: check === 1 ? "green" : "white",fontSize:"33px" }}
                         />
                         {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                       </Button>

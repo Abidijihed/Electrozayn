@@ -76,7 +76,7 @@ const dispatch=useDispatch()
     const id = localStorage.getItem('id')
     try {
       const response = await axios.get(
-        "https://www.electrozayn.com/api/get_product/card"+id
+        "https://www.electrozayn.com/api/get_product/card/"+id
       );
       const productsWithQuantity = response.data.map((product) => ({
         ...product,
