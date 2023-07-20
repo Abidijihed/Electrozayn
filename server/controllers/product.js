@@ -57,7 +57,7 @@ AddToCart: (req, res) => {
 },
 removefromcard: ((req, res) => {
   console.log(req.params)
-  const query = `UPDATE shopcard SET validate_add_or_not = ${false} WHERE product_id = ${req.params.id}`;
+  const query = `UPDATE shopcard SET check_add_or_not = ${false} WHERE products_id = ${req.params.id}`;
   connection.query(query, (err, result) => {
     if (err) {
       res.status(500).send(err);

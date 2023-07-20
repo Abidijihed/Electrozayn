@@ -3,7 +3,7 @@ import {CREATE_USER,Login,GET_PRODUCT,GET_SHOPCARD} from "../actionType/ActionTy
 
 export const register = (data)=>async(dispatch)=>{
     try {
-       axios.post("https://www.electrozayn.com/api/getAll/product",data).then((res)=>{
+       axios.post("https://www.electrozayn.com/api/Create_user/electrozayn",data).then((res)=>{
         
         if(res.data[1]==="secsuss"){
             localStorage.setItem('token',res.data[0])

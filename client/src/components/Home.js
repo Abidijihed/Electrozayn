@@ -9,6 +9,8 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { differenceInDays, parse } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import Typical from "react-typical";
+import { add_tocard, register, remove_fromcard } from "../redux/action/Action";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -68,6 +70,8 @@ function HomePage({ search, getlengthShop }) {
   const [displayCount, setDisplayCount] = useState(5);
   const [check, setChek] = useState();
   const token = localStorage.getItem("token");
+  const dispatch=useDispatch()
+
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -78,48 +82,31 @@ function HomePage({ search, getlengthShop }) {
         if (product) {
           setChek(product.check_add_or_not);
         }
-        localStorage.setItem("shop", res.data.length);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const AddTocard = (id) => {
-    const user_id = localStorage.getItem("id");
-    const updatedCheck = !check; // Invert the value of `check`
-    if (updatedCheck === true) {
-      axios
-        .post(
-          `https://www.electrozayn.com/api/product/add_to_shop_card/${user_id}`,
-          {
-            check_add_or_not: updatedCheck, // Use the updated value of `check`
-            products_id: id,
-          }
-        )
-        .then((res) => {
-          setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
-          getlengthShop();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  const AddTocard = (data) => {
+    if (token) {
+      const id = localStorage.getItem('id');
+      const updatedCheck = !check; // Invert the value of `check`
+      if (updatedCheck === true) {
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard());
+      } else {
+        dispatch(remove_fromcard(data.id), getProductsCard());
+      }
     } else {
-      axios
-        .put(`https://www.electrozayn.com/api/update/shop_card/${id}`)
-        .then((res) => {
-          setChek(updatedCheck); // Update the state with the updated value
-          getProductsCard();
-          getlengthShop();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const userEmail = prompt("Email:"); // Prompt for email and store the value
+      if (userEmail !== null) { // Check if the user entered an email (not canceled)
+        dispatch(register({ Email: userEmail, Password: "newuser" }),window.location.reload());
+      } else {
+        // Handle the case when the user canceled the prompt or entered nothing
+        console.log("User canceled the email prompt or entered nothing.");
+      }
     }
   };
-  useEffect(() => {
-    getProductsCard(); // Call the function when navigating to the component
-  }, [check]);
+ 
 
   const handleShowMore = () => {
     setDisplayCount(displayCount + 5);
@@ -325,33 +312,26 @@ function HomePage({ search, getlengthShop }) {
                 marginTop: "3%",
               }}
             >
-      
-      <div id="BrushCursor">
-  <div className="container1">
-    <div className="p p1">Bienvenue à ElectroZayn</div>
-    <div className="p p2">Bienvenue à ElectroZayn</div>
-    <div className="p p3">
-      Bienvenue à ElectroZayn
-      <div className="cursor"></div>
-    </div>
-  </div>
-</div>
-               
-      
+              <div id="BrushCursor">
+                <div className="container1">
+                  <div className="p p1">Bienvenue à ElectroZayn</div>
+                  <div className="p p2">Bienvenue à ElectroZayn</div>
+                  <div className="p p3">
+                    Bienvenue à ElectroZayn
+                    <div className="cursor"></div>
+                  </div>
+                </div>
+              </div>
             </div>
             {/* div of Dividers Promotions */}
             <div
-                id="promotion"
+              id="promotion"
               style={{ display: "flex", alignItems: "center" }}
             >
               <Divider
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
-              <span
-               id="mypromotion"
-              >
-                Promotions
-              </span>
+              <span id="mypromotion">Promotions</span>
               <Divider
                 sx={{ flex: "10", backgroundColor: "#e8b623", height: "4px" }}
               />
@@ -396,21 +376,19 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                          onClick={
-                            token
-                              ? () => AddTocard(el.id)
-                              : () => navigate("/login")
-                          }
+                          onClick={() => AddTocard(el.id)}
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
                             fontSize: "30px",
                             marginTop: "10px",
+                            backgroundColor: "#e8b623",
                           }}
                         >
                           <MdOutlineAddShoppingCart
-                            style={{ color: check === 1 ? "green" : "black" }}
+                            style={{ color: check === 1 ? "green" : "whit" }}
                           />
+                          {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                         </Button>
                       </Card.Body>
                     </Card>
@@ -437,11 +415,7 @@ function HomePage({ search, getlengthShop }) {
               <Divider
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
-              <span
-                id="Tendences"
-              >
-                Produits Tendances
-              </span>
+              <span id="Tendences">Produits Tendances</span>
               <Divider
                 sx={{ flex: "10", backgroundColor: "#e8b623", height: "4px" }}
               />
@@ -499,21 +473,19 @@ function HomePage({ search, getlengthShop }) {
                           </>
                         )}
                         <Button
-                          onClick={
-                            token
-                              ? () => AddTocard(el.id)
-                              : () => navigate("/login")
-                          }
+                          onClick={() => AddTocard(el.id)}
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
                             fontSize: "30px",
                             marginTop: "10px",
+                            backgroundColor: "#e8b623",
                           }}
                         >
                           <MdOutlineAddShoppingCart
-                            style={{ color: check === 1 ? "green" : "black" }}
+                            style={{ color: check === 1 ? "green" : "white" }}
                           />
+                          {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                         </Button>
                       </Card.Body>
                     </Card>
@@ -541,11 +513,7 @@ function HomePage({ search, getlengthShop }) {
               <Divider
                 sx={{ flex: "1", backgroundColor: "#e8b623", height: "4px" }}
               />
-              <span
-                id="Tendences"
-              >
-                Nouveautés
-              </span>
+              <span id="Tendences">Nouveautés</span>
               <Divider
                 sx={{ flex: "10", backgroundColor: "#e8b623", height: "4px" }}
               />
@@ -592,21 +560,19 @@ function HomePage({ search, getlengthShop }) {
                         </>
                       )}
                       <Button
-                        onClick={
-                          token
-                            ? () => AddTocard(el.id)
-                            : () => navigate("/login")
-                        }
+                        onClick={() => AddTocard(el.id)}
                         style={{
                           borderRadius: "50%",
                           padding: "10px",
                           fontSize: "30px",
                           marginTop: "10px",
+                          backgroundColor: "#e8b623",
                         }}
                       >
                         <MdOutlineAddShoppingCart
-                          style={{ color: check === 1 ? "green" : "black" }}
+                          style={{ color: check === 1 ? "green" : "white" }}
                         />
+                        {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
                       </Button>
                     </Card.Body>
                   </Card>

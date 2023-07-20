@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { add_tocard, delete_produit, remove_fromcard } from "../redux/action/Action";
+import { add_tocard, delete_produit, register, remove_fromcard } from "../redux/action/Action";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProductCard({ handelpassfunction, data, getlengthShop }) {
+function ProductCard({ data}) {
   const token = localStorage.getItem("token");
   const [check, setChek] = useState();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
@@ -63,7 +63,6 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
         if (product) {
           setChek(product.check_add_or_not);
         }
-        localStorage.setItem("shop", res.data.length);
       })
       .catch((err) => {
         console.log(err);
@@ -78,7 +77,6 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
         setUser(res.data);
       });
     setChek(check);
-    getlengthShop();
   }, [check]);
 
   const deleteProduct = (id) => {
@@ -93,20 +91,29 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
   };
 
   const AddTocard = (data) => {
-    const id=localStorage.getItem('id')
-    const updatedCheck = !check; // Invert the value of `check`
-    if (updatedCheck === true) {
-      dispatch(add_tocard(id,{check_add_or_not: updatedCheck,products_id:data.id}))
+    if (token) {
+      const id = localStorage.getItem('id');
+      const updatedCheck = !check; // Invert the value of `check`
+      if (updatedCheck === true) {
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard());
+      } else {
+        dispatch(remove_fromcard(data.id), getProductsCard());
+      }
     } else {
-      dispatch(remove_fromcard(data.id))
+      const userEmail = prompt("Email:"); // Prompt for email and store the value
+      if (userEmail !== null) { // Check if the user entered an email (not canceled)
+        dispatch(register({ Email: userEmail, Password: "newuser" }),window.location.reload());
+      } else {
+        // Handle the case when the user canceled the prompt or entered nothing
+        console.log("User canceled the email prompt or entered nothing.");
+      }
     }
   };
+  
 
   const classes = useStyles();
 
-  useEffect(() => {
-    getProductsCard(); // Call the function when navigating to the component
-  }, [check]);
+
   const handelNavigate = () => {
     navigate(`/productinfo/${data.id}`);
     setTimeout(() => {

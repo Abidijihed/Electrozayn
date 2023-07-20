@@ -152,7 +152,7 @@ function CheckoutValidation({
             required
             label="FirstName"
             error={firstNameError}
-            value={FirstName}
+            value={FirstName !== undefined ?FirstName :""}
             onChange={(e) => setFirstName(e.target.value)}
           />
 
@@ -162,7 +162,7 @@ function CheckoutValidation({
             error={emailError}
             type="email"
             label="Email"
-            value={Email}
+            value={Email !== undefined ?Email :""}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
@@ -171,7 +171,7 @@ function CheckoutValidation({
             error={countryError}
             label="Country"
             type="text"
-            value={country}
+            value={country !== undefined ?country :""}
             onChange={(e) => setCountry(e.target.value)}
           />
           <TextField
@@ -180,13 +180,13 @@ function CheckoutValidation({
             error={addressError}
             label="Street Address"
             type="text"
-            value={address}
+            value={address !== undefined ?address :""}
             onChange={(e) => setAddress(e.target.value)}
           />
           <TextField
             className={classes.input}
             label="Zip Code"
-            value={Zip}
+            value={Zip !== undefined ?Zip :""}
             error={ZipError}
             onChange={(e) => setZip(e.target.value)}
           />
@@ -195,7 +195,7 @@ function CheckoutValidation({
             label="Phone Number"
             required
             error={phoneError}
-            value={PhoneNumber}
+            value={PhoneNumber !== undefined ?PhoneNumber :""}
             onChange={(PhoneNumber) => setPhone(PhoneNumber)}
           />
           <br></br>
