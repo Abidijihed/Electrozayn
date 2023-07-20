@@ -35,8 +35,10 @@ export const Loginuser = (data)=>async(dispatch)=>{
 }
 export const get_product=()=>async(dispatch)=>{
     try {
-       const res= axios.get("https://www.electrozayn.com/api/getAll/product")
-       dispatch({type:GET_PRODUCT,payload:res.data})
+     axios.get("https://www.electrozayn.com/api/getAll/product").then((res)=>{
+        console.log(res)
+     })
+    //    dispatch({type:GET_PRODUCT,payload:res.data})
     } catch (error) {
         console.log(error)
     }
