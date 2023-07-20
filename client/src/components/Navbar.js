@@ -308,7 +308,7 @@ useEffect(()=>{
               <Badge
                 badgeContent={data.length}
                 color="secondary"
-                onClick={data.length>0?() => handleOpen(): Swal.fire("Please select a product")}
+                onClick={data.length>0?() => handleOpen():()=> Swal.fire("Please select a product")}
               >
                 <FaShoppingCart fontSize="xlarge" color="white" />
               </Badge>
