@@ -9,11 +9,13 @@ CREATE TABLE IF NOT EXISTS products (
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   Origin_price VARCHAR(150) NOT NULL,
   quantity VARCHAR(150) NOT NULL,
+  stockquantity INT NOT NULL,
   Promo_price VARCHAR(255) NOT NULL,
   reference VARCHAR(255) NOT NULL,
   product_image VARCHAR(255) NOT NULL,
   availability VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
+  validate_add_or_not BOOLEAN NOT NULL,
   PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS product_images (
@@ -79,7 +81,6 @@ CREATE TABLE IF NOT EXISTS shopcard (
 
 CREATE TABLE IF NOT EXISTS userorder (
   id INT NOT NULL AUTO_INCREMENT,
-  validate_add_or_not BOOLEAN NOT NULL,
   FirstName VARCHAR(200) NOT NULL,
   Email VARCHAR(200) NOT NULL,
   address VARCHAR(255) NOT NULL,
