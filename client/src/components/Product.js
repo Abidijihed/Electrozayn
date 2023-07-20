@@ -183,7 +183,7 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
                       color="textSecondary"
                       component="p"
                     >
-                      Quantity: {data.quantity}
+                      stockQuantity: {data.stockquantity}
                     </Typography>
                   ) : null}
                 </>
@@ -202,11 +202,11 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Availability:{" "}
-              {data.quantity > 3 ? (
+              {data.stockquantity > 3 ? (
                 <span style={{ color: "green", fontSize: "16px" }}>
                   En Stock
                 </span>
-              ) : data.quantity < 5 ? (
+              ) : data.stockquantity < 5 ? (
                 <span style={{ color: "blue", fontSize: "16px" }}>
                   En Arrivage
                 </span>

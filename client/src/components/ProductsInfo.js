@@ -367,7 +367,7 @@ const ProductInfo = ({ search, getlengthShop }) => {
                 <Typography variant="body2" gutterBottom>
                   <span style={{ fontWeight: "bold" }}>Availability:</span>{" "}
                   <span style={{ color: "green", fontSize: "16px" }}>
-                    {oneProduct?.quantity > 3 ? "En Stock" : "En Arrivage"}
+                    {oneProduct?.stockquantity > 3 ? "En Stock" : "En Arrivage"}
                   </span>
                 </Typography>
                 <Typography variant="body2" gutterBottom>

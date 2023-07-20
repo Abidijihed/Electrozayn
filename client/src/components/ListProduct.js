@@ -18,7 +18,7 @@ const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(get_product())
 },[dispatch])
- const mydata=useSelector((state)=>console.log(state))
+ const mydata=useSelector((state)=>state.product)
 
   const getProducts = () => {
     axios.get("https://www.electrozayn.com/api/getAll/product").then((res) => {

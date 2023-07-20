@@ -34,17 +34,26 @@ export const Loginuser = (data)=>async(dispatch)=>{
     }
 }
 export const get_product=()=>async(dispatch)=>{
- 
-     axios.get("https://www.electrozayn.com/api/getAll/product").then((res)=>{
-        console.log(res,'tedt')
-     })
-    //    dispatch({type:GET_PRODUCT,payload:res.data})
-   
+    try {
+       const res= axios.get("https://www.electrozayn.com/api/getAll/product")
+       dispatch({type:GET_PRODUCT,payload:res.data})
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 export const create_product=(data)=>async(dispatch)=>{
     try {
        const res= axios.get("https://www.electrozayn.com/api/Create/Nenw/product",data)
+       dispatch(get_product())
+    } catch (error) {
+        
+    }
+
+}
+export const update_product=(id,data)=>async(dispatch)=>{
+    try {
+       const res= axios.get(`https://www.electrozayn.com/api/update/product/${id}`,data)
        dispatch(get_product())
     } catch (error) {
         

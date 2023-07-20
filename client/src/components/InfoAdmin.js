@@ -14,7 +14,7 @@ function InfoAdmin({product}) {
         <Card.Title>t{product.product_name}</Card.Title>
         <Card.Text>
         {product.description}<br />
-        {product.quantity}<br />
+        {product.stockquantity}<br />
         </Card.Text>
         <Button variant="primary" onClick={() => setOpenUpdateModal(true)}>updated</Button>
       </Card.Body>
