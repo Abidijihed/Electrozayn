@@ -4,6 +4,7 @@ import axios from "axios";
 import ListProducts from "./Product";
 import { Pagination } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
+import { get_product } from "../redux/action/Action";
 
 function MyPage({ handleChangesearch, search, getlengthShop }) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
@@ -11,9 +12,12 @@ function MyPage({ handleChangesearch, search, getlengthShop }) {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayData, setDisplayData] = useState([]);
-// const dispatch=useDispatch()
-  const cardsPerPage = 10;
+const dispatch=useDispatch()
 
+  const cardsPerPage = 10;
+useEffect(()=>{
+  get_product()
+},[dispatch])
  const mydata=useSelector((state)=>console.log(state))
 
   const getProducts = () => {
