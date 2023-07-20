@@ -46,7 +46,7 @@ module.exports = {
 AddToCart: (req, res) => {
   console.log(req.body)
   const query = `UPDATE products SET validate_add_or_not=${req.body.validate_add_or_not} WHERE id=${req.params.id}`;
-  connection.query(query, values, (err, result) => {
+  connection.query(query, (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
