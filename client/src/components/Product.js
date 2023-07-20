@@ -241,8 +241,8 @@ function ProductCard({ handelpassfunction, data, getlengthShop }) {
               
               />
             </div>
-            {console.log(data.validate_add_or_not)}
-            {data.validate_add_or_not === 0 ? "Ajouter au panier":"Produit Ajouter"}
+            
+            {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
           </Button>
         </CardActionArea>
       </Card>
