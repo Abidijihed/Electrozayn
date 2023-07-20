@@ -62,9 +62,9 @@ export const update_product=(id,data)=>async(dispatch)=>{
 
 }
 
-export const get_shopcard=()=>async(dispatch)=>{
+export const get_shopcard=(id)=>async(dispatch)=>{
     try {
-      axios.get("https://www.electrozayn.com/api/get_product/card").then((res)=>{
+      axios.get("https://www.electrozayn.com/api/get_product/card"+id).then((res)=>{
        dispatch({type:GET_SHOPCARD,payload:res.data})
 })
     } catch (error) {

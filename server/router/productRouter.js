@@ -11,7 +11,7 @@ router.put('/api/remove_from_card/products/:id',productController.removefromcard
  router.post('/api/add_to_card/products/:id',productController.AddToCart);
  router.put('/api/update/Stockquantity/:id',productController.UpdateStockquantity)
 
- router.get('/api/get_product/card',productController.getCard);
+ router.get('/api/get_product/card/:id',productController.getCard);
  router.get('/api/get_all_shopcard/card',productController.getCardalllshopcard);
 router.put('/api/update_quantity/:id',productController.updatequantity)
 router.delete('/api/delete_shop_card/:id',productController.DeleteAllShopCArd)

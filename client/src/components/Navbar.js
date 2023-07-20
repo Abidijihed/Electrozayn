@@ -33,6 +33,7 @@ import { MdOutlineMailOutline, MdOutlineAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {  get_shopcard } from "../redux/action/Action";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -123,7 +124,8 @@ const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
   const dispatch=useDispatch()
 
 useEffect(()=>{
- dispatch(get_shopcard())
+  const id=localStorage.getItem('id')
+ dispatch(get_shopcard(id))
 },[dispatch])
   const data=useSelector((state)=>state.shopcard)
 
@@ -306,7 +308,7 @@ useEffect(()=>{
               <Badge
                 badgeContent={data.length}
                 color="secondary"
-                onClick={() => handleOpen()}
+                onClick={data.length>0?() => handleOpen(): Swal.fire("Please select a product")}
               >
                 <FaShoppingCart fontSize="xlarge" color="white" />
               </Badge>

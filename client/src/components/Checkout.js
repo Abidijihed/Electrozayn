@@ -20,6 +20,7 @@ import axios from "axios";
 import { TiDelete } from "react-icons/ti";
 import "react-toastify/dist/ReactToastify.css";
 import { remove_fromcard } from "../redux/action/Action";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -63,24 +64,19 @@ export default function MyModal({
   const [paymentMethod, setPaymentMethod] = useState("pay_on_delivery");
   const [totalPrice, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
+const dispatch=useDispatch()
   const HandlesubmitOrder = () => {
-    const shop = localStorage.getItem("shop");
-    if (shop > 0) {
+    
       setOpenCheckoutValidation(true);
       handleClose();
-    } else {
-      handleClose();
-      setTimeout(() => {
-        Swal.fire("Please select a product");
-      }, 1000);
-    }
+
   };
 
   const fetchData = async () => {
+    const id = localStorage.getItem('id')
     try {
       const response = await axios.get(
-        "https://www.electrozayn.com/api/get_product/card"
+        "https://www.electrozayn.com/api/get_product/card"+id
       );
       const productsWithQuantity = response.data.map((product) => ({
         ...product,
@@ -268,7 +264,7 @@ export default function MyModal({
                   >
                     <TiDelete
                       className={classes.deleteIcon}
-                      onClick={() => remove_fromcard(product.id)}
+                      onClick={() => dispatch(remove_fromcard(product.id))}
                     />
                   </div>
                 </Card>
