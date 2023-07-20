@@ -19,6 +19,7 @@ import CheckoutValidation from "./CheckoutValidation";
 import axios from "axios";
 import { TiDelete } from "react-icons/ti";
 import "react-toastify/dist/ReactToastify.css";
+import { remove_fromcard } from "../redux/action/Action";
 
 const useStyles = makeStyles({
   root: {
@@ -267,7 +268,7 @@ export default function MyModal({
                   >
                     <TiDelete
                       className={classes.deleteIcon}
-                      onClick={() => handleUpdate(product.id)}
+                      onClick={() => remove_fromcard(product.id)}
                     />
                   </div>
                 </Card>

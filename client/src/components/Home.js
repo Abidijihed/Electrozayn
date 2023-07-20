@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import Typical from "react-typical";
 import { add_tocard, register, remove_fromcard } from "../redux/action/Action";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -87,19 +89,35 @@ function HomePage({ search, getlengthShop }) {
         console.log(err);
       });
   };
-  const AddTocard = (data) => {
+  const AddTocard = (el) => {
     if (token) {
       const id = localStorage.getItem('id');
       const updatedCheck = !check; // Invert the value of `check`
       if (updatedCheck === true) {
-        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard());
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: el.id }), getProductsCard());
       } else {
-        dispatch(remove_fromcard(data.id), getProductsCard());
+        dispatch(remove_fromcard(el.id), getProductsCard());
       }
     } else {
       const userEmail = prompt("Email:"); // Prompt for email and store the value
       if (userEmail !== null) { // Check if the user entered an email (not canceled)
-        dispatch(register({ Email: userEmail, Password: "newuser" }),window.location.reload());
+        axios
+        .post("https://www.electrozayn.com/api/Create_user/electrozayn", {
+          Email: userEmail,
+          Password: "newuser",
+        })
+        .then((res) => {
+          if (res.data[1] === "secsuss") {
+            localStorage.setItem("token", res.data[0]);
+            localStorage.setItem("id", res.data[2]);
+          } else if (res.data === "user exist") {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong! USER Exists",
+            });
+          }
+        });
       } else {
         // Handle the case when the user canceled the prompt or entered nothing
         console.log("User canceled the email prompt or entered nothing.");
@@ -376,7 +394,7 @@ function HomePage({ search, getlengthShop }) {
                           Promo Price: {el.Promo_price} TND
                         </Card.Text>
                         <Button
-                          onClick={() => AddTocard(el.id)}
+                          onClick={() => AddTocard(el)}
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
@@ -473,7 +491,7 @@ function HomePage({ search, getlengthShop }) {
                           </>
                         )}
                         <Button
-                          onClick={() => AddTocard(el.id)}
+                          onClick={() => AddTocard(el)}
                           style={{
                             borderRadius: "50%",
                             padding: "10px",
@@ -560,7 +578,7 @@ function HomePage({ search, getlengthShop }) {
                         </>
                       )}
                       <Button
-                        onClick={() => AddTocard(el.id)}
+                        onClick={() => AddTocard(el)}
                         style={{
                           borderRadius: "50%",
                           padding: "10px",

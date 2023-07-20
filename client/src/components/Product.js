@@ -102,7 +102,23 @@ function ProductCard({ data}) {
     } else {
       const userEmail = prompt("Email:"); // Prompt for email and store the value
       if (userEmail !== null) { // Check if the user entered an email (not canceled)
-        dispatch(register({ Email: userEmail, Password: "newuser" }),window.location.reload());
+        axios
+        .post("https://www.electrozayn.com/api/Create_user/electrozayn", {
+          Email: userEmail,
+          Password: "newuser",
+        })
+        .then((res) => {
+          if (res.data[1] === "secsuss") {
+            localStorage.setItem("token", res.data[0]);
+            localStorage.setItem("id", res.data[2]);
+          } else if (res.data === "user exist") {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong! USER Exists",
+            });
+          }
+        });
       } else {
         // Handle the case when the user canceled the prompt or entered nothing
         console.log("User canceled the email prompt or entered nothing.");
