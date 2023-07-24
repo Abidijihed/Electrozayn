@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { add_tocard, delete_produit, register, remove_fromcard } from "../redux/action/Action";
+import ContinuerorComander from "./ContinuerorComander";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -51,6 +52,10 @@ function ProductCard({ data}) {
   const [check, setChek] = useState();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
+  const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
   const navigate = useNavigate();
   const dispatch=useDispatch()
   const getProductsCard = () => {
@@ -96,7 +101,7 @@ function ProductCard({ data}) {
       const id = localStorage.getItem('id');
       const updatedCheck = !check; // Invert the value of `check`
       if (updatedCheck === true) {
-        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard());
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard(),handleShow(data.id));
       } else {
         dispatch(remove_fromcard(data.id), getProductsCard());
       }
@@ -275,6 +280,11 @@ function ProductCard({ data}) {
         handleClose={() => setOpenUpdateModal(false)}
         product={data}
         id={data.id}
+      />
+      <ContinuerorComander
+      show={show}
+      handleClose={handleClose}
+      id={data.id}
       />
     </>
   );
