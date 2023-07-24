@@ -22,6 +22,7 @@ export default function ContinuerorComander({show,handleClose,product}) {
   }, [user]);
   const handleOpen = () => {
     setOpen(true);
+    handleClose()
   };
 
   const handleClose1 = () => {
@@ -43,7 +44,7 @@ export default function ContinuerorComander({show,handleClose,product}) {
       </Modal.Header>
       <Modal.Body style={{display:"flex",justifyContent:"center"}}>
       <Card style={{ width: '18rem',height:"23rem" }}>
-      <Card.Img variant="top" src={product?.product_image} style={{height:"58%"}} />
+      <Card.Img variant="top" src={product?.product_image} style={{height:"50%"}} />
       <Card.Body>
         <Card.Title>{product?.product_name}</Card.Title>
         <Card.Text>
@@ -53,7 +54,7 @@ export default function ContinuerorComander({show,handleClose,product}) {
     </Card>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleOpen}>
           Comander 
         </Button>
         <Button variant="primary" onClick={handleClose}>
