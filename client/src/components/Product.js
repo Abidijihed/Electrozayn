@@ -68,7 +68,6 @@ function ProductCard({ data}) {
           (product) => product.products_id === data.id
         );
         if (product) {
-          console.log(product)
           setChek(product.check_add_or_not);
         }
       })

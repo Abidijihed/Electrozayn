@@ -12,6 +12,7 @@ import Typical from "react-typical";
 import { add_tocard, register, remove_fromcard } from "../redux/action/Action";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import ContinuerorComander from "./ContinuerorComander";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +74,10 @@ function HomePage({ search, getlengthShop }) {
   const [check, setChek] = useState();
   const token = localStorage.getItem("token");
   const dispatch=useDispatch()
-
+  const [show, setShow] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const handleClose = () => setShow(false);
+    const handleShow = () =>setShow(true);
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -94,7 +98,8 @@ function HomePage({ search, getlengthShop }) {
       const id = localStorage.getItem('id');
       const updatedCheck = !check; // Invert the value of `check`
       if (updatedCheck === true) {
-        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: el.id }), getProductsCard());
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: el.id }), getProductsCard(),handleShow());
+      setSelectedProduct(el)
       } else {
         dispatch(remove_fromcard(el.id), getProductsCard());
       }
@@ -614,6 +619,11 @@ function HomePage({ search, getlengthShop }) {
           </div>
         </div>
       )}
+        <ContinuerorComander
+      show={show}
+      handleClose={handleClose}
+      product={selectedProduct} // Pass the selected product data to the modal
+      />
     </>
   );
 }
