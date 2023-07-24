@@ -225,7 +225,7 @@ useEffect(()=>{
         
         </Col>
      {role==="admin"?<Col xs={12} md={8} style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around" ,padding:"5px"}}>
-       {data.filter((el)=>Number(el.quantity)<10).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
+       {data.filter((el)=>el.stockquantity<10).map((el)=><InfoAdmin product={el} key={el.id} /> ) }
         </Col>:null}
       </Row>
       </Container>

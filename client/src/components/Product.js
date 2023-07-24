@@ -53,9 +53,11 @@ function ProductCard({ data}) {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [user, setUser] = useState([]);
   const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const handleClose = () => setShow(false);
+    const handleShow = () =>setShow(true);
+     
+    
   const navigate = useNavigate();
   const dispatch=useDispatch()
   const getProductsCard = () => {
@@ -66,6 +68,7 @@ function ProductCard({ data}) {
           (product) => product.products_id === data.id
         );
         if (product) {
+          console.log(product)
           setChek(product.check_add_or_not);
         }
       })
@@ -101,9 +104,11 @@ function ProductCard({ data}) {
       const id = localStorage.getItem('id');
       const updatedCheck = !check; // Invert the value of `check`
       if (updatedCheck === true) {
-        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard(),handleShow(data.id));
+        dispatch(add_tocard(id, { check_add_or_not: updatedCheck, products_id: data.id }), getProductsCard(),handleShow());
+        setSelectedProduct(data);
+
       } else {
-        dispatch(remove_fromcard(data.id), getProductsCard());
+        dispatch(remove_fromcard(data.id,id), getProductsCard());
       }
     } else {
       const userEmail = prompt("Email:"); // Prompt for email and store the value
@@ -270,8 +275,8 @@ function ProductCard({ data}) {
               
               />
             </div>
-            
-            {check === 0 ? "Ajouter au panier":"Produit Ajouter"}
+            {/* {console.log(check)} */}
+            {check === 1 ?"Produit Ajouter": "Ajouter au panier"}
           </Button>
         </CardActionArea>
       </Card>
@@ -284,7 +289,7 @@ function ProductCard({ data}) {
       <ContinuerorComander
       show={show}
       handleClose={handleClose}
-      id={data.id}
+      product={selectedProduct} // Pass the selected product data to the modal
       />
     </>
   );
