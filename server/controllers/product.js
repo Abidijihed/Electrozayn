@@ -1,7 +1,7 @@
 const { connection } = require("../databaseconfig/config");
 module.exports = {
   createPost: (req, res) => {
-    const query = `INSERT INTO products(product_name,description,Origin_price,quantity,stockquantity,Promo_price,reference, product_image,availibility,catigory) VALUES("${req.body.product_name}","${req.body.description}","${req.body.Origin_price}",${1}"${req.body.stockquantity}","${req.body.Promo_price}","${req.body.reference}","${req.body.product_image}","${req.body.availibility}","${req.body.catigory}")`;
+    const query = `INSERT INTO products(product_name,description,Origin_price,quantity,stockquantity,Promo_price,reference, product_image,availibility,catigory) VALUES("${req.body.product_name}","${req.body.description}","${req.body.Origin_price}",${1},"${req.body.stockquantity}","${req.body.Promo_price}","${req.body.reference}","${req.body.product_image}","${req.body.availibility}","${req.body.catigory}")`;
     connection.query(query, (err, result) =>
       err ? res.status(500).send(err) : res.status(201).send("poste done")
     );
@@ -18,6 +18,7 @@ module.exports = {
       description,
       Origin_price,
       quantity,
+      stockquantity,
       Promo_price,
       reference,
       product_image,
@@ -25,7 +26,7 @@ module.exports = {
       catigory,
     } = req.body;
 
-    const query = `UPDATE products SET product_name="${product_name}",description="${description}",Origin_price="${Origin_price}",quantity="${quantity}",Promo_price="${Promo_price}",reference="${reference}",product_image="${product_image}",availibility="${availibility}",catigory="${catigory}" WHERE id=${req.params.id}`;
+    const query = `UPDATE products SET product_name="${product_name}",description="${description}",Origin_price="${Origin_price}",quantity=${1},stockquantity="${req.body.stockquantity}",Promo_price="${Promo_price}",reference="${reference}",product_image="${product_image}",availibility="${availibility}",catigory="${catigory}" WHERE id=${req.params.id}`;
     connection.query(query, (err, result) => {
       err ? res.status(500).send(err) : res.status(201).send("product updated");
     });
