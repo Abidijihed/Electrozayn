@@ -3,30 +3,47 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import ChekoutNew from './Checkout';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_shopcard } from '../redux/action/Action';
 
 export default function ContinuerorComander({show,handleClose,product}) {
-// const [oneproduct,setOneproduct]=useState([])
-// useEffect(()=>{
-//   axios.get("http://localhost:5500/api/get_one_product/"+id)
-//   .then((res)=>{
-//     setOneproduct(res.data)
-//     console.log(res.data)
-//   })
-// },[oneproduct])
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState([]);
 
+  const dispatch=useDispatch()
+  useEffect(() => {
+    const user_id = localStorage.getItem("id");
+    axios
+      .get("https://www.electrozayn.com/api/user/getone/" + user_id)
+      .then((res) => {
+        setUser(res.data);
+      });
+  }, [user]);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose1 = () => {
+    setOpen(false);
+  };
+  useEffect(()=>{
+    const id=localStorage.getItem('id')
+   dispatch(get_shopcard(id))
+  },[dispatch])
+    const data=useSelector((state)=>state.shopcard)
   
-    
   return (
     <>
  <Modal show={show} onHide={handleClose}
-  style={{marginTop:"10%"}}
+  style={{marginTop:"7%"}}
   >
       <Modal.Header closeButton>
         <Modal.Title>Produit ajouter avec seccess</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-      <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={product?.product_image} />
+      <Modal.Body style={{display:"flex",justifyContent:"center"}}>
+      <Card style={{ width: '18rem',height:"23rem" }}>
+      <Card.Img variant="top" src={product?.product_image} style={{height:"58%"}} />
       <Card.Body>
         <Card.Title>{product?.product_name}</Card.Title>
         <Card.Text>
@@ -44,6 +61,13 @@ export default function ContinuerorComander({show,handleClose,product}) {
         </Button>
       </Modal.Footer>
     </Modal>
+    <ChekoutNew
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose1}
+        user={user}
+        data={data}
+      />
   </>
   )
 }
