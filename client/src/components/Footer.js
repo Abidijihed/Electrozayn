@@ -176,26 +176,7 @@ function Footer() {
               VISA Business Card
             </Link>
           </Grid>
-          <Grid item xs={12} sm={4} className={classes.gridItem}>
-            <Typography
-              variant="subtitle1"
-              gutterBottom
-              className={classes.footerText}
-              style={{ textDecoration: "underline" }}
-            >
-              Sign up for our newsletter
-            </Typography>
-            <div className={classes.newsletterContainer}>
-              <TextField
-                label="Enter your email"
-                size="small"
-                className={classes.newsletterInput}
-              />
-              <Button variant="contained" color="primary">
-                Subscribe
-              </Button>
-            </div>
-          </Grid>
+       
         </Grid>
       </Container>
       <Typography

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@mui/material/Divider";
 import Button from "@material-ui/core/Button";
-import { Carousel, Card, Nav, Dropdown } from "react-bootstrap";
+import { Carousel, Card, Nav, Dropdown, Container, Row, Col } from "react-bootstrap";
 import ListProducts from "./Product";
 import axios from "axios";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -78,6 +78,16 @@ function HomePage({ search, getlengthShop }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const handleClose = () => setShow(false);
     const handleShow = () =>setShow(true);
+    const [email,setEmail]=useState('')
+
+    //Subscribe
+    const Subscribe=()=>{
+      axios.post('https://www.electrozayn.com/api/user/newsletter',{
+        email:email
+      }).then((res)=>{
+        console.log(res)
+      })
+    }
   const getProductsCard = () => {
     axios
       .get("https://www.electrozayn.com/api/get_all_shopcard/card")
@@ -624,6 +634,33 @@ function HomePage({ search, getlengthShop }) {
       handleClose={handleClose}
       product={selectedProduct} // Pass the selected product data to the modal
       />
+      <div>
+      <Container>
+      <Row>
+        <Col>
+        <div class="newsletter">
+    <i class="icon fa fa-envelope-o" style="font-size: 34px;"></i>
+    <h1 class="title">Newsletter</h1>
+    <div class="txt-holder">
+      <p class="txt-primary">Subscribe to our Newsletter</p>
+      <p class="txt-secondary">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora vel
+        perferendis optio eius, autem voluptate blanditiis exercitationem at nulla unde quod nostrum ea
+        eaque illum sed odio ullam quasi deleniti?</p>
+    </div>
+    
+      <input type="email" name="email" id="email" placeholder="Your Email" class="form-control" onChange={(e)=>setEmail(e.target.value)} />
+      <button class="btn" onClick={Subscribe} >Subscribe</button>
+    
+  </div>
+        </Col>
+        <Col>
+        <div>
+          <img src="https://i.pinimg.com/236x/53/66/1f/53661f5d34fe7a2e93979756ade3035f.jpg" />
+        </div>
+        </Col>
+      </Row>
+      </Container>
+      </div>
     </>
   );
 }

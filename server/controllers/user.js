@@ -79,5 +79,14 @@ getoneuser:((req,res)=>{
   connection.query(query,(err,result)=>{
     err ?res.status(500).send(err):res.status(200).send(result)
   })
+}),
+
+//newsletter
+newsletterUser:((req,res)=>{
+   const query=`insert into newsletter(email) values("${req.body.email}")` 
+   connection.query(query,(err,result)=>{
+    err ? res.status(500).send(err):res.status(200).send("user subscribe")
+   }) 
 })
+
 }
