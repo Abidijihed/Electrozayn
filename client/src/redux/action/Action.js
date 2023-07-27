@@ -62,6 +62,15 @@ export const update_product=(id,data)=>async(dispatch)=>{
     }
 
 }
+export const delete_produit=(id)=>async(dispatch)=>{
+    try {
+      axios.delete(`https://www.electrozayn.com/api/delete/product/${id}`)
+       dispatch(get_product())
+    } catch (error) {
+        
+    }
+
+}
 
 export const get_shopcard=(id)=>async(dispatch)=>{
     try {
@@ -86,15 +95,6 @@ export const remove_fromcard=(id,userId)=>async(dispatch)=>{
     try {
       axios.put(`https://www.electrozayn.com/api/remove_from_card/products/${id}`)
        dispatch(get_shopcard(userId))
-    } catch (error) {
-        
-    }
-
-}
-export const delete_produit=(id)=>async(dispatch)=>{
-    try {
-      axios.put(`https://www.electrozayn.com/api/delete/product/${id}`)
-       dispatch(get_shopcard())
     } catch (error) {
         
     }
