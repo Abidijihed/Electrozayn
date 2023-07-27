@@ -46,11 +46,10 @@ export const get_product=()=>async(dispatch)=>{
 export const create_product=(data)=>async(dispatch)=>{
     console.log(data)
     try {
-       axios.get("http://localhost:5500/api/Create/New/product",data)
-       .then((res)=>console.log(res))
+       axios.post("https://www.electrozayn.com/api/Create/New/product",data)
        dispatch(get_product())
     } catch (error) {
-        
+        console.log(error)
     }
 
 }
