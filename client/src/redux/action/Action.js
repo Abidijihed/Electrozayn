@@ -46,6 +46,7 @@ export const get_product=()=>async(dispatch)=>{
 export const create_product=(data)=>async(dispatch)=>{
     try {
        axios.get("https://www.electrozayn.com/api/Create/Nenw/product",data)
+       .then((res)=>console.log(res))
        dispatch(get_product())
     } catch (error) {
         
