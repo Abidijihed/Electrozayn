@@ -85,7 +85,16 @@ function HomePage({ search, getlengthShop }) {
       axios.post('https://www.electrozayn.com/api/user/newsletter',{
         email:email
       }).then((res)=>{
-        console.log(res)
+        if(res.data==="user subscribe"){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'You subscribe for news ',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          setEmail("")
+        }
       })
     }
   const getProductsCard = () => {
@@ -638,8 +647,9 @@ function HomePage({ search, getlengthShop }) {
       <Row>
         <Col>
         <div className="newsletter">
-          <ImMail2 style={{fontSize:"50px"}}/><br/>
+          <div style={{marginTop:"10px"}}><ImMail2 style={{fontSize:"50px"}}/><br/></div>
     <h1 className="title">Newsletter</h1>
+   <div> <h3>inscrivez-vous pour avoir des nouvelles</h3></div>
       <input type="email" name="email" id="email" placeholder="Your Email" className="form-control" onChange={(e)=>setEmail(e.target.value)} />
       <button id="newsbutt" style={{backgroundColor:"#e8b623"}}  onClick={Subscribe} >Subscribe</button>
     

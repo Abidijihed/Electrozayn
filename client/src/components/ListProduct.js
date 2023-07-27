@@ -52,7 +52,7 @@ useEffect(()=>{
       </div>
       <>
       
-        <div style={{display:"flex",flexWrap:"wrap"}}>
+        <div>
           {" "}
           {data
             .filter(
