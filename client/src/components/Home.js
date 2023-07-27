@@ -13,7 +13,7 @@ import { add_tocard, register, remove_fromcard } from "../redux/action/Action";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import ContinuerorComander from "./ContinuerorComander";
-
+import {ImMail2} from 'react-icons/im'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -634,32 +634,23 @@ function HomePage({ search, getlengthShop }) {
       handleClose={handleClose}
       product={selectedProduct} // Pass the selected product data to the modal
       />
-      <div>
-      <Container>
+      <div style={{display:"flex",justifyContent:"space-around",flexWrap:"inherit"}}>
       <Row>
         <Col>
-        <div class="newsletter">
-    <i class="icon fa fa-envelope-o" style="font-size: 34px;"></i>
-    <h1 class="title">Newsletter</h1>
-    <div class="txt-holder">
-      <p class="txt-primary">Subscribe to our Newsletter</p>
-      <p class="txt-secondary">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora vel
-        perferendis optio eius, autem voluptate blanditiis exercitationem at nulla unde quod nostrum ea
-        eaque illum sed odio ullam quasi deleniti?</p>
-    </div>
-    
-      <input type="email" name="email" id="email" placeholder="Your Email" class="form-control" onChange={(e)=>setEmail(e.target.value)} />
-      <button class="btn" onClick={Subscribe} >Subscribe</button>
+        <div className="newsletter">
+          <ImMail2 style={{fontSize:"50px"}}/><br/>
+    <h1 className="title">Newsletter</h1>
+      <input type="email" name="email" id="email" placeholder="Your Email" className="form-control" onChange={(e)=>setEmail(e.target.value)} />
+      <button id="newsbutt" style={{backgroundColor:"#e8b623"}}  onClick={Subscribe} >Subscribe</button>
     
   </div>
         </Col>
         <Col>
         <div>
-          <img src="https://i.pinimg.com/236x/53/66/1f/53661f5d34fe7a2e93979756ade3035f.jpg" />
+          <img src="https://i.pinimg.com/236x/53/66/1f/53661f5d34fe7a2e93979756ade3035f.jpg" style={{width: "400px",marginLeft: "16px"}}/>
         </div>
         </Col>
       </Row>
-      </Container>
       </div>
     </>
   );

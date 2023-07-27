@@ -273,170 +273,19 @@ div#BrushCursor {
   color: blue;
   box-shadow: 10px 5px 5px;
 }
-.newsletter {
-  margin: 0 auto;
-  width: 80%;
-  height: 350px;
-  border-radius: 3px;
-  position: relative;
-  background-color: var(--bg-primary);
+.newsletter{
+  box-shadow: 10px 5px 5px;
+  /* align-items: center; */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  height: 210px;
+  justify-content: center;
+  margin: 16px;
+
 }
-
-.icon {
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-  position: absolute;
-  top: -20px;
-  left: 40%;
-  text-align: center;
-  padding-top: 0.8rem;
-}
-
-.title {
-  /* margin: 0px; */
-  margin-top: 1rem;
-  font-size: 48px;
-  /* letter-spacing: 3px; */
-}
-
-.txt-holder {
-  margin: 0.5rem auto;
-  text-align: center;
-  width: 80%;
-}
-
-.txt-primary {
-  margin: 0.5rem auto;
-  font-size: 16px;
-}
-
-.txt-secondary {
-  color: #777;
-  font-size: 12px;
-  width: 80%;
-  text-align: center;
-  margin: auto;
-}
-
-form {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  /* justify-content: space-around; */
-}
-
-.form-control {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 0.3rem;
-  width: 70%;
-}
-
-::placeholder {
-  color: #333;
-  font-size: 12px;
-  opacity: 0.6;
-}
-
-.btn {
-  padding: 0.3rem 0.5rem;
-  border: none;
-  margin: 0 0.5rem;
-  border-radius: 3px;
-  background-color: var(--primary-color);
-  color: var(--text-primary);
-}
-
-.btn:hover {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
-@media (min-width: 426px) and (max-width: 768px) {
-  .newsletter {
-    width: 60%;
-    height: 350px;
-  }
-
-  .icon {
-    left: 45%;
-  }
-
-  .title {
-    font-size: 55px;
-  }
-
-  .txt {
-    font-size: 20px;
-  }
-
-  .form-control {
-    width: 200px;
-  }
-
-  .btn {
-    padding: 0.3rem 0.9rem;
-  }
-}
-
-@media (min-width: 769px) {
-  .container {
-    padding: 9.5rem 0;
-    height: max-content;
-  }
-
-  .newsletter {
-    /* margin-top: 5rem; */
-    width: 50%;
-    height: 450px;
-  }
-
-  .icon {
-    padding-top: 1rem;
-    width: 80px;
-    height: 80px;
-    left: 45%;
-    top: -35px;
-  }
-
-  .title {
-    font-size: 60px;
-    margin-top: 12px;
-  }
-
-  .txt-holder {
-    margin-top: -1rem;
-  }
-
-  .txt-primary {
-    font-size: 24px;
-  }
-
-  .txt-secondary {
-    font-size: 20px;
-  }
-
-  .form-control {
-    padding: 1rem;
-    width: 70%;
-    margin: 0 auto;
-  }
-
-  ::placeholder {
-    font-size: 20px;
-  }
-
-  .btn {
-    padding: 1rem;
-    width: 25%;
-    margin: 0 auto;
-    font-size: 20px;
-  }
+#newsbutt{
+  height: 39px;
+    width: 128px;
+    margin-top: 15px;
+    border-radius: 16px;
 }
