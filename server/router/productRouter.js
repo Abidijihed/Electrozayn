@@ -1,7 +1,7 @@
 const router=require('express').Router();
 const productController=require('../controllers/product');
 
-router.post('/api/Create/Nenw/product',productController.createPost);
+router.post('/api/Create/New/product',productController.createPost);
 router.get('/api/getAll/product',productController.getAllProduct);
 router.put('/api/update/product/:id',productController.UpdateProduct);
 router.delete("/api/delete/product/:id",productController.DeleteProduct);

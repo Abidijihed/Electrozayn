@@ -4,7 +4,8 @@ module.exports = {
     console.log(req.body)
     const query = `INSERT INTO products(product_name,description,Origin_price,quantity,stockquantity,Promo_price,reference, product_image,availibility,catigory) VALUES("${req.body.product_name}","${req.body.description}","${req.body.Origin_price}",${1},${req.body.stockquantity},"${req.body.Promo_price}","${req.body.reference}","${req.body.product_image}","${req.body.availibility}","${req.body.catigory}")`;
     connection.query(query, (err, result) =>
-      err ? res.status(500).send(err) : res.status(201).send("poste done")
+    console.log(err)
+      // err ? res.status(500).send(err) : res.status(201).send("poste done")
     );
   },
   getAllProduct: (req, res) => {
