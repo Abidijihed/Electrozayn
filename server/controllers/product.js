@@ -104,7 +104,7 @@ getCardalllshopcard: (req, res) => {
   });
 },
 DeleteAllShopCArd:((req,res)=>{
-  const query=`delete from shopcard where product_id=${req.params.id}`
+  const query=`delete from shopcard where products_id=${req.params.id}`
   connection.query(query,(err,result)=>{
     err ? res.status(500).send(err): res.status(200).send('deleted')
   })
