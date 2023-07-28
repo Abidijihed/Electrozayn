@@ -34,7 +34,7 @@ console.log(req.body)
     });
   },
   updatequantity:((req,res)=>{
-     const query=`UPDATE products SET stockquantity = stockquantity - ${req.body.stockquantity} WHERE id = ${req.params.id}`
+     const query=`UPDATE products SET stockquantity = stockquantity - ${req.body.quantity} WHERE id = ${req.params.id}`
      connection.query(query,(err,result)=>{
       err?res.status(500).send(err):res.status(201).send("Quantity Updated")
      })
