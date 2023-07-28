@@ -27,14 +27,14 @@ module.exports = {
       availibility,
       catigory,
     } = req.body;
-
-    const query = `UPDATE products SET product_name="${product_name}",description="${description}",Origin_price="${Origin_price}",quantity=${1},stockquantity="${req.body.stockquantity}",Promo_price="${Promo_price}",reference="${reference}",product_image="${product_image}",availibility="${availibility}",catigory="${catigory}" WHERE id=${req.params.id}`;
+console.log(req.body)
+    const query = `UPDATE products SET product_name="${product_name}",description="${description}",Origin_price="${Origin_price}",quantity=${1},stockquantity=${stockquantity},Promo_price="${Promo_price}",reference="${reference}",product_image="${product_image}",availibility="${availibility}",catigory="${catigory}" WHERE id=${req.params.id}`;
     connection.query(query, (err, result) => {
       err ? res.status(500).send(err) : res.status(201).send("product updated");
     });
   },
   updatequantity:((req,res)=>{
-     const query=`UPDATE products SET quantity = quantity - ${req.body.quantity} WHERE id = ${req.params.id}`
+     const query=`UPDATE products SET stockquantity = stockquantity - ${req.body.stockquantity} WHERE id = ${req.params.id}`
      connection.query(query,(err,result)=>{
       err?res.status(500).send(err):res.status(201).send("Quantity Updated")
      })
