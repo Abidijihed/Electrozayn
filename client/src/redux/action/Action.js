@@ -55,7 +55,7 @@ export const create_product=(data)=>async(dispatch)=>{
 }
 export const update_product=(id,data)=>async(dispatch)=>{
     try {
-      axios.get(`https://www.electrozayn.com/api/update/product/${id}`,data)
+      axios.put(`https://www.electrozayn.com/api/update/product/${id}`,data)
        dispatch(get_product())
     } catch (error) {
         
