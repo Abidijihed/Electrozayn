@@ -105,7 +105,7 @@ function CheckoutValidation({
           address: address,
           country: country,
           Zip: Zip,
-          total_price: totalPrice>100.00,
+          total_price: totalPrice>100.00 ?totalPrice-7.00:totalPrice,
           products:products
         })
         .then((res) => {
@@ -200,7 +200,8 @@ function CheckoutValidation({
           />
           <br></br>
           <Typography variant="body2" color="black" component="h3">
-            Total: {totalPrice>100.00?totalPrice-7.00:totalPrice} TND
+          Total:{totalPrice} TND 
+          Total après promotion: {totalPrice>100.00?totalPrice-7.00:totalPrice} TND
           </Typography>
 
           <Button
