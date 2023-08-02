@@ -27,6 +27,7 @@ transporter.verify(function(error, success) {
 
 
 const usermail =async (data, res) => {
+  console.log(data)
   var info = data.order.filter((el) => el.user_id === data.userID);
   var info_order = data.orderItems.filter((el) => el.order_id===data.id);
  
@@ -38,7 +39,7 @@ const usermail =async (data, res) => {
   var Total_price = info[0].total_price;
   var date = info[0].date;
   var data_order = info_order;
-  var number_facture=info[0].id.toString().padStart(5, '0')
+  var number_facture=data.id.toString().padStart(5, '0')
   let dynamicTableRows = '';
 
   data_order.forEach((item) => {
