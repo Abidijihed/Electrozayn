@@ -149,7 +149,7 @@ console.log(dynamicTableRows)
         <td></td>
         <td></td>
       </tr>
-      test
+      
    ${dynamicTableRows}
       <tr>
         <th scope="row"></th>
@@ -242,6 +242,20 @@ console.log(dynamicTableRows)
   </body>
   </html>
 `;
+
+transporter.sendMail(mail, (err, data) => {
+  if (err) {
+
+    res.json({
+      status: 'fail'
+    });
+  } else {
+
+    res.json({
+      status: 'success'
+    });
+  }
+});
 const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
   });
@@ -268,19 +282,7 @@ const browser = await puppeteer.launch({
     ]
   };
 
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-
-      res.json({
-        status: 'fail'
-      });
-    } else {
-
-      res.json({
-        status: 'success'
-      });
-    }
-  });
+  
 };
 
 module.exports = {
