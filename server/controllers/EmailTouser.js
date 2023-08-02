@@ -149,6 +149,7 @@ console.log(dynamicTableRows)
         <td></td>
         <td></td>
       </tr>
+      test
    ${dynamicTableRows}
       <tr>
         <th scope="row"></th>
