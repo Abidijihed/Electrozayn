@@ -45,7 +45,6 @@ const usermail =async (data, res) => {
     console.log(item)
     dynamicTableRows += `
       <tr class="table-secondary">
-        <th scope="row"></th>
         <td>${item.product_name}</td>
         <td>${item.product_price/item.product_quantity}</td>
         <td>${item.product_quantity}</td>
