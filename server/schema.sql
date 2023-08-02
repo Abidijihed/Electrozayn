@@ -93,6 +93,27 @@ CREATE TABLE IF NOT EXISTS userorder (
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE IF NOT EXISTS userorderManual (
+  id INT NOT NULL AUTO_INCREMENT,
+  FirstName VARCHAR(200) NOT NULL,
+  Email VARCHAR(200) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  PhoneNumber VARCHAR(255) NOT NULL,
+  country VARCHAR(200) NOT NULL,
+  Zip VARCHAR(250) NOT NULL,
+  total_price DECIMAL(10, 2) NOT NULL,
+  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (id),
+);
+CREATE TABLE IF NOT EXISTS order_items_Manual (
+  id INT NOT NULL AUTO_INCREMENT,
+  order_id INT NOT NULL,
+  product_name VARCHAR(200) NOT NULL,
+  product_quantity INT NOT NULL,
+  product_price DECIMAL(10, 2) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (order_id) REFERENCES userorderManual(id)
+);
 CREATE TABLE IF NOT EXISTS order_items (
   id INT NOT NULL AUTO_INCREMENT,
   order_id INT NOT NULL,

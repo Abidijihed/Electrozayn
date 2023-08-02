@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleChange, shop, getlengthShop, user }) => {
+const Navbar = ({ handleChange, role, getlengthShop, user }) => {
   const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -180,6 +180,12 @@ useEffect(()=>{
           </ListItemIcon>
           <ListItemText primary="Contact Us" />
         </ListItem>
+       {role === "admin" ? <ListItem button component={Link} to="/manualorder">
+          <ListItemIcon>
+            <MdOutlineMailOutline />
+          </ListItemIcon>
+          <ListItemText primary="Order Manual" />
+        </ListItem>:null}
       </List>
     </div>
   );

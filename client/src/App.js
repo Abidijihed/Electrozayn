@@ -15,7 +15,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProductInfo from "./components/ProductsInfo";
 import ProductsCatigory from "./components/ProductsCatigory";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ManualOrder from './components/ManualOrder'
+import ManualGenerate from './components/ManualGenerate'
 function App() {
   const [search, setSearch] = useState("");
   const [shop, setShop] = useState("");
@@ -55,6 +56,7 @@ function App() {
           shop={shop}
           getlengthShop={getlengthShop}
           user={user[0]}
+          role={role}
         />
         <Routes>
           <Route
@@ -95,6 +97,8 @@ function App() {
             path="/productCategory/:category"
             element={<ProductsCatigory getlengthShop={getlengthShop} />}
           />
+        <Route path="/manualorder" element={< ManualOrder role={role}/>}/>
+        <Route path="/manualordergnerate" element={<  ManualGenerate/>}/>
         </Routes>
       </BrowserRouter>
       <div style={{marginTop:"15px"}}>
