@@ -28,7 +28,7 @@ transporter.verify(function(error, success) {
 
 const usermail =async (data, res) => {
   var info = data.order.filter((el) => el.user_id === data.userID);
-  // var info_order = data.orderItems.filter((el) =>  console.log(el.order_id,info[0].id));
+  var info_order = data.orderItems.filter((el) => el.order_id,info[0].id);
  
   var FirstName = info[0].FirstName;
   var Email = info[0].Email;
@@ -37,12 +37,11 @@ const usermail =async (data, res) => {
   var code_Postale = info[0].Zip;
   var Total_price = info[0].total_price;
   var date = info[0].date;
-  // var data_order = info_order;
+  var data_order = info_order;
   var number_facture=info[0].id.toString().padStart(5, '0')
   let dynamicTableRows = '';
 
-  data.orderItems.forEach((item) => {
-    console.log(item)
+  data_order.forEach((item) => {
     dynamicTableRows += `
       <tr class="table-secondary">
         <td>${item.product_name}</td>
