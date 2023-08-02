@@ -4,7 +4,7 @@ module.exports={
    // ... (other code)
 
 createOrderManual:((req,res)=>{
-  const query=`select * from products where reference =${req.body.reference}`
+  const query=`select * from products where reference ="${req.body.reference}"`
   connection.query(query,(err,result)=>{
     if(err){
       res.status(500).send(err)
