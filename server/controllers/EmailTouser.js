@@ -149,8 +149,13 @@ console.log(dynamicTableRows)
         <td></td>
         <td></td>
       </tr>
-      
-   ${dynamicTableRows}
+      <tr class="table-secondary">
+      <th scope="row"></th>
+      <td>${data_order[0].product_name}</td>
+      <td>${data_order[0].product_price/data_order[0].product_quantity}</td>
+      <td>${data_order[0].product_quantity}</td>
+      <td>${data_order[0].product_price}</td>
+    </tr>
       <tr>
         <th scope="row"></th>
         <td></td>
