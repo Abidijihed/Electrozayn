@@ -40,6 +40,7 @@ const usermail =async (data, res) => {
   var data_order = info_order;
   var number_facture=info[0].id.toString().padStart(5, '0')
   let dynamicTableRows = '';
+  console.log(data_order)
 
   data_order.forEach((item) => {
     console.log(item)
@@ -151,10 +152,10 @@ console.log(dynamicTableRows)
       </tr>
       <tr class="table-secondary">
       <th scope="row"></th>
-      <td>${data_order[0].product_name}</td>
-      <td>${data_order[0].product_price/data_order[0].product_quantity}</td>
-      <td>${data_order[0].product_quantity}</td>
-      <td>${data_order[0].product_price}</td>
+      <td>${data_order[0]?.product_name}</td>
+      <td>${data_order[0]?.product_price/data_order[0]?.product_quantity}</td>
+      <td>${data_order[0]?.product_quantity}</td>
+      <td>${data_order[0]?.product_price}</td>
     </tr>
       <tr>
         <th scope="row"></th>
