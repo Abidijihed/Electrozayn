@@ -48,7 +48,7 @@ export default function ContinuerorComander({show,handleClose,product}) {
       <Card.Body>
         <Card.Title>{product?.product_name}</Card.Title>
         <Card.Text>
-          {product?.description}
+          {(Number(product?.Promo_price))>0?product?.Promo_price:product?.Origin_price}
         </Card.Text>
       </Card.Body>
     </Card>
