@@ -242,8 +242,7 @@ console.log(dynamicTableRows)
   </body>
   </html>
 `;
-(async () => {
-  const browser = await puppeteer.launch({
+const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
   });
   const page = await browser.newPage();
@@ -254,7 +253,7 @@ console.log(dynamicTableRows)
 
   // Read the generated PDF file
   const pdfData = fs.readFileSync('./order.pdf');
-  console.log('PDF file created successfully.');
+
   var mail = {
     from: "aymenaymoun86@gmail.com",
     to: Email,
@@ -282,9 +281,6 @@ console.log(dynamicTableRows)
       });
     }
   });
-})()
-
-
 };
 
 module.exports = {
