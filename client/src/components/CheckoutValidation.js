@@ -201,7 +201,7 @@ function CheckoutValidation({
           <br></br>
           <Typography variant="body2" color="black" component="h3">
           Total:{totalPrice} TND 
-          Total après promotion: {totalPrice>100.00?totalPrice-7.00:totalPrice} TND
+          {totalPrice>=100.00?<div>Total après promotion: {totalPrice>100.00?totalPrice-7.00:totalPrice} TND</div>:null}
           </Typography>
 
           <Button

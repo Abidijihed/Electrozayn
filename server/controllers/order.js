@@ -44,6 +44,7 @@ module.exports = {
           const orderItemsQuery = `
           INSERT INTO order_items (order_id, product_name, product_quantity, product_price)
           VALUES ?`;
+          console.log(products)
         const orderItemsValues = products.map((product) => [
           orderId,
           product.product_name,
