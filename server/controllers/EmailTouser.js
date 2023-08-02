@@ -27,9 +27,8 @@ transporter.verify(function(error, success) {
 
 
 const usermail =async (data, res) => {
-  console.log(data)
   var info = data.order.filter((el) => el.user_id === data.userID);
-  var info_order = data.orderItems.filter((el) => el.order_id,info[0].id);
+  var info_order = data.orderItems.filter((el) => el.order_id===data.id);
  
   var FirstName = info[0].FirstName;
   var Email = info[0].Email;
