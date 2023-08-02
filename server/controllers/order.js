@@ -156,6 +156,8 @@ module.exports = {
         res.status(500).send(err);
       } else {
         if(req.body){
+          console.log(req.body)
+          // const queryemail=`INSERT INTO order_mail(order_id)`
           usermail(req.body)
           nodmail(req.body)
           res.status(200).send("order confirmed");

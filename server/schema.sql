@@ -123,5 +123,12 @@ CREATE TABLE IF NOT EXISTS order_items (
   PRIMARY KEY (id),
   FOREIGN KEY (order_id) REFERENCES userorder(id)
 );
+CREATE TABLE IF NOT EXISTS order_mail (
+  id INT NOT NULL AUTO_INCREMENT,
+  order_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (order_id) REFERENCES order_items(id)
+);
+
 
 
