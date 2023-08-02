@@ -242,21 +242,8 @@ console.log(dynamicTableRows)
   </body>
   </html>
 `;
-
-transporter.sendMail(mail, (err, data) => {
-  if (err) {
-
-    res.json({
-      status: 'fail'
-    });
-  } else {
-
-    res.json({
-      status: 'success'
-    });
-  }
-});
-const browser = await puppeteer.launch({
+(async () => {
+  const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
   });
   const page = await browser.newPage();
@@ -267,6 +254,8 @@ const browser = await puppeteer.launch({
 
   // Read the generated PDF file
   const pdfData = fs.readFileSync('./order.pdf');
+  console.log('PDF file created successfully.');
+})()
 
   var mail = {
     from: "aymenaymoun86@gmail.com",
@@ -282,7 +271,19 @@ const browser = await puppeteer.launch({
     ]
   };
 
-  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+
+      res.json({
+        status: 'fail'
+      });
+    } else {
+
+      res.json({
+        status: 'success'
+      });
+    }
+  });
 };
 
 module.exports = {
