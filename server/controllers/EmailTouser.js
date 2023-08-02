@@ -42,6 +42,7 @@ const usermail =async (data, res) => {
   let dynamicTableRows = '';
 
   data_order.forEach((item) => {
+    console.log(item)
     dynamicTableRows += `
       <tr class="table-secondary">
         <th scope="row"></th>
@@ -52,7 +53,7 @@ const usermail =async (data, res) => {
       </tr>
     `;
   });
-
+console.log(dynamicTableRows)
   let html = `
   <!DOCTYPE html>
   <html lang="en">
