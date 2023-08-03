@@ -44,11 +44,11 @@ export default function ContinuerorComander({show,handleClose,product}) {
       </Modal.Header>
       <Modal.Body style={{display:"flex",justifyContent:"center"}}>
       <Card style={{ width: '18rem',height:"23rem" }}>
-      <Card.Img variant="top" src={product?.product_image} style={{height:"50%"}} />
+      <Card.Img variant="top" src={product?.product_image} style={{height:"50%"}} alt={product?.product_image}/>
       <Card.Body>
         <Card.Title>{product?.product_name}</Card.Title>
         <Card.Text>
-          {(Number(product?.Promo_price))>0?product?.Promo_price:product?.Origin_price}
+          Prix:{(Number(product?.Promo_price))>0?product?.Promo_price:product?.Origin_price} {" "} TND
         </Card.Text>
       </Card.Body>
     </Card>

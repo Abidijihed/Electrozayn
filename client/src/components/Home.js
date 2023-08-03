@@ -178,6 +178,7 @@ function HomePage({ search, getlengthShop }) {
         <img
           id="imagegif"
           src="https://media.mytek.tn/media/wysiwyg/banner/header-top-generic-1366-65px-climatiseur-pourcentage-20.gif"
+        alt="image"
         />
       </a>
 
@@ -657,7 +658,7 @@ function HomePage({ search, getlengthShop }) {
         </Col>
         <Col>
         <div>
-          <img src="https://i.pinimg.com/236x/53/66/1f/53661f5d34fe7a2e93979756ade3035f.jpg" style={{width: "400px",marginLeft: "16px"}}/>
+          <img src="https://i.pinimg.com/236x/53/66/1f/53661f5d34fe7a2e93979756ade3035f.jpg" style={{width: "400px",marginLeft: "16px"}} alt="image"/>
         </div>
         </Col>
       </Row>

@@ -16,7 +16,6 @@ import ProductInfo from "./components/ProductsInfo";
 import ProductsCatigory from "./components/ProductsCatigory";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import ManualOrder from './components/ManualOrder'
-import ManualGenerate from './components/ManualGenerate'
 function App() {
   const [search, setSearch] = useState("");
   const [shop, setShop] = useState("");
@@ -98,7 +97,6 @@ function App() {
             element={<ProductsCatigory getlengthShop={getlengthShop} />}
           />
         <Route path="/manualorder" element={< ManualOrder role={role}/>}/>
-        <Route path="/manualordergnerate" element={<  ManualGenerate/>}/>
         </Routes>
       </BrowserRouter>
       <div style={{marginTop:"15px"}}>

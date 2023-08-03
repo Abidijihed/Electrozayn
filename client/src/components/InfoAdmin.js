@@ -9,9 +9,9 @@ function InfoAdmin({product}) {
   return (
     <>
     <Card style={{ width: '18rem' ,marginBottom:"5px"}}>
-      <Card.Img variant="top" src={product.product_image} />
+      <Card.Img variant="top" src={product.product_image}  alt={product.product_name}/>
       <Card.Body>
-        <Card.Title>t{product.product_name}</Card.Title>
+        <Card.Title>{product.product_name}</Card.Title>
         <Card.Text>
         {product.description}<br />
         {product.stockquantity}<br />
